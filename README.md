@@ -1,16 +1,51 @@
-# React + Vite
+﻿# Portfolio — Christian Del Barco
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A product-focused portfolio built with React and Tailwind, designed to present case studies and product narratives with a clear, senior UX.
 
-Currently, two official plugins are available:
+## Stack
+- React + Vite
+- Tailwind CSS
+- Framer Motion
+- React Router
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Highlights
+- Bilingual routing: English (`/`) and Spanish (`/es`)
+- Token-based design system (colors, surfaces, spacing)
+- Consistent layouts for Home, Work, Case Studies, About, and Contact
+- Motion system with reduced-motion support
 
-## React Compiler
+## Getting Started
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Build
+```bash
+npm run build
+npm run preview
+```
 
-## Expanding the ESLint configuration
+## Scripts
+- `npm run dev` — start local dev server
+- `npm run build` — production build
+- `npm run preview` — preview production build
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project Structure
+```
+src/
+  components/        # Reusable UI components
+  context/           # Language context
+  i18n/              # Translation dictionaries
+  motion/            # Motion tokens and helpers
+  pages/             # Route-level pages
+  styles/            # Tokens and global styles
+```
+
+## Localization
+- English is the default.
+- Spanish routes are prefixed with `/es`.
+- Text lives in `src/i18n/en.js` and `src/i18n/es.js`.
+
+## Notes
+This project is intentionally minimal and focused on clarity, scannability, and product storytelling.
