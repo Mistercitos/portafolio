@@ -1,0 +1,8 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=".CDB favicon">
+  <rect width="512" height="512" rx="96" fill="#070707"/>
+  <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle"
+        font-family="Inter, SF Pro Display, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="180" font-weight="600" fill="#FFFFFF">
+    <tspan fill="#ff5a1f">.</tspan>CDB
+  </text>
+</svg>
