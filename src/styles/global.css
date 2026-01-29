@@ -1,0 +1,227 @@
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.bg-accent {
+  background: var(--accent);
+}
+
+.accent-underline {
+  position: relative;
+}
+
+.accent-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.9;
+  transform: scaleX(0.35);
+  transform-origin: left;
+  transition: transform var(--t) var(--ease), opacity var(--t) var(--ease);
+}
+
+.is-active .accent-underline::after,
+a[aria-current='page'] .accent-underline::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.link-accent {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.link-accent:hover {
+  color: var(--accent-2);
+}
+
+.hover-accent {
+  transition: color var(--t) var(--ease);
+}
+
+.group:hover .hover-accent {
+  color: var(--accent);
+}
+
+.pill {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 8px 14px;
+  transition: border-color var(--t) var(--ease), background var(--t) var(--ease),
+    color var(--t) var(--ease), box-shadow var(--t) var(--ease);
+}
+
+.pill:hover {
+  border-color: var(--border-strong);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+}
+
+.pill[data-active='true'] {
+  border-color: rgba(var(--accent-rgb), 0.55);
+  background: rgba(var(--accent-rgb), 0.08);
+  color: var(--text);
+}
+
+.btn-primary {
+  border: 1px solid rgba(var(--accent-rgb), 0.55);
+  background: rgba(var(--accent-rgb), 0.12);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 12px 18px;
+  transition: transform var(--t) var(--ease), background var(--t) var(--ease),
+    box-shadow var(--t) var(--ease);
+}
+
+.btn-primary:hover {
+  background: rgba(var(--accent-rgb), 0.18);
+  box-shadow: var(--shadow-accent);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 12px 18px;
+}
+
+.btn-secondary:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.55);
+}
+
+.card {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--t) var(--ease), border-color var(--t) var(--ease),
+    background var(--t) var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: var(--shadow-soft), var(--shadow-accent);
+  background: var(--panel-2);
+}
+
+.caseGrid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  margin-top: 18px;
+}
+
+@media (max-width: 1100px) {
+  .caseGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .caseGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.caseCard {
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  height: 360px;
+  padding: 22px;
+}
+
+.caseTitle {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.caseMeta {
+  color: var(--muted-2);
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.caseSummary {
+  color: var(--muted);
+  margin-top: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.caseHighlights {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 72px;
+}
+
+.caseFooter {
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.caseFooter .caseLink {
+  display: inline-block;
+  margin-top: 0;
+}
+
+.caseLink {
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.caseLink:hover {
+  color: var(--accent-2);
+}
+
+.accent-glow {
+  box-shadow: var(--shadow-accent);
+}
+
+.bullet {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  color: var(--muted);
+}
+
+.bullet::before {
+  content: '';
+  width: 10px;
+  height: 2px;
+  margin-top: 10px;
+  background: var(--accent);
+  border-radius: 999px;
+  opacity: 0.9;
+}

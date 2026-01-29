@@ -1,0 +1,292 @@
+.container {
+  width: min(var(--container), calc(100% - (var(--gutter) * 2)));
+  margin: 0 auto;
+}
+
+.section {
+  padding: 88px 0;
+}
+
+.sectionHead {
+  max-width: 760px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin-bottom: 10px;
+}
+
+.h2 {
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1.06;
+  margin: 0;
+}
+
+.sub {
+  margin-top: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.panel {
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--panel), rgba(255, 255, 255, 0.02));
+  box-shadow: var(--shadow-soft);
+}
+
+.caseHeroGrid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: start;
+}
+
+.caseMetaGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.caseMetaRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+
+.caseOutcomesGrid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.caseOutcomeCard {
+  padding: 14px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--panel), rgba(255, 255, 255, 0.02));
+}
+
+.caseOutcomeLabel {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+
+.caseOutcomeText {
+  margin-top: 8px;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.caseStickyNav {
+  position: sticky;
+  top: 96px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 16px;
+}
+
+@media (max-width: 980px) {
+  .caseHeroGrid,
+  .caseOutcomesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panelContent {
+  padding: 26px;
+}
+
+.atGlance {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+}
+
+.atGlance h4 {
+  color: var(--subtle);
+  letter-spacing: 0.14em;
+  font-size: 11px;
+}
+
+.atGlance strong {
+  color: var(--text);
+}
+
+.atGlance p {
+  color: var(--muted);
+}
+
+.chip {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chip:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.chip--default {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.chip--ghost {
+  opacity: 0.75;
+  background: transparent;
+}
+
+.chip--accent {
+  border-color: rgba(var(--accent-rgb), 0.35);
+  color: var(--text);
+  background: rgba(var(--accent-rgb), 0.08);
+  box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.12);
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.accentLine {
+  height: 2px;
+  width: 28px;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.gridTwo {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 22px;
+}
+
+.gridTwoEqual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.gridThree {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.gridCTA {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.proofGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.proofCard {
+  padding: 14px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--panel), rgba(255, 255, 255, 0.02));
+}
+
+.proofLabel {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+
+.proofValue {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.splitList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.listTitle {
+  margin-bottom: 10px;
+  color: var(--subtle);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hr {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 18px 0;
+}
+
+@media (max-width: 980px) {
+  .section {
+    padding: 64px 0;
+  }
+  .container {
+    width: min(var(--container), calc(100% - 32px));
+  }
+  .gridTwo,
+  .gridTwoEqual,
+  .gridThree,
+  .gridCTA,
+  .heroGrid,
+  .proofGrid,
+  .splitGrid,
+  .splitList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .sectionHead {
+    max-width: 100%;
+  }
+}
