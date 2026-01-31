@@ -6,7 +6,7 @@ export function Section({ eyebrow, title, subtitle, children, className = '' }) 
         <h2 className="h2">{title}</h2>
         {subtitle ? <p className="sub">{subtitle}</p> : null}
       </div>
-      {children}
+      <div className="sectionBody">{children}</div>
     </section>
   )
 }

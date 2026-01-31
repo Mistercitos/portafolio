@@ -244,6 +244,12 @@
         chips: ['Discovery', 'Handoff', 'Iteración'],
       },
     },
+    languages: {
+      eyebrow: 'Idiomas',
+      title: 'Idiomas de comunicación',
+      subtitle: 'Comunicación clara con producto, diseño e ingeniería.',
+      items: ['Español (Nativo)', 'Inglés (Profesional)'],
+    },
     proof: {
       eyebrow: 'Prueba',
       title: 'Qué podés esperar',
@@ -278,6 +284,7 @@
     emailCta: 'Email',
     linkedin: 'LinkedIn',
     behance: 'Behance',
+    github: 'GitHub',
     note:
       '¿Preferís async? Email es lo mejor. Si querés un vistazo rápido al trabajo, Behance tiene lo esencial.',
   },

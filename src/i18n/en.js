@@ -235,6 +235,12 @@ export const en = {
         chips: ['Discovery', 'Handoff', 'Iteration'],
       },
     },
+    languages: {
+      eyebrow: 'Languages',
+      title: 'Communication languages',
+      subtitle: 'Clear communication across product, design, and engineering.',
+      items: ['Spanish (Native)', 'English (Professional)'],
+    },
     proof: {
       eyebrow: 'Proof',
       title: 'What you can expect',
@@ -269,6 +275,7 @@ export const en = {
     emailCta: 'Email',
     linkedin: 'LinkedIn',
     behance: 'Behance',
+    github: 'GitHub',
     note: 'Prefer async? Email is best. If you want a fast scan of work, Behance has the highlights.',
   },
   footer: {

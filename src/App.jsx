@@ -417,15 +417,69 @@ function Header() {
 
 function Footer() {
   const { t } = useI18n()
+  const SOCIALS = [
+    {
+      label: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/cdelbarco/',
+      icon: (
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            fill="currentColor"
+            d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14Zm-9.5 7H7v7h2.5v-7Zm-.25-3.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3ZM17 13.25c0-2.06-1.1-3.25-2.87-3.25-1.35 0-2.02.75-2.36 1.28V10H9.5v7h2.5v-3.6c0-.95.18-1.86 1.36-1.86s1.32 1.13 1.32 1.92V17H17v-3.75Z"
+          />
+        </svg>
+      ),
+    },
+    {
+      label: 'Behance',
+      href: 'https://www.behance.net/chrisdelbarco',
+      icon: (
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            fill="currentColor"
+            d="M8.6 12.08c.96-.28 1.63-1.05 1.63-2.12 0-1.67-1.13-2.66-3.2-2.66H3v10h4.33c2.38 0 3.72-1.06 3.72-3.04 0-1.37-.75-2.26-2.45-2.18Zm-3.1-3.05h1.93c.97 0 1.54.42 1.54 1.22 0 .84-.57 1.28-1.6 1.28H5.5V9.03Zm2.15 6.27H5.5V12.9h2.18c1.1 0 1.7.45 1.7 1.2 0 .82-.6 1.2-1.73 1.2ZM21 12.78c0-2.64-1.53-4.1-3.86-4.1-2.43 0-4.04 1.65-4.04 4.17 0 2.63 1.62 4.19 4.17 4.19 1.63 0 2.86-.74 3.44-2.04l-1.63-.5c-.29.62-.86.95-1.72.95-1.15 0-1.86-.62-1.96-1.7H21v-.97Zm-5.96-.67c.1-.98.77-1.6 1.9-1.6 1.07 0 1.69.59 1.77 1.6h-3.67ZM14.5 7.2h4.1V5.8h-4.1v1.4Z"
+          />
+        </svg>
+      ),
+    },
+    {
+      label: 'GitHub',
+      href: 'https://github.com/Mistercitos',
+      icon: (
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            fill="currentColor"
+            d="M12 2a10 10 0 0 0-3.16 19.49c.5.1.68-.22.68-.48v-1.7c-2.77.6-3.36-1.18-3.36-1.18-.46-1.17-1.13-1.48-1.13-1.48-.93-.63.07-.62.07-.62 1.03.07 1.58 1.06 1.58 1.06.92 1.57 2.41 1.12 3 .85.09-.66.36-1.12.65-1.38-2.21-.25-4.54-1.11-4.54-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.8c.85 0 1.7.11 2.5.32 1.9-1.29 2.74-1.02 2.74-1.02.56 1.38.21 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.37.32.7.95.7 1.92v2.84c0 .27.18.59.69.48A10 10 0 0 0 12 2Z"
+          />
+        </svg>
+      ),
+    },
+  ]
+
   return (
     <footer className="mt-24 border-t border-white/8 bg-black/20">
       <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="grid gap-8 md:grid-cols-2 md:items-center">
           <div className="text-sm text-white/45">{t.footer.name}</div>
-          <div className="flex items-center gap-6 md:justify-end">
+          <div className="flex flex-wrap items-center gap-5 md:justify-end">
             <span className="text-xs text-white/35">
               {t.footer.copyright.replace('{year}', new Date().getFullYear())}
             </span>
+            <div className="flex items-center gap-4">
+              {SOCIALS.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.label}
+                  className="text-white/45 transition hover:text-[var(--accent)]"
+                >
+                  <span className="sr-only">{social.label}</span>
+                  <span className="block h-5 w-5">{social.icon}</span>
+                </a>
+              ))}
+            </div>
             <button
               className="text-xs text-white/50 transition hover:text-[var(--accent)]"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -544,7 +598,7 @@ function Work() {
 
               <div style={{ marginTop: 26, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 {t.work.heroChips.map((chip) => (
-                  <Chip key={chip} variant="accent">
+                  <Chip key={chip} variant="ghost">
                     {chip}
                   </Chip>
                 ))}
@@ -558,6 +612,7 @@ function Work() {
                   href="#professional"
                   onClick={(event) => handleAnchorClick(event, 'professional')}
                   active={activeSection === 'professional'}
+                  className="pill--segment"
                 >
                   {t.work.quickNav.professional}
                 </ActivePill>
@@ -566,6 +621,7 @@ function Work() {
                   href="#personal"
                   onClick={(event) => handleAnchorClick(event, 'personal')}
                   active={activeSection === 'personal'}
+                  className="pill--segment"
                 >
                   {t.work.quickNav.personal}
                 </ActivePill>
@@ -587,7 +643,7 @@ function Work() {
               <p className="text-xs uppercase tracking-[0.35em] text-white/40">{t.work.professional.focusLabel}</p>
               <ul className="mt-4 flex flex-wrap gap-4 text-xs uppercase tracking-[0.35em] text-white/70">
                 {t.work.professional.focusItems.map((item) => (
-                  <li key={item} className="rounded-full border border-white/20 px-3 py-1 text-white/70">
+                  <li key={item} className="tag">
                     {item}
                   </li>
                 ))}
@@ -603,9 +659,10 @@ function Work() {
                     type="button"
                     onClick={() => setActiveFilter(filter.value)}
                     active={activeFilter === filter.value}
-                    className="px-3 py-1 text-xs tracking-[0.35em]"
+                    className="pill--filter"
                   >
-                    {filter.label} ({filterCounts[filter.value]})
+                    <span className="pill-label">{filter.label}</span>
+                    <span className="pill-count">{filterCounts[filter.value]}</span>
                   </ActivePill>
                 ))}
               </div>
@@ -682,12 +739,18 @@ function CaseStudy() {
           <header>
             <h1 className="text-4xl font-semibold md:text-5xl">{data.title}</h1>
             <div className="mt-6 flex flex-wrap gap-3">
-              <ActivePill as="a" href="#outcomes" active>
+              <a
+                href="#outcomes"
+                className="btn-secondary focus-ring text-xs uppercase tracking-[0.4em]"
+              >
                 {t.common.seeOutcomes}
-              </ActivePill>
-              <ActivePill as={Link} to={`${prefix}/contact`}>
+              </a>
+              <Link
+                to={`${prefix}/contact`}
+                className="btn-primary focus-ring text-xs uppercase tracking-[0.4em]"
+              >
                 {t.common.contact}
-              </ActivePill>
+              </Link>
             </div>
           </header>
 
@@ -858,7 +921,7 @@ function BestOfBothWorlds() {
 
             <div style={{ marginTop: 26, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               {t.best.heroChips.map((chip) => (
-                <Chip key={chip} variant="accent">
+                <Chip key={chip} variant="ghost">
                   {chip}
                 </Chip>
               ))}
@@ -902,7 +965,9 @@ function BestOfBothWorlds() {
                 <h3 style={{ margin: '6px 0 10px' }}>{card.title}</h3>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
                   {card.chips.map((chip) => (
-                    <Chip key={chip}>{chip}</Chip>
+                    <Chip key={chip} variant="ghost">
+                      {chip}
+                    </Chip>
                   ))}
                 </div>
               </Panel>
@@ -964,7 +1029,7 @@ function BestOfBothWorlds() {
                   {t.best.finalCta.body}
                 </p>
               </div>
-              <Link className="chip chip--accent" to={`${prefix}/contact`} style={{ textDecoration: 'none' }}>
+              <Link className="btn-primary focus-ring text-xs uppercase tracking-[0.4em]" to={`${prefix}/contact`} style={{ textDecoration: 'none' }}>
                 {t.best.finalCta.button}
               </Link>
             </div>
@@ -993,7 +1058,7 @@ function About() {
 
               <div style={{ marginTop: 22, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 {t.about.heroChips.map((chip) => (
-                  <Chip key={chip} variant="accent">
+                  <Chip key={chip} variant="ghost">
                     {chip}
                   </Chip>
                 ))}
@@ -1036,7 +1101,9 @@ function About() {
               </ul>
               <div style={{ marginTop: 16, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 {t.about.operating.left.chips.map((chip) => (
-                  <Chip key={chip}>{chip}</Chip>
+                  <Chip key={chip} variant="ghost">
+                    {chip}
+                  </Chip>
                 ))}
               </div>
             </Panel>
@@ -1050,11 +1117,31 @@ function About() {
               </ul>
               <div style={{ marginTop: 16, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 {t.about.operating.right.chips.map((chip) => (
-                  <Chip key={chip}>{chip}</Chip>
+                  <Chip key={chip} variant="ghost">
+                    {chip}
+                  </Chip>
                 ))}
               </div>
             </Panel>
           </div>
+        </UiSection>
+
+        <UiSection
+          eyebrow={t.about.languages.eyebrow}
+          title={t.about.languages.title}
+          subtitle={t.about.languages.subtitle}
+        >
+          <Panel>
+            <div className="panelContent">
+              <div className="flex flex-wrap gap-3">
+                {t.about.languages.items.map((item) => (
+                  <span key={item} className="tag">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Panel>
         </UiSection>
 
         <UiSection
@@ -1092,7 +1179,7 @@ function About() {
                 <h3 style={{ margin: 0, fontSize: 28 }}>{t.about.finalCta.title}</h3>
                 <p style={{ margin: '10px 0 0', color: 'var(--muted)' }}>{t.about.finalCta.body}</p>
               </div>
-              <Link className="chip chip--accent" to={`${prefix}/contact`} style={{ textDecoration: 'none' }}>
+              <Link className="btn-primary focus-ring text-xs uppercase tracking-[0.4em]" to={`${prefix}/contact`} style={{ textDecoration: 'none' }}>
                 {t.about.finalCta.button}
               </Link>
             </div>
@@ -1111,6 +1198,7 @@ function Contact() {
     { label: t.contact.emailCta, href: `mailto:${EMAIL}` },
     { label: t.contact.linkedin, href: 'https://www.linkedin.com/in/cdelbarco/', external: true },
     { label: t.contact.behance, href: 'https://www.behance.net/chrisdelbarco', external: true },
+    { label: t.contact.github, href: 'https://github.com/Mistercitos', external: true },
   ]
 
   const onCopy = async () => {
@@ -1443,7 +1531,7 @@ function BulletInline({ items }) {
   return (
     <ul className="mt-6 flex flex-wrap gap-4 text-[0.65rem] uppercase tracking-[0.35em] text-white/60">
       {items.map((item) => (
-        <li key={item} className="rounded-full border border-white/20 px-4 py-2">
+        <li key={item} className="tag">
           {item}
         </li>
       ))}
@@ -1459,7 +1547,7 @@ function CapabilityClusters({ clusters }) {
           <p className="text-xs uppercase tracking-[0.35em] text-white/40">{cluster.label}</p>
           <ul className="mt-3 flex flex-wrap gap-4 text-[0.65rem] uppercase tracking-[0.35em] text-white/60">
             {cluster.items.map((item) => (
-              <li key={item} className="rounded-full border border-white/20 px-4 py-2">
+              <li key={item} className="tag">
                 {item}
               </li>
             ))}
