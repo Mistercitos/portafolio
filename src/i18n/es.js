@@ -108,7 +108,7 @@
     professional: {
       title: 'Casos profesionales',
       intro:
-        'Trabajo real de producto donde lideré y ejecuté diseño como Product Designer y Design Lead, colaborando con equipos de producto, ingeniería y negocio en contextos de alto impacto.',
+        'Trabajo real de producto donde lideré y ejecuté diseño como Product Designer y Design Lead, colaborando con equipos de diseño, ingeniería y negocio en contextos de alto impacto.',
       focusLabel: 'Áreas de foco',
       focusItems: [
         'Problemas reales de producto (no ejercicios ficticios)',

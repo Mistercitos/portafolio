@@ -108,7 +108,7 @@ export const en = {
     professional: {
       title: 'Professional Case Studies',
       intro:
-        'Real product work where I led and executed design as a Product Designer and Design Lead, collaborating with product, engineering, and business teams in high-impact environments.',
+        'Real product work where I led and executed design as a Product Designer and Design Lead, collaborating with design, engineering, and business teams in high-impact environments.',
       focusLabel: 'Focus areas',
       focusItems: [
         'Real product problems (not fictional exercises)',
