@@ -230,6 +230,7 @@ function AppRoutes() {
 
   return (
     <LanguageProvider lang={lang}>
+      <ScrollToTop />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route element={<AppLayout />}>
@@ -254,6 +255,24 @@ function AppRoutes() {
       </AnimatePresence>
     </LanguageProvider>
   )
+}
+
+function ScrollToTop() {
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1)
+      const el = document.getElementById(id)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        return
+      }
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [location.pathname, location.hash])
+
+  return null
 }
 
 function AppLayout() {
