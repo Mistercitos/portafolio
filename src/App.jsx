@@ -450,7 +450,7 @@ function Header() {
           </div>
         </nav>
         <button
-          className="flex items-center gap-2 rounded-full border border-white/30 px-3 py-2 text-xs uppercase tracking-[0.4em] text-white md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/60"
+          className="flex items-center justify-center gap-2 rounded-full border border-white/30 px-3 py-2 pr-[0.4em] text-xs uppercase tracking-[0.4em] text-white md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/60"
           type="button"
           aria-expanded={menuOpen}
           aria-label="Toggle navigation"
