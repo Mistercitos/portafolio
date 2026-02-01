@@ -1,5 +1,5 @@
 ﻿
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import {
   BrowserRouter,
@@ -292,10 +292,17 @@ function AppLayout() {
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [langOpen, setLangOpen] = useState(false)
   const { lang, t } = useI18n()
   const navigate = useNavigate()
   const location = useLocation()
   const prefix = lang === 'es' ? '/es' : ''
+  const LANGS = [
+    { code: 'EN', label: 'English', value: 'en', prefix: '' },
+    { code: 'ES', label: 'Español', value: 'es', prefix: '/es' },
+  ]
+  const basePath = location.pathname.replace(/^\/es(?=\/|$)/, '') || '/'
+  const langMenuRef = useRef(null)
 
   useEffect(() => {
     let frame = 0
@@ -321,6 +328,25 @@ function Header() {
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [menuOpen])
+
+  useEffect(() => {
+    if (!langOpen) return
+    const onClick = (event) => {
+      if (!langMenuRef.current) return
+      if (!langMenuRef.current.contains(event.target)) {
+        setLangOpen(false)
+      }
+    }
+    const onKey = (event) => {
+      if (event.key === 'Escape') setLangOpen(false)
+    }
+    window.addEventListener('mousedown', onClick)
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('mousedown', onClick)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [langOpen])
 
   return (
     <header
@@ -356,16 +382,42 @@ function Header() {
           >
             {t.nav.contact}
           </Link>
-          <button
-            type="button"
-            onClick={() => {
-              const next = lang === 'es' ? location.pathname.replace('/es', '') || '/' : `/es${location.pathname}`
-              navigate(next)
-            }}
-            className="text-xs text-white/50 transition hover:text-[var(--accent)]"
-          >
-            {lang === 'es' ? 'EN' : 'ES'}
-          </button>
+          <div className="lang-menu" ref={langMenuRef}>
+            <button
+              type="button"
+              className="lang-menu__trigger"
+              aria-haspopup="menu"
+              aria-expanded={langOpen}
+              onClick={() => setLangOpen((prev) => !prev)}
+            >
+              <span className="lang-menu__label">
+                {LANGS.find((option) => option.value === lang)?.code}
+              </span>
+              <span className="lang-menu__caret" aria-hidden="true">▾</span>
+            </button>
+            {langOpen ? (
+              <div className="lang-menu__panel" role="menu">
+                {LANGS.map((option) => {
+                  const isActive = option.value === lang
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      role="menuitem"
+                      className={`lang-menu__option ${isActive ? 'is-active' : ''}`}
+                      onClick={() => {
+                        if (!isActive) navigate(`${option.prefix}${basePath}`)
+                        setLangOpen(false)
+                      }}
+                    >
+                      <span className="lang-menu__code">{option.code}</span>
+                      <span className="lang-menu__name">{option.label}</span>
+                    </button>
+                  )
+                })}
+              </div>
+            ) : null}
+          </div>
         </nav>
         <button
           className="flex items-center gap-2 rounded-full border border-white/30 px-3 py-2 text-xs uppercase tracking-[0.4em] text-white md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/60"
@@ -397,17 +449,43 @@ function Header() {
             >
               {t.nav.contact}
             </Link>
-            <button
-              type="button"
-              onClick={() => {
-                const next = lang === 'es' ? location.pathname.replace('/es', '') || '/' : `/es${location.pathname}`
-                navigate(next)
-                setMenuOpen(false)
-              }}
-              className="text-left text-xs text-white/50 transition hover:text-[var(--accent)]"
-            >
-              {lang === 'es' ? 'EN' : 'ES'}
-            </button>
+            <div className="lang-menu lang-menu--mobile" ref={langMenuRef}>
+              <button
+                type="button"
+                className="lang-menu__trigger"
+                aria-haspopup="menu"
+                aria-expanded={langOpen}
+                onClick={() => setLangOpen((prev) => !prev)}
+              >
+                <span className="lang-menu__label">
+                  {LANGS.find((option) => option.value === lang)?.code}
+                </span>
+                <span className="lang-menu__caret" aria-hidden="true">▾</span>
+              </button>
+              {langOpen ? (
+                <div className="lang-menu__panel" role="menu">
+                  {LANGS.map((option) => {
+                    const isActive = option.value === lang
+                    return (
+                      <button
+                        key={option.value}
+                        type="button"
+                        role="menuitem"
+                        className={`lang-menu__option ${isActive ? 'is-active' : ''}`}
+                        onClick={() => {
+                          if (!isActive) navigate(`${option.prefix}${basePath}`)
+                          setLangOpen(false)
+                          setMenuOpen(false)
+                        }}
+                      >
+                        <span className="lang-menu__code">{option.code}</span>
+                        <span className="lang-menu__name">{option.label}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
       )}
