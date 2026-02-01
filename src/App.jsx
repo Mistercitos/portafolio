@@ -1369,7 +1369,7 @@ function HeroRotatingValue() {
   const { lang, t } = useI18n()
   const prefix = lang === 'es' ? '/es' : ''
   return (
-    <Stagger className="flex min-h-[80vh] flex-col justify-center gap-10 pt-12 md:pt-16">
+    <Stagger className="flex min-h-[70vh] flex-col justify-center gap-10 pt-6 pb-8 md:min-h-[80vh] md:pt-16 md:pb-0">
       <StaggerItem>
         <p className="text-xs uppercase tracking-[0.4em] text-white/60">
           {t.home.eyebrow}
