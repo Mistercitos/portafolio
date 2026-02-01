@@ -17,8 +17,8 @@
 
 .eyebrow {
   font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-transform: none;
   color: var(--subtle);
   margin-bottom: 10px;
 }
@@ -278,8 +278,8 @@
   margin-bottom: 10px;
   color: var(--subtle);
   font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-transform: none;
 }
 
 .hr {

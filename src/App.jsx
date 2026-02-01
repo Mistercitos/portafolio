@@ -292,6 +292,7 @@ function AppLayout() {
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [menuClosing, setMenuClosing] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
   const { lang, t } = useI18n()
   const navigate = useNavigate()
@@ -303,6 +304,7 @@ function Header() {
   ]
   const basePath = location.pathname.replace(/^\/es(?=\/|$)/, '') || '/'
   const langMenuRef = useRef(null)
+  const closeMenuTimerRef = useRef(null)
 
   useEffect(() => {
     let frame = 0
@@ -330,6 +332,14 @@ function Header() {
   }, [menuOpen])
 
   useEffect(() => {
+    return () => {
+      if (closeMenuTimerRef.current) {
+        clearTimeout(closeMenuTimerRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     if (!langOpen) return
     const onClick = (event) => {
       if (!langMenuRef.current) return
@@ -347,6 +357,26 @@ function Header() {
       window.removeEventListener('keydown', onKey)
     }
   }, [langOpen])
+
+  const openMenu = () => {
+    if (closeMenuTimerRef.current) {
+      clearTimeout(closeMenuTimerRef.current)
+      closeMenuTimerRef.current = null
+    }
+    setMenuClosing(false)
+    setMenuOpen(true)
+  }
+
+  const closeMenu = () => {
+    if (!menuOpen || menuClosing) return
+    setMenuClosing(true)
+    setLangOpen(false)
+    closeMenuTimerRef.current = setTimeout(() => {
+      setMenuOpen(false)
+      setMenuClosing(false)
+      closeMenuTimerRef.current = null
+    }, 220)
+  }
 
   return (
     <header
@@ -424,67 +454,89 @@ function Header() {
           type="button"
           aria-expanded={menuOpen}
           aria-label="Toggle navigation"
-          onClick={() => setMenuOpen((prev) => !prev)}
+          onClick={() => (menuOpen ? closeMenu() : openMenu())}
         >
           Menu
         </button>
       </div>
       {menuOpen && (
-        <div className="border-t border-white/10 bg-charcoal/95 px-6 py-6 md:hidden">
-          <div className="flex flex-col gap-6 text-sm uppercase tracking-[0.35em]">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                to={`${prefix}${link.href}`}
-                className="text-white/70 hover:text-white"
-                onClick={() => setMenuOpen(false)}
-              >
-                {t.nav[link.key]}
-              </Link>
-            ))}
-            <Link
-              to={`${prefix}/contact`}
-              className="rounded-full border border-white/30 px-4 py-3 text-center text-xs uppercase tracking-[0.4em] text-white hover:bg-[var(--surface-2)]"
-              onClick={() => setMenuOpen(false)}
-            >
-              {t.nav.contact}
-            </Link>
-            <div className="lang-menu lang-menu--mobile" ref={langMenuRef}>
+        <div className="mobile-menu md:hidden" data-state={menuClosing ? 'closing' : 'open'}>
+          <button
+            className="mobile-menu__backdrop"
+            type="button"
+            aria-label="Close menu"
+            onClick={closeMenu}
+          />
+          <div className="mobile-menu__panel" role="dialog" aria-modal="true">
+            <div className="mobile-menu__top">
+              <span className="mobile-menu__label">Menu</span>
               <button
                 type="button"
-                className="lang-menu__trigger"
-                aria-haspopup="menu"
-                aria-expanded={langOpen}
-                onClick={() => setLangOpen((prev) => !prev)}
+                className="mobile-menu__close"
+                aria-label="Close menu"
+                onClick={closeMenu}
               >
-                <span className="lang-menu__label">
-                  {LANGS.find((option) => option.value === lang)?.code}
-                </span>
-                <span className="lang-menu__caret" aria-hidden="true">▾</span>
+                Close
               </button>
-              {langOpen ? (
-                <div className="lang-menu__panel" role="menu">
-                  {LANGS.map((option) => {
-                    const isActive = option.value === lang
-                    return (
-                      <button
-                        key={option.value}
-                        type="button"
-                        role="menuitem"
-                        className={`lang-menu__option ${isActive ? 'is-active' : ''}`}
-                        onClick={() => {
-                          if (!isActive) navigate(`${option.prefix}${basePath}`)
-                          setLangOpen(false)
-                          setMenuOpen(false)
-                        }}
-                      >
-                        <span className="lang-menu__code">{option.code}</span>
-                        <span className="lang-menu__name">{option.label}</span>
-                      </button>
-                    )
-                  })}
-                </div>
-              ) : null}
+            </div>
+            <div className="mobile-menu__links">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  to={`${prefix}${link.href}`}
+                  className="mobile-menu__link"
+                  onClick={closeMenu}
+                >
+                  {t.nav[link.key]}
+                </Link>
+              ))}
+              <Link
+                to={`${prefix}/contact`}
+                className="mobile-menu__link mobile-menu__link--accent"
+                onClick={closeMenu}
+              >
+                {t.nav.contact}
+              </Link>
+            </div>
+            <div className="mobile-menu__footer">
+              <span className="mobile-menu__label">Language</span>
+              <div className="lang-menu lang-menu--mobile" ref={langMenuRef}>
+                <button
+                  type="button"
+                  className="lang-menu__trigger"
+                  aria-haspopup="menu"
+                  aria-expanded={langOpen}
+                  onClick={() => setLangOpen((prev) => !prev)}
+                >
+                  <span className="lang-menu__label">
+                    {LANGS.find((option) => option.value === lang)?.code}
+                  </span>
+                  <span className="lang-menu__caret" aria-hidden="true">▾</span>
+                </button>
+                {langOpen ? (
+                  <div className="lang-menu__panel" role="menu">
+                    {LANGS.map((option) => {
+                      const isActive = option.value === lang
+                      return (
+                        <button
+                          key={option.value}
+                          type="button"
+                          role="menuitem"
+                          className={`lang-menu__option ${isActive ? 'is-active' : ''}`}
+                          onClick={() => {
+                            if (!isActive) navigate(`${option.prefix}${basePath}`)
+                            setLangOpen(false)
+                            setMenuOpen(false)
+                          }}
+                        >
+                          <span className="lang-menu__code">{option.code}</span>
+                          <span className="lang-menu__name">{option.label}</span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
@@ -1369,7 +1421,7 @@ function HeroRotatingValue() {
   const { lang, t } = useI18n()
   const prefix = lang === 'es' ? '/es' : ''
   return (
-    <Stagger className="flex min-h-[70vh] flex-col justify-center gap-10 pt-6 pb-8 md:min-h-[80vh] md:pt-16 md:pb-0">
+    <Stagger className="flex min-h-[65vh] flex-col justify-center gap-10 pt-2 pb-8 md:min-h-[80vh] md:pt-16 md:pb-0">
       <StaggerItem>
         <p className="text-xs uppercase tracking-[0.4em] text-white/60">
           {t.home.eyebrow}

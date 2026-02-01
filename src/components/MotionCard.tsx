@@ -12,8 +12,13 @@ export function MotionCard({ as: Component = 'div', className = '', children, ..
       }
     : {
         rest: {},
-        hover: { y: -3, boxShadow: '0 12px 30px rgba(0,0,0,0.25)', borderColor: 'rgba(255,255,255,0.25)' },
-        tap: { y: -1 },
+        hover: {
+          y: -4,
+          scale: 1.01,
+          boxShadow: '0 18px 40px rgba(0,0,0,0.28)',
+          borderColor: 'rgba(255,255,255,0.3)',
+        },
+        tap: { y: -1, scale: 0.995 },
       }
 
   return (
