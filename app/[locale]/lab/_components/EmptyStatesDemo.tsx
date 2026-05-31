@@ -1,0 +1,195 @@
+'use client'
+
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+
+const STATES = [
+  {
+    id: 'no-results',
+    eyebrow: 'Sin resultados',
+    title: 'Probá con otros filtros.',
+    body: 'Tu búsqueda no encontró coincidencias. Remové un filtro o ampliá el criterio para ver resultados.',
+    action: 'Limpiar filtros',
+  },
+  {
+    id: 'first-use',
+    eyebrow: 'Primera vez',
+    title: 'Empezá creando tu primer proyecto.',
+    body: 'Acá vas a ver el listado de proyectos que vayas creando. Te lleva ~2 min armar el primero.',
+    action: 'Crear proyecto',
+  },
+  {
+    id: 'error',
+    eyebrow: 'Algo falló',
+    title: 'No pudimos cargar los datos.',
+    body: 'Hubo un problema de conexión con el servidor. Lo que estabas haciendo está guardado — solo refresca la página.',
+    action: 'Reintentar',
+  },
+  {
+    id: 'permission',
+    eyebrow: 'Permisos',
+    title: 'No tienes acceso a esta sección.',
+    body: 'Pídele a un admin del workspace que te invite, o cambia a un workspace donde tengas acceso.',
+    action: 'Pedir acceso',
+  },
+] as const
+
+/**
+ * Empty states gallery.
+ *
+ * Pattern: cada empty state es un mini-onboarding contextual. Title habla
+ * del problema; body explica el contexto; action ofrece la salida. Sin
+ * "no hay datos" genérico — siempre con voz humana y siguiente paso.
+ */
+export function EmptyStatesDemo() {
+  const [activeId, setActiveId] = useState<string>(STATES[0].id)
+  const active = STATES.find((s) => s.id === activeId) ?? STATES[0]
+
+  return (
+    <div style={{ display: 'grid', gap: 20 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {STATES.map((s) => (
+          <button
+            key={s.id}
+            onClick={() => setActiveId(s.id)}
+            style={{
+              padding: '7px 12px',
+              borderRadius: 999,
+              border: '0.5px solid',
+              borderColor: activeId === s.id ? 'var(--accent)' : 'var(--border-strong)',
+              background: activeId === s.id ? 'var(--accent-weak)' : 'transparent',
+              color: activeId === s.id ? 'var(--accent)' : 'var(--text-secondary)',
+              fontSize: 12,
+              fontWeight: 500,
+              cursor: 'pointer',
+            }}
+          >
+            {s.eyebrow}
+          </button>
+        ))}
+      </div>
+
+      <div
+        style={{
+          minHeight: 280,
+          padding: 32,
+          borderRadius: 16,
+          background: 'var(--surface-subtle)',
+          border: '0.5px dashed var(--border-strong)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active.id}
+            initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -8, filter: 'blur(6px)' }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            style={{ textAlign: 'center', maxWidth: 380 }}
+          >
+            <Glyph id={active.id} />
+            <p
+              style={{
+                margin: '0 0 10px',
+                fontSize: 11,
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: 'var(--accent)',
+                fontWeight: 500,
+              }}
+            >
+              {active.eyebrow}
+            </p>
+            <h3
+              className="serif"
+              style={{
+                margin: '0 0 12px',
+                fontSize: 24,
+                fontStyle: 'italic',
+                fontWeight: 500,
+                lineHeight: 1.2,
+                color: 'var(--text)',
+                letterSpacing: '-0.01em',
+              }}
+            >
+              {active.title}
+            </h3>
+            <p
+              style={{
+                margin: '0 0 24px',
+                fontSize: 14,
+                lineHeight: 1.6,
+                color: 'var(--text-secondary)',
+              }}
+            >
+              {active.body}
+            </p>
+            <button
+              style={{
+                padding: '10px 18px',
+                borderRadius: 999,
+                border: 'none',
+                background: 'var(--accent)',
+                color: 'var(--text-inverse)',
+                fontSize: 13,
+                fontWeight: 500,
+                cursor: 'pointer',
+              }}
+            >
+              {active.action}
+            </button>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </div>
+  )
+}
+
+function Glyph({ id }: { id: string }) {
+  const common = {
+    width: 36,
+    height: 36,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.4,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    style: { color: 'var(--muted)', marginBottom: 18 },
+    'aria-hidden': true,
+  }
+  switch (id) {
+    case 'no-results':
+      return (
+        <svg {...common}>
+          <circle cx="11" cy="11" r="7" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
+      )
+    case 'first-use':
+      return (
+        <svg {...common}>
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+      )
+    case 'error':
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 8v4M12 16h.01" />
+        </svg>
+      )
+    case 'permission':
+      return (
+        <svg {...common}>
+          <rect x="3" y="11" width="18" height="11" rx="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      )
+    default:
+      return null
+  }
+}

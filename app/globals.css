@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-newsreader), "Charter", "Iowan Old Style", Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  --color-bg: #faf7f2;
+  --color-bg-elevated: #ffffff;
+  --color-surface-subtle: #f2eee7;
+  --color-text: #161514;
+  --color-accent: #ff4d14;
+}
+
+:root,
+[data-theme="light"] {
+  --bg: #faf7f2;
+  --bg-elevated: #ffffff;
+  --surface-subtle: #f2eee7;
+  --panel: #ffffff;
+  --panel-2: #fbf8f3;
+
+  --border: rgba(20, 18, 14, 0.08);
+  --border-strong: rgba(20, 18, 14, 0.16);
+  --divider: rgba(20, 18, 14, 0.05);
+
+  --text: #161514;
+  --text-secondary: rgba(22, 21, 20, 0.72);
+  --muted: rgba(22, 21, 20, 0.58);
+  --subtle: rgba(22, 21, 20, 0.42);
+  --text-inverse: #faf7f2;
+
+  --accent: #ff4d14;
+  --accent-hover: #e63e0a;
+  --accent-weak: rgba(255, 77, 20, 0.12);
+  --accent-glow: rgba(255, 77, 20, 0.18);
+  --accent-ink: #0f1b2d;
+
+  --shadow-soft: 0 1px 2px rgba(20, 18, 14, 0.04), 0 12px 32px rgba(20, 18, 14, 0.06);
+  --shadow-medium: 0 4px 12px rgba(20, 18, 14, 0.08), 0 24px 48px rgba(20, 18, 14, 0.1);
+  --shadow-accent: 0 0 0 1px rgba(255, 77, 20, 0.25), 0 16px 50px rgba(255, 77, 20, 0.1);
+
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --t-fast: 160ms;
+  --t: 220ms;
+  --t-slow: 360ms;
+
+  --container: 1180px;
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0b0a09;
+  --bg-elevated: #15130f;
+  --surface-subtle: #1a1814;
+  --panel: #15130f;
+  --panel-2: #1f1c17;
+
+  --border: rgba(250, 247, 242, 0.08);
+  --border-strong: rgba(250, 247, 242, 0.16);
+  --divider: rgba(250, 247, 242, 0.05);
+
+  --text: #f5f1ea;
+  --text-secondary: rgba(245, 241, 234, 0.72);
+  --muted: rgba(245, 241, 234, 0.58);
+  --subtle: rgba(245, 241, 234, 0.42);
+  --text-inverse: #161514;
+
+  --accent: #ff4d14;
+  --accent-hover: #ff6b3a;
+  --accent-weak: rgba(255, 77, 20, 0.18);
+  --accent-glow: rgba(255, 77, 20, 0.22);
+  --accent-ink: #f5f1ea;
+
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px rgba(0, 0, 0, 0.4);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.4), 0 24px 48px rgba(0, 0, 0, 0.5);
+  --shadow-accent: 0 0 0 1px rgba(255, 77, 20, 0.35), 0 16px 50px rgba(255, 77, 20, 0.18);
+
+  color-scheme: dark;
+}
+
+/* Light es el modo principal por defecto. Dark se aplica SOLO con data-theme="dark"
+   (cuando el usuario lo elige explícitamente con el ThemeToggle).
+   No respetamos prefers-color-scheme automáticamente porque la marca está pensada
+   para light y queremos que esa sea la primera impresión, sin importar el OS. */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  transition: background var(--t) var(--ease), color var(--t) var(--ease);
+}
+
+body {
+  min-height: 100vh;
+  font-feature-settings: "ss01", "cv11";
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+  border-radius: 6px;
+  transition: box-shadow var(--t-fast) var(--ease);
+}
+
+.container {
+  width: min(var(--container), calc(100% - 48px));
+  margin-inline: auto;
+}
+
+@media (max-width: 720px) {
+  .container {
+    width: calc(100% - 32px);
+  }
+}
+
+/* Utilities responsive para mostrar/ocultar por viewport */
+.hide-on-mobile {
+  display: flex;
+}
+.show-on-mobile {
+  display: none;
+}
+@media (max-width: 720px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+  .show-on-mobile {
+    display: flex !important;
+  }
+}
+
+.serif {
+  font-family: var(--font-serif);
+  font-feature-settings: "ss01";
+}
+
+.accent {
+  color: var(--accent);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--text-inverse);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Responsive helpers globales ─── */
+
+/* Layouts con grid 2-col → stack en mobile */
+@media (max-width: 860px) {
+  .responsive-grid-2col {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+}
+
+/* Layout asimétrico hero del about → stack mobile */
+@media (max-width: 860px) {
+  .responsive-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+}
+
+/* Headers de categoría con 2 columnas en /trabajo, /lab, /about → stack mobile */
+@media (max-width: 720px) {
+  .responsive-category-header {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+}
+
+/* Padding reducido en secciones mobile */
+@media (max-width: 720px) {
+  .responsive-section {
+    margin-bottom: 64px !important;
+  }
+}
+
+/* View Transitions — circle wipe del theme toggle */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* El nuevo theme siempre se anima por encima del viejo, en cualquier dirección.
+   Las reglas condicionadas por [data-theme] no funcionan acá porque el atributo
+   cambia DURANTE la transición — y la regla se evalúa contra el estado final. */
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* Shared element transitions entre rutas */
+::view-transition-group(*) {
+  animation-duration: 480ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
