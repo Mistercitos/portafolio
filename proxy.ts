@@ -40,7 +40,7 @@ function preferredLocale(req: NextRequest): Locale {
   return fromAcceptLanguage(req.headers.get('accept-language')) ?? 'es'
 }
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl
 
   // Rutas en inglés: ya llevan el prefijo /en → coinciden con [locale]=en.
