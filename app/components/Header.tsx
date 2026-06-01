@@ -16,11 +16,10 @@ export function Header({ locale }: { locale: Locale }) {
 
   const navItems = [
     { href: localizedPath('/trabajo', locale), label: t.nav.work },
-    { href: localizedPath('/escribo', locale), label: t.nav.writing },
-    { href: localizedPath('/lab', locale), label: t.nav.lab },
     { href: localizedPath('/about', locale), label: t.nav.about },
+    { href: localizedPath('/lab', locale), label: t.nav.lab },
+    { href: localizedPath('/escribo', locale), label: t.nav.writing },
   ]
-  const contactItem = { href: localizedPath('/contact', locale), label: t.nav.contact }
   const homeHref = localizedPath('/', locale)
 
   // Cerrar menú al cambiar de ruta
@@ -100,7 +99,7 @@ export function Header({ locale }: { locale: Locale }) {
             }}
           >
             <span style={{ color: 'var(--accent)' }}>.</span>
-            <span>chrisdelbarco</span>
+            <span>ChrisDelBarco</span>
           </ViewTransitionLink>
 
           {/* Desktop nav */}
@@ -114,28 +113,6 @@ export function Header({ locale }: { locale: Locale }) {
                 </li>
               ))}
             </ul>
-
-            <ViewTransitionLink
-              href={contactItem.href}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                padding: '7px 14px',
-                borderRadius: 999,
-                background: isActive(contactItem.href) ? 'var(--accent)' : 'transparent',
-                border: '0.5px solid',
-                borderColor: 'var(--accent)',
-                color: isActive(contactItem.href) ? 'var(--text-inverse)' : 'var(--accent)',
-                fontSize: 13,
-                fontWeight: 500,
-                letterSpacing: '0.01em',
-                transition:
-                  'background var(--t-fast) var(--ease), color var(--t-fast) var(--ease)',
-              }}
-            >
-              {contactItem.label}
-            </ViewTransitionLink>
 
             <LanguageSwitch locale={locale} />
             <ThemeToggle />
@@ -210,7 +187,7 @@ export function Header({ locale }: { locale: Locale }) {
                   href={homeHref}
                   style={{ fontSize: 14, fontWeight: 500, letterSpacing: '-0.01em' }}
                 >
-                  <span style={{ color: 'var(--accent)' }}>.</span>chrisdelbarco
+                  <span style={{ color: 'var(--accent)' }}>.</span>ChrisDelBarco
                 </ViewTransitionLink>
                 <button
                   type="button"
@@ -245,7 +222,7 @@ export function Header({ locale }: { locale: Locale }) {
                     listStyle: 'none',
                   }}
                 >
-                  {[...navItems, contactItem].map((item, i) => (
+                  {navItems.map((item, i) => (
                     <motion.li
                       key={item.href}
                       initial={{ opacity: 0, y: 16 }}
