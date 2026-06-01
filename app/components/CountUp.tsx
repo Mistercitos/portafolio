@@ -22,7 +22,7 @@ type Props = {
  * Anima un número de 0 al valor target cuando entra al viewport.
  * Hace una sola corrida (no se rebobina al salir).
  *
- * Para mostrar rangos ("5K–20K") usá <CountUpRange from={5000} to={20000} />
+ * Para mostrar rangos ("5K–20K") usa <CountUpRange from={5000} to={20000} />
  */
 export function CountUp({
   to,

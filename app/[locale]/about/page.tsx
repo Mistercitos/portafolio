@@ -93,7 +93,7 @@ const ABOUT: Record<Locale, AboutContent> = {
     skillsEyebrow: 'Skills · 03',
     skillsTitle: 'Qué sé hacer.',
     skillsIntro:
-      'Más que una lista completa, es lo que uso en el día a día. Si buscas un Senior Product Designer que además escribe código, acá está lo que pongo sobre la mesa.',
+      'Más que una lista completa, es lo que uso en el día a día. Si buscas un Senior Product Designer que además escribe código, aquí está lo que pongo sobre la mesa.',
     formalEyebrow: 'Lo formal · 04',
     formalTitle: 'Educación, idiomas y CV.',
     educationLabel: 'Educación',

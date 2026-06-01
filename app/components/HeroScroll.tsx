@@ -17,7 +17,7 @@ import { localizedPath, type Locale } from '@/lib/i18n'
  *
  * Filosofía:
  * - El hero se trata como UNA pieza, no como capas que se desarman.
- * - Sticky position: el hero queda en su lugar mientras scrolleás.
+ * - Sticky position: el hero queda en su lugar mientras haces scroll.
  * - La siguiente sección (con z-index superior + bg sólido) sube por encima
  *   del hero como una cortina, cubriéndolo gradualmente.
  * - El hero hace un sutil scale 1→0.96 + opacity 1→0 mientras es cubierto —

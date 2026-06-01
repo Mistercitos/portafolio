@@ -30,7 +30,7 @@ const STRINGS: Record<Locale, CardStrings> = {
     copyAria: 'Copiar email al portapapeles',
     whatAbout: '¿De qué se trata?',
     helper:
-      'Elegí el tipo de mensaje y abro tu cliente de email con el asunto y un template de inicio.',
+      'Elige el tipo de mensaje y abro tu cliente de email con el asunto y una plantilla de inicio.',
     subject: 'Asunto',
     openEmail: 'Abrir email',
     reasons: [

@@ -55,7 +55,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       } catch {
         // Lenis no instalado todavía. Para activarlo: `npm install lenis`
         if (typeof console !== 'undefined') {
-          console.info('[SmoothScroll] Lenis no instalado. Corré `npm install` para activarlo.')
+          console.info('[SmoothScroll] Lenis no instalado. Ejecuta `npm install` para activarlo.')
         }
       }
     })()

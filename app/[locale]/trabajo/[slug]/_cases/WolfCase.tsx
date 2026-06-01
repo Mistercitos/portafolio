@@ -102,7 +102,7 @@ const WOLF: Record<Locale, WolfContent> = {
     aiResultDesc:
       'Horarios, tipos de trabajo y cantidad de trabajadores — lista para revisar y publicar.',
     labBadge: '✦ Componente en vivo',
-    labTitle: 'Probá el creador multi-input en el Lab',
+    labTitle: 'Prueba el creador multi-input en el Lab',
     labDesc:
       'El patrón de esta feature está vivo y manipulable: voz, texto y datos estructurados convergiendo en un mismo resultado. Probalo vos mismo.',
     labCta: 'Ir al Lab →',
