@@ -116,8 +116,8 @@ export const ui: Record<Locale, UIStrings> = {
     ogLocale: 'es_CL',
     langName: 'Español',
     nav: {
-      work: 'Trabajo',
-      writing: 'Escribo',
+      work: 'Mis Trabajos',
+      writing: 'Blog',
       about: 'Sobre mí',
       lab: 'Lab',
       contact: 'Contacto',
@@ -182,9 +182,9 @@ export const ui: Record<Locale, UIStrings> = {
     ogLocale: 'en_US',
     langName: 'English',
     nav: {
-      work: 'Work',
-      writing: 'Writing',
-      about: 'About',
+      work: 'My Work',
+      writing: 'Blog',
+      about: 'About Me',
       lab: 'Lab',
       contact: 'Contact',
       uses: 'Uses',
