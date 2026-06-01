@@ -39,8 +39,11 @@ export function localizedPath(path: string, locale: Locale): string {
 
 /** Devuelve la misma ruta en el otro idioma — para el selector de idioma. */
 export function alternatePath(path: string, to: Locale): string {
-  const withoutEn = path.replace(/^\/en(?=\/|$)/, '') || '/'
-  return localizedPath(withoutEn, to)
+  // Quita cualquier prefijo de locale (`/es` o `/en`). Importante: en producción
+  // `usePathname()` puede devolver la ruta ya reescrita por el proxy (`/es/...`),
+  // por lo que hay que normalizar AMBOS prefijos, no solo `/en`.
+  const withoutLocale = path.replace(/^\/(es|en)(?=\/|$)/, '') || '/'
+  return localizedPath(withoutLocale, to)
 }
 
 type UIStrings = {
