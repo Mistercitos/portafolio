@@ -3,14 +3,14 @@
 import { useState } from 'react'
 
 const PRESETS = [
-  { name: 'Default', accent: '#FF4D14', radius: 16, weight: 500 },
+  { name: 'Default', accent: '#B85131', radius: 16, weight: 500 },
   { name: 'Estilo Linear', accent: '#5E6AD2', radius: 8, weight: 500 },
   { name: 'Estilo Stripe', accent: '#635BFF', radius: 6, weight: 400 },
   { name: 'Estilo Vercel', accent: '#000000', radius: 12, weight: 500 },
 ]
 
 export function TokenPlaygroundDemo() {
-  const [accent, setAccent] = useState('#FF4D14')
+  const [accent, setAccent] = useState('#B85131')
   const [radius, setRadius] = useState(16)
   const [weight, setWeight] = useState(500)
 
