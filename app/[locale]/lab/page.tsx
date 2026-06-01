@@ -48,26 +48,26 @@ const CATEGORIES: Category[] = [
     demos: [
       {
         id: 'confidence-card',
-        title: 'Confidence-driven approval card',
+        title: 'Tarjeta de aprobación por confianza',
         description:
           'Cada recomendación de la IA muestra su nivel de confianza como porcentaje y como barra. Al expandir una fila se ven los datos detrás del razonamiento. La aprobación masiva solo se aplica por encima del umbral.',
-        tags: ['AI UX', 'Trust', 'Bulk actions'],
+        tags: ['AI UX', 'Confianza', 'Acciones masivas'],
         component: <ConfidenceCardDemo />,
       },
       {
         id: 'multi-input-ai',
-        title: 'Multi-input AI assist',
+        title: 'Asistente IA multi-input',
         description:
           'La misma intención se puede expresar por voz, por lenguaje natural o pegando datos estructurados. Las tres rutas terminan en la misma pantalla de revisión. La entrada es flexible; la verificación, siempre la misma.',
-        tags: ['AI UX', 'Input modes', 'Convergence'],
+        tags: ['AI UX', 'Modos de entrada', 'Convergencia'],
         component: <MultiInputAIDemo />,
       },
       {
         id: 'smart-filter-chips',
-        title: 'Smart filter chips with live count',
+        title: 'Filtros inteligentes con contador',
         description:
           'Filtros combinables, cada uno con su contador en vivo. Se acumulan: categoría y estado filtran al mismo tiempo. La lista se reordena con una animación cuando cambia la selección.',
-        tags: ['Data UI', 'Filters', 'Live count'],
+        tags: ['Data UI', 'Filtros', 'Conteo en vivo'],
         component: <SmartFilterChipsDemo />,
       },
     ],
@@ -81,26 +81,26 @@ const CATEGORIES: Category[] = [
     demos: [
       {
         id: 'bulk-allocation',
-        title: 'Bulk allocation selector',
+        title: 'Selector de asignación masiva',
         description:
           'Asignar varios roles a un proyecto en una sola operación, con cantidad por rol y el total recalculado en vivo. Reemplaza el patrón de un rol a la vez, que obliga a repetir el mismo flujo una y otra vez.',
-        tags: ['Bulk patterns', 'Forms', 'Live total'],
+        tags: ['Patrones masivos', 'Formularios', 'Total en vivo'],
         component: <BulkAllocationDemo />,
       },
       {
         id: 'token-playground',
-        title: 'Design tokens playground',
+        title: 'Playground de design tokens',
         description:
           'Tokens (color de acento, radio, peso) controlados por sliders, con preview en vivo. Los presets simulan cómo se vería el sistema con otra marca: una capa de alias permite cambiar el branding sin tocar los componentes.',
-        tags: ['Tokens', 'Theming', 'Re-skin'],
+        tags: ['Tokens', 'Temas', 'Re-skin'],
         component: <TokenPlaygroundDemo />,
       },
       {
         id: 'variable-font-lab',
-        title: 'Variable font axis lab',
+        title: 'Laboratorio de ejes tipográficos',
         description:
           'Una fuente variable no es un puñado de pesos sueltos: son ejes que se interpolan. Sliders de peso y ancho con preview en vivo, presets, y el CSS exacto de salida. Sirve para validar font-variation-settings antes de llevarlo a producción.',
-        tags: ['Typography', 'Variable fonts', 'CSS'],
+        tags: ['Tipografía', 'Fuentes variables', 'CSS'],
         component: <VariableFontLabDemo />,
       },
     ],
@@ -110,22 +110,22 @@ const CATEGORIES: Category[] = [
     eyebrow: 'Data UI',
     title: 'Donde la decisión vive.',
     subtitle:
-      'Patrones para pantallas con mucha información. Edición en línea sin modales, y métricas que comunican el cambio y la dirección sin obligarte a leer un párrafo.',
+      'Patrones para pantallas con mucha información. Edición en línea sin modales, y métricas que comunican el cambio y la dirección sin obligar a leer un párrafo.',
     demos: [
       {
         id: 'inline-editable-cell',
-        title: 'Inline editable cell',
+        title: 'Celda editable en línea',
         description:
           'Una tabla donde cada celda se vuelve editable al hacer clic. Sin modal y sin expandir la fila. Enter guarda, Esc cancela, y un clic afuera también guarda. Los campos numéricos se validan en línea.',
-        tags: ['Tables', 'Inline edit', 'Keyboard'],
+        tags: ['Tablas', 'Edición en línea', 'Teclado'],
         component: <InlineEditableCellDemo />,
       },
       {
         id: 'number-ticker',
-        title: 'Number ticker with delta',
+        title: 'Indicador numérico con delta',
         description:
           'Cuando una métrica cambia, tiene que comunicar el valor, cuánto se movió y hacia dónde. El número se anima al cambiar, y la píldora de delta cambia de color según el signo. Usa cifras tabulares para que todo quede alineado.',
-        tags: ['Metrics', 'Motion', 'Tabular nums'],
+        tags: ['Métricas', 'Motion', 'Cifras tabulares'],
         component: <NumberTickerDemo />,
       },
     ],
@@ -139,18 +139,18 @@ const CATEGORIES: Category[] = [
     demos: [
       {
         id: 'status-pills',
-        title: 'Status pill system',
+        title: 'Sistema de status pills',
         description:
           '5 tipos semánticos por 3 variantes (sólida, suave, contorno) por 3 tamaños, con punto opcional. 90 combinaciones de un solo componente, todas visibles con un control.',
-        tags: ['Status', 'Variants', 'Sizing'],
+        tags: ['Estados', 'Variantes', 'Tamaños'],
         component: <StatusPillsDemo />,
       },
       {
         id: 'empty-states',
-        title: 'Empty states gallery',
+        title: 'Galería de empty states',
         description:
           'Cada empty state funciona como un pequeño onboarding. El título nombra el problema, el texto da el contexto y el botón ofrece la salida. Nunca un "no hay datos" genérico: siempre con voz humana.',
-        tags: ['Empty states', 'UX copy', 'Onboarding'],
+        tags: ['Empty states', 'UX writing', 'Onboarding'],
         component: <EmptyStatesDemo />,
       },
     ],
@@ -202,7 +202,7 @@ export default function LabPage() {
             Demos en vivo, no capturas. Puedes manipularlos directamente: son los mismos
             componentes que uso para llevar producto a producción. Cada uno resuelve un patrón
             concreto que aparece en los SaaS de hoy, desde la confianza en la IA hasta los detalles
-            chicos que solo se notan cuando faltan.
+            pequeños que solo se notan cuando faltan.
           </p>
         </header>
       </Reveal>
