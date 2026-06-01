@@ -112,168 +112,184 @@ export function HeroScroll({ locale }: { locale: Locale }) {
       ref={ref}
       aria-label="Hero"
       style={{
-        position: 'sticky',
-        top: 0,
-        height: '100vh',
-        zIndex: 0,
-        overflow: 'hidden',
+        position: 'relative',
+        height: '135svh',
+        minHeight: 900,
         background: 'var(--bg)',
       }}
     >
-      {/* Bloque único — TODO el hero se transforma como una sola pieza */}
       <motion.div
         style={{
-          height: '100%',
-          position: 'relative',
-          scale: heroScale,
-          opacity: heroOpacity,
-          transformOrigin: 'center 45%',
-          willChange: 'transform, opacity',
+          position: 'sticky',
+          top: 0,
+          height: '100svh',
+          overflow: 'hidden',
+          zIndex: 0,
+          background: 'var(--bg)',
         }}
       >
-        {/* Líneas editoriales — parte del bloque cohesivo */}
-        <EditorialLines />
-
-        {/* Contenido principal */}
+        {/* Bloque único — TODO el hero se transforma como una sola pieza */}
         <motion.div
           style={{
-            position: 'relative',
-            zIndex: 2,
             height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            x: contentCursorX,
-            y: contentCursorY,
+            position: 'relative',
+            scale: heroScale,
+            opacity: heroOpacity,
+            transformOrigin: 'center 45%',
+            willChange: 'transform, opacity',
           }}
         >
-          <div className="container" style={{ maxWidth: 920 }}>
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                margin: 0,
-                fontSize: 12,
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                color: 'var(--subtle)',
-                marginBottom: 24,
-              }}
-            >
-              {hc.eyebrow}
-            </motion.p>
+          {/* Líneas editoriales — parte del bloque cohesivo */}
+          <EditorialLines />
 
-            <h1
-              style={{
-                margin: 0,
-                fontSize: 'clamp(56px, 8.2vw, 124px)',
-                lineHeight: 1.02,
-                letterSpacing: '-0.03em',
-                fontWeight: 600,
-                color: 'var(--text)',
-                maxWidth: '11ch',
-              }}
-            >
-              <PhraseReveal text={hc.line1} delay={0.05} reduce={!!reduce} />
-              <br />
-              <PhraseReveal text={hc.line2} delay={0.18} reduce={!!reduce} />
-              <br />
-              <FallingWord word={hc.fallingWord} delay={0.6} reduce={!!reduce} />
-              <span style={{ color: 'var(--text)' }}>{hc.tail}</span>
-            </h1>
-
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.06, delayChildren: 1.2 } },
-              }}
-              style={{ display: 'flex', gap: 8, marginTop: 30, flexWrap: 'wrap' }}
-            >
-              {['Marketplace', 'B2B SaaS', 'Design systems'].map((chip) => (
-                <motion.span
-                  key={chip}
-                  variants={{
-                    hidden: { opacity: 0, x: 12 },
-                    visible: {
-                      opacity: 1,
-                      x: 0,
-                      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-                    },
-                  }}
-                  style={{
-                    padding: '7px 14px',
-                    borderRadius: 999,
-                    border: '0.5px solid var(--border-strong)',
-                    background: 'color-mix(in oklab, var(--bg-elevated) 65%, transparent)',
-                    color: 'var(--text-secondary)',
-                    fontSize: 12,
-                    letterSpacing: '0.04em',
-                    backdropFilter: 'blur(8px)',
-                    WebkitBackdropFilter: 'blur(8px)',
-                  }}
-                >
-                  {chip}
-                </motion.span>
-              ))}
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 1.35, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                margin: '32px 0 0',
-                maxWidth: '50ch',
-                fontSize: 17,
-                lineHeight: 1.65,
-                color: 'var(--text-secondary)',
-              }}
-            >
-              {hc.intro}
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 1.55, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: 'flex', alignItems: 'center', gap: 22, marginTop: 32 }}
-            >
-              <ViewTransitionLink
-                href={localizedPath('/trabajo', locale)}
+          {/* Contenido principal */}
+          <motion.div
+            style={{
+              position: 'relative',
+              zIndex: 2,
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              paddingBlock: 'clamp(72px, 8svh, 132px) clamp(36px, 6svh, 92px)',
+              x: contentCursorX,
+              y: contentCursorY,
+            }}
+          >
+            <div className="container" style={{ maxWidth: 920 }}>
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  padding: '14px 22px',
-                  borderRadius: 999,
-                  background: 'var(--accent)',
-                  color: 'var(--text-inverse)',
-                  fontSize: 14,
-                  fontWeight: 500,
-                  letterSpacing: '0.01em',
-                  transition: 'transform var(--t) var(--ease), box-shadow var(--t) var(--ease)',
+                  margin: 0,
+                  fontSize: 12,
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  color: 'var(--subtle)',
+                  marginBottom: 24,
                 }}
               >
-                {hc.ctaPrimary}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </ViewTransitionLink>
+                {hc.eyebrow}
+              </motion.p>
 
-              <ViewTransitionLink
-                href={localizedPath('/about', locale)}
-                style={{ fontSize: 14, color: 'var(--text-secondary)' }}
+              <h1
+                style={{
+                  margin: 0,
+                  fontSize: 'clamp(52px, min(8.2vw, 10svh), 124px)',
+                  lineHeight: 1.02,
+                  letterSpacing: '-0.03em',
+                  fontWeight: 600,
+                  color: 'var(--text)',
+                  maxWidth: '11ch',
+                }}
               >
-                {hc.ctaSecondary}
-              </ViewTransitionLink>
-            </motion.div>
-          </div>
-        </motion.div>
+                <PhraseReveal text={hc.line1} delay={0.05} reduce={!!reduce} />
+                <br />
+                <PhraseReveal text={hc.line2} delay={0.18} reduce={!!reduce} />
+                <br />
+                <FallingWord word={hc.fallingWord} delay={0.6} reduce={!!reduce} />
+                <span style={{ color: 'var(--text)' }}>{hc.tail}</span>
+              </h1>
 
-        {/* Scroll hint */}
-        <ScrollHint reduce={!!reduce} label={hc.scrollHint} />
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.06, delayChildren: 1.2 } },
+                }}
+                style={{ display: 'flex', gap: 8, marginTop: 30, flexWrap: 'wrap' }}
+              >
+                {['Marketplace', 'B2B SaaS', 'Design systems'].map((chip) => (
+                  <motion.span
+                    key={chip}
+                    variants={{
+                      hidden: { opacity: 0, x: 12 },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+                      },
+                    }}
+                    style={{
+                      padding: '7px 14px',
+                      borderRadius: 999,
+                      border: '0.5px solid var(--border-strong)',
+                      background: 'color-mix(in oklab, var(--bg-elevated) 65%, transparent)',
+                      color: 'var(--text-secondary)',
+                      fontSize: 12,
+                      letterSpacing: '0.04em',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)',
+                    }}
+                  >
+                    {chip}
+                  </motion.span>
+                ))}
+              </motion.div>
+
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 1.35, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  margin: 'clamp(24px, 3svh, 32px) 0 0',
+                  maxWidth: '50ch',
+                  fontSize: 'clamp(15px, 1.7svh, 17px)',
+                  lineHeight: 1.65,
+                  color: 'var(--text-secondary)',
+                }}
+              >
+                {hc.intro}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 1.55, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 22,
+                  marginTop: 'clamp(24px, 3.2svh, 32px)',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <ViewTransitionLink
+                  href={localizedPath('/trabajo', locale)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '14px 22px',
+                    borderRadius: 999,
+                    background: 'var(--accent)',
+                    color: 'var(--text-inverse)',
+                    fontSize: 14,
+                    fontWeight: 500,
+                    letterSpacing: '0.01em',
+                    transition: 'transform var(--t) var(--ease), box-shadow var(--t) var(--ease)',
+                  }}
+                >
+                  {hc.ctaPrimary}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </ViewTransitionLink>
+
+                <ViewTransitionLink
+                  href={localizedPath('/about', locale)}
+                  style={{ fontSize: 14, color: 'var(--text-secondary)' }}
+                >
+                  {hc.ctaSecondary}
+                </ViewTransitionLink>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Scroll hint */}
+          <ScrollHint reduce={!!reduce} label={hc.scrollHint} />
+        </motion.div>
       </motion.div>
     </section>
   )
