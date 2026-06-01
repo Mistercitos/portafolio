@@ -20,6 +20,7 @@ export function Header({ locale }: { locale: Locale }) {
     { href: localizedPath('/lab', locale), label: t.nav.lab },
     { href: localizedPath('/escribo', locale), label: t.nav.writing },
   ]
+  const contactItem = { href: localizedPath('/contact', locale), label: t.nav.contact }
   const homeHref = localizedPath('/', locale)
 
   // Cerrar menú al cambiar de ruta
@@ -113,6 +114,28 @@ export function Header({ locale }: { locale: Locale }) {
                 </li>
               ))}
             </ul>
+
+            <ViewTransitionLink
+              href={contactItem.href}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '7px 14px',
+                borderRadius: 999,
+                background: isActive(contactItem.href) ? 'var(--accent)' : 'transparent',
+                border: '0.5px solid',
+                borderColor: 'var(--accent)',
+                color: isActive(contactItem.href) ? 'var(--text-inverse)' : 'var(--accent)',
+                fontSize: 13,
+                fontWeight: 500,
+                letterSpacing: '0.01em',
+                transition:
+                  'background var(--t-fast) var(--ease), color var(--t-fast) var(--ease)',
+              }}
+            >
+              {contactItem.label}
+            </ViewTransitionLink>
 
             <LanguageSwitch locale={locale} />
             <ThemeToggle />
@@ -222,7 +245,7 @@ export function Header({ locale }: { locale: Locale }) {
                     listStyle: 'none',
                   }}
                 >
-                  {navItems.map((item, i) => (
+                  {[...navItems, contactItem].map((item, i) => (
                     <motion.li
                       key={item.href}
                       initial={{ opacity: 0, y: 16 }}
