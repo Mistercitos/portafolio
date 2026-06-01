@@ -7,29 +7,29 @@ const STATES = [
   {
     id: 'no-results',
     eyebrow: 'Sin resultados',
-    title: 'Probá con otros filtros.',
-    body: 'Tu búsqueda no encontró coincidencias. Remové un filtro o ampliá el criterio para ver resultados.',
+    title: 'Prueba con otros filtros.',
+    body: 'Tu búsqueda no encontró coincidencias. Quita un filtro o amplía el criterio para revisar más resultados.',
     action: 'Limpiar filtros',
   },
   {
     id: 'first-use',
     eyebrow: 'Primera vez',
-    title: 'Empezá creando tu primer proyecto.',
-    body: 'Acá vas a ver el listado de proyectos que vayas creando. Te lleva ~2 min armar el primero.',
+    title: 'Empieza creando tu primer proyecto.',
+    body: 'Aquí aparecerán los proyectos que crees. El primero toma cerca de 2 minutos.',
     action: 'Crear proyecto',
   },
   {
     id: 'error',
     eyebrow: 'Algo falló',
     title: 'No pudimos cargar los datos.',
-    body: 'Hubo un problema de conexión con el servidor. Lo que estabas haciendo está guardado — solo refresca la página.',
+    body: 'Hubo un problema de conexión con el servidor. Tu avance está guardado; actualiza la página para intentarlo otra vez.',
     action: 'Reintentar',
   },
   {
     id: 'permission',
     eyebrow: 'Permisos',
     title: 'No tienes acceso a esta sección.',
-    body: 'Pídele a un admin del workspace que te invite, o cambia a un workspace donde tengas acceso.',
+    body: 'Pide acceso a un administrador del espacio de trabajo o cambia a uno donde ya tengas permisos.',
     action: 'Pedir acceso',
   },
 ] as const
@@ -158,7 +158,7 @@ function Glyph({ id }: { id: string }) {
     strokeWidth: 1.4,
     strokeLinecap: 'round' as const,
     strokeLinejoin: 'round' as const,
-    style: { color: 'var(--muted)', marginBottom: 18 },
+    style: { color: 'var(--muted)', display: 'block', margin: '0 auto 18px' },
     'aria-hidden': true,
   }
   switch (id) {
