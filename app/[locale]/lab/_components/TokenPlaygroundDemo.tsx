@@ -3,10 +3,10 @@
 import { useState } from 'react'
 
 const PRESETS = [
-  { name: 'Default Wolf', accent: '#FF4D14', radius: 16, weight: 500 },
-  { name: 'Linear-esque', accent: '#5E6AD2', radius: 8, weight: 500 },
-  { name: 'Stripe-esque', accent: '#635BFF', radius: 6, weight: 400 },
-  { name: 'Vercel-esque', accent: '#000000', radius: 12, weight: 500 },
+  { name: 'Default', accent: '#FF4D14', radius: 16, weight: 500 },
+  { name: 'Estilo Linear', accent: '#5E6AD2', radius: 8, weight: 500 },
+  { name: 'Estilo Stripe', accent: '#635BFF', radius: 6, weight: 400 },
+  { name: 'Estilo Vercel', accent: '#000000', radius: 12, weight: 500 },
 ]
 
 export function TokenPlaygroundDemo() {
@@ -75,7 +75,7 @@ export function TokenPlaygroundDemo() {
         </div>
 
         <Slider
-          label="Accent color"
+          label="Color de acento"
           mono={accent.toUpperCase()}
           control={
             <input
@@ -95,7 +95,7 @@ export function TokenPlaygroundDemo() {
         />
 
         <Slider
-          label="Border radius"
+          label="Radio de borde"
           mono={`${radius}px`}
           control={
             <input
@@ -110,7 +110,7 @@ export function TokenPlaygroundDemo() {
         />
 
         <Slider
-          label="Font weight"
+          label="Peso tipográfico"
           mono={String(weight)}
           control={
             <input
@@ -136,7 +136,7 @@ export function TokenPlaygroundDemo() {
               marginBottom: 8,
             }}
           >
-            Output
+            Salida
           </p>
           <pre
             style={{
@@ -197,7 +197,7 @@ export function TokenPlaygroundDemo() {
             letterSpacing: '0.01em',
           }}
         >
-          Primary action
+          Acción primaria
         </button>
 
         <button
@@ -212,7 +212,7 @@ export function TokenPlaygroundDemo() {
             cursor: 'pointer',
           }}
         >
-          Secondary
+          Secundaria
         </button>
 
         <div
@@ -224,7 +224,7 @@ export function TokenPlaygroundDemo() {
           }}
         >
           <p style={{ margin: 0, fontSize: 13, fontWeight: weight, color: 'var(--text)' }}>
-            Card title
+            Título de tarjeta
           </p>
           <p style={{ margin: '6px 0 0', fontSize: 12, color: 'var(--muted)' }}>
             Una card de muestra que respeta los tokens.
@@ -246,7 +246,7 @@ export function TokenPlaygroundDemo() {
         </div>
 
         <input
-          placeholder="Input field"
+          placeholder="Campo de texto"
           style={{
             padding: '12px 14px',
             borderRadius: radius,
