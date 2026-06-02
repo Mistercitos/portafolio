@@ -1,6 +1,6 @@
+import Image from 'next/image'
 import { Reveal } from '@/app/components/Reveal'
 import { Stagger, StaggerItem } from '@/app/components/Stagger'
-import { Placeholder } from '@/app/components/Placeholder'
 import { ViewTransitionLink } from '@/app/components/ViewTransitionLink'
 import type { CaseStudy } from '@/lib/cases'
 
@@ -25,6 +25,17 @@ const BLUE = '#1E6FA8'
 const BLUE_TINT = 'rgba(30, 111, 168, 0.09)'
 const BLUE_BORDER = 'rgba(30, 111, 168, 0.34)'
 const GOLD_TINT = 'rgba(253, 184, 51, 0.16)'
+const STOCKAI_IMAGE_BASE = '/images/work/stockai'
+
+const STOCKAI_IMAGES = {
+  hero: `${STOCKAI_IMAGE_BASE}/case-stockai-01-hero-replenishment.webp`,
+  execution: [
+    `${STOCKAI_IMAGE_BASE}/case-stockai-02-ai-insights-dashboard.webp`,
+    `${STOCKAI_IMAGE_BASE}/case-stockai-03-quick-path.webp`,
+    `${STOCKAI_IMAGE_BASE}/case-stockai-04-smart-setup.webp`,
+  ],
+  coreMoment: `${STOCKAI_IMAGE_BASE}/case-stockai-06-ai-review-high-fidelity.webp`,
+}
 
 const SEVERITY: Record<string, { color: string; tint: string }> = {
   Crítico: { color: '#C0392B', tint: 'rgba(192, 57, 43, 0.10)' },
@@ -219,10 +230,12 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
 
       {/* Hero shot */}
       <Reveal>
-        <Placeholder
-          label="StockAI — el flujo de replenishment rediseñado"
-          caption="Hero shot · 16:9"
+        <CaseImage
+          src={STOCKAI_IMAGES.hero}
+          alt="StockAI — flujo de replenishment rediseñado"
+          ratio="16 / 9"
           variant="hero"
+          priority
         />
       </Reveal>
 
@@ -456,35 +469,40 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
       {/* ── LA EJECUCIÓN — 3 PANTALLAS ─────────────────────────────────── */}
       <Section eyebrow="Ejecución" title="Tres pantallas que reconstruyen el flujo">
         <div style={{ display: 'grid', gap: 56 }}>
-          {c.execution.slice(0, 3).map((ex, i) => (
-            <div key={ex.title}>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 10 }}>
-                <span
-                  className="serif"
-                  style={{ fontSize: 15, fontStyle: 'italic', color: BLUE, flexShrink: 0 }}
-                >
-                  0{i + 1}
-                </span>
-                <h3
-                  style={{
-                    margin: 0,
-                    fontSize: 22,
-                    fontWeight: 500,
-                    color: 'var(--text)',
-                    letterSpacing: '-0.01em',
-                  }}
-                >
-                  {ex.title}
-                </h3>
+          {c.execution.slice(0, 3).map((ex, i) => {
+            const image = STOCKAI_IMAGES.execution[i] ?? STOCKAI_IMAGES.hero
+
+            return (
+              <div key={ex.title}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 10 }}>
+                  <span
+                    className="serif"
+                    style={{ fontSize: 15, fontStyle: 'italic', color: BLUE, flexShrink: 0 }}
+                  >
+                    0{i + 1}
+                  </span>
+                  <h3
+                    style={{
+                      margin: 0,
+                      fontSize: 22,
+                      fontWeight: 500,
+                      color: 'var(--text)',
+                      letterSpacing: '-0.01em',
+                    }}
+                  >
+                    {ex.title}
+                  </h3>
+                </div>
+                <p style={{ ...proseStyle, marginBottom: 20 }}>{ex.body}</p>
+                <CaseImage
+                  src={image}
+                  alt={`StockAI — ${ex.title}`}
+                  ratio={i === 0 ? '16 / 9' : '4 / 3'}
+                  variant={i === 0 ? 'hero' : 'gallery'}
+                />
               </div>
-              <p style={{ ...proseStyle, marginBottom: 20 }}>{ex.body}</p>
-              <Placeholder
-                label={ex.title}
-                caption={i === 0 ? 'Pantalla · 16:9' : 'Pantalla · 4:3'}
-                variant={i === 0 ? 'hero' : 'gallery'}
-              />
-            </div>
-          ))}
+            )
+          })}
         </div>
       </Section>
 
@@ -572,9 +590,10 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
           </div>
 
           <div style={{ marginTop: 28 }}>
-            <Placeholder
-              label="AI Review & Approve — pantalla en alta fidelidad"
-              caption="Core moment · 16:9"
+            <CaseImage
+              src={STOCKAI_IMAGES.coreMoment}
+              alt="StockAI — AI Review & Approve en alta fidelidad"
+              ratio="16 / 9"
               variant="hero"
             />
           </div>
@@ -762,6 +781,45 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
 }
 
 /* ─────────────────────────────────────────────────────────────────────── */
+
+function CaseImage({
+  src,
+  alt,
+  ratio,
+  variant = 'gallery',
+  priority = false,
+}: {
+  src: string
+  alt: string
+  ratio: string
+  variant?: 'hero' | 'gallery'
+  priority?: boolean
+}) {
+  return (
+    <figure
+      style={{
+        margin: 0,
+        width: '100%',
+        aspectRatio: ratio,
+        borderRadius: variant === 'hero' ? 24 : 16,
+        border: '0.5px solid var(--border)',
+        background: 'var(--surface-subtle)',
+        overflow: 'hidden',
+        position: 'relative',
+        boxShadow: variant === 'hero' ? 'var(--shadow-soft)' : 'none',
+      }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority={priority}
+        sizes="(max-width: 720px) calc(100vw - 32px), 1100px"
+        style={{ objectFit: 'cover' }}
+      />
+    </figure>
+  )
+}
 
 function ParadigmRow({
   data,
