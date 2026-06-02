@@ -11,10 +11,10 @@ const RECOMMENDATIONS = [
     confidence: 95,
     impact: '+$28K',
     reasoning: [
-      { label: 'Velocity de venta', value: '+18% (14 días)' },
-      { label: 'Stock level', value: '8% de safety' },
-      { label: 'Seasonal pattern', value: 'Q4 strong' },
-      { label: 'Similar items', value: '+22% promedio' },
+      { label: 'Velocidad de venta', value: '+18% (14 días)' },
+      { label: 'Nivel de stock', value: '8% de seguridad' },
+      { label: 'Patrón estacional', value: 'Q4 fuerte' },
+      { label: 'Ítems similares', value: '+22% promedio' },
     ],
   },
   {
@@ -24,23 +24,23 @@ const RECOMMENDATIONS = [
     confidence: 82,
     impact: '+$12K',
     reasoning: [
-      { label: 'Velocity de venta', value: '+9% (14 días)' },
-      { label: 'Stock level', value: '14% de safety' },
-      { label: 'Seasonal pattern', value: 'Neutral' },
-      { label: 'Similar items', value: '+11% promedio' },
+      { label: 'Velocidad de venta', value: '+9% (14 días)' },
+      { label: 'Nivel de stock', value: '14% de seguridad' },
+      { label: 'Patrón estacional', value: 'Neutral' },
+      { label: 'Ítems similares', value: '+11% promedio' },
     ],
   },
   {
     id: 'r3',
     title: 'Pausar reorden — Item C',
-    detail: 'Hold por 2 semanas',
+    detail: 'Pausar por 2 semanas',
     confidence: 68,
     impact: '−$3K riesgo',
     reasoning: [
-      { label: 'Velocity de venta', value: '−6% (14 días)' },
-      { label: 'Stock level', value: '38% sobre target' },
-      { label: 'Seasonal pattern', value: 'Soft' },
-      { label: 'Similar items', value: '−4% promedio' },
+      { label: 'Velocidad de venta', value: '−6% (14 días)' },
+      { label: 'Nivel de stock', value: '38% sobre objetivo' },
+      { label: 'Patrón estacional', value: 'Suave' },
+      { label: 'Ítems similares', value: '−4% promedio' },
     ],
   },
 ]
@@ -70,7 +70,7 @@ export function ConfidenceCardDemo() {
     <div style={{ display: 'grid', gap: 24 }}>
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-          <p style={pillLabel}>Threshold para bulk approve</p>
+          <p style={pillLabel}>Umbral para aprobación masiva</p>
           <p style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--accent)' }}>
             ≥ {threshold}% confianza
           </p>
@@ -133,7 +133,7 @@ export function ConfidenceCardDemo() {
                     }}
                   >
                     <p style={{ margin: 0, fontSize: 11, letterSpacing: '0.08em', color: 'var(--subtle)' }}>
-                      AI confidence
+                      Confianza de IA
                     </p>
                     <p style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text)' }}>
                       {r.confidence}%
@@ -160,7 +160,7 @@ export function ConfidenceCardDemo() {
                   >
                     {isExpanded ? '↑ Ocultar razonamiento' : '↓ ¿Por qué?'}
                   </button>
-                  <button style={ghostButton}>Override</button>
+                  <button style={ghostButton}>Ajustar manualmente</button>
                   <button
                     disabled={!aboveThreshold}
                     style={{

@@ -1,0 +1,57 @@
+From ebddc63ebd3c0007278aa139da5282205ff3004f Mon Sep 17 00:00:00 2001
+From: Christian Del Barco <cdelbarcog92@gmail.com>
+Date: Mon, 1 Jun 2026 16:20:02 +0000
+Subject: [PATCH] fix(i18n): corrige 404 al cambiar idioma y normaliza rutas
+ /es
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- alternatePath: quita ambos prefijos de locale (/es y /en). En producción
+  usePathname() devuelve la ruta reescrita /es*, lo que generaba enlaces /en/es (404).
+- proxy: redirige /es* a la URL canónica sin prefijo.
+---
+ lib/i18n.ts | 7 +++++--
+ proxy.ts    | 8 ++++++++
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/lib/i18n.ts b/lib/i18n.ts
+index da3669f..f2b69e8 100644
+--- a/lib/i18n.ts
++++ b/lib/i18n.ts
+@@ -39,8 +39,11 @@ export function localizedPath(path: string, locale: Locale): string {
+ 
+ /** Devuelve la misma ruta en el otro idioma — para el selector de idioma. */
+ export function alternatePath(path: string, to: Locale): string {
+-  const withoutEn = path.replace(/^\/en(?=\/|$)/, '') || '/'
+-  return localizedPath(withoutEn, to)
++  // Quita cualquier prefijo de locale (`/es` o `/en`). Importante: en producción
++  // `usePathname()` puede devolver la ruta ya reescrita por el proxy (`/es/...`),
++  // por lo que hay que normalizar AMBOS prefijos, no solo `/en`.
++  const withoutLocale = path.replace(/^\/(es|en)(?=\/|$)/, '') || '/'
++  return localizedPath(withoutLocale, to)
+ }
+ 
+ type UIStrings = {
+diff --git a/proxy.ts b/proxy.ts
+index b536ecf..ed2e032 100644
+--- a/proxy.ts
++++ b/proxy.ts
+@@ -48,6 +48,14 @@ export function proxy(req: NextRequest) {
+     return NextResponse.next()
+   }
+ 
++  // El español NO debe exponerse con prefijo `/es`. Si alguien llega a `/es*`
++  // (enlace viejo, bookmark, SEO), lo redirigimos a la versión canónica sin prefijo.
++  if (pathname === '/es' || pathname.startsWith('/es/')) {
++    const url = req.nextUrl.clone()
++    url.pathname = pathname.replace(/^\/es/, '') || '/'
++    return NextResponse.redirect(url)
++  }
++
+   // Rutas sin prefijo = territorio español. Decidir según preferencia.
+   const preferred = preferredLocale(req)
+ 
+-- 
+2.34.1
+

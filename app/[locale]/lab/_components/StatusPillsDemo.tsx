@@ -3,11 +3,11 @@
 import { useState } from 'react'
 
 const STATUSES = [
-  { label: 'Active', kind: 'success' },
-  { label: 'In review', kind: 'warning' },
-  { label: 'Paused', kind: 'neutral' },
-  { label: 'Critical', kind: 'critical' },
-  { label: 'Done', kind: 'info' },
+  { label: 'Activo', kind: 'success' },
+  { label: 'En revisión', kind: 'warning' },
+  { label: 'Pausado', kind: 'neutral' },
+  { label: 'Crítico', kind: 'critical' },
+  { label: 'Listo', kind: 'info' },
 ] as const
 
 type Kind = (typeof STATUSES)[number]['kind']
@@ -37,18 +37,18 @@ export function StatusPillsDemo() {
     <div style={{ display: 'grid', gap: 24 }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 14 }}>
         <SegmentedControl
-          label="Variant"
+          label="Variante"
           options={['solid', 'soft', 'outline']}
           value={variant}
           onChange={(v) => setVariant(v as Variant)}
         />
         <SegmentedControl
-          label="Size"
+          label="Tamaño"
           options={['sm', 'md', 'lg']}
           value={size}
           onChange={(v) => setSize(v as Size)}
         />
-        <Toggle label="Dot indicator" value={withDot} onChange={setWithDot} />
+        <Toggle label="Indicador" value={withDot} onChange={setWithDot} />
       </div>
 
       <div
@@ -69,7 +69,7 @@ export function StatusPillsDemo() {
       </div>
 
       <p style={{ margin: 0, fontSize: 11, color: 'var(--muted)' }}>
-        15 combinaciones (5 kinds × 3 variants) × 3 sizes — un solo componente.
+        15 combinaciones (5 tipos × 3 variantes) × 3 tamaños — un solo componente.
       </p>
     </div>
   )
@@ -177,12 +177,24 @@ function SegmentedControl<T extends string>({
               textTransform: 'capitalize',
             }}
           >
-            {opt}
+            {optionLabel(opt)}
           </button>
         ))}
       </div>
     </div>
   )
+}
+
+function optionLabel(value: string) {
+  const labels: Record<string, string> = {
+    solid: 'Sólida',
+    soft: 'Suave',
+    outline: 'Contorno',
+    sm: 'Pequeño',
+    md: 'Mediano',
+    lg: 'Grande',
+  }
+  return labels[value] ?? value
 }
 
 function Toggle({ label, value, onChange }: { label: string; value: boolean; onChange: (v: boolean) => void }) {
@@ -204,7 +216,7 @@ function Toggle({ label, value, onChange }: { label: string; value: boolean; onC
           cursor: 'pointer',
         }}
       >
-        {value ? '✓ On' : 'Off'}
+        {value ? '✓ Activo' : 'Inactivo'}
       </button>
     </div>
   )

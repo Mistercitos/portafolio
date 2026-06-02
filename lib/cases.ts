@@ -67,7 +67,7 @@ export const cases: CaseStudy[] = [
       },
     ],
     research:
-      'Hice una auditoría del flujo actual contra tres lentes: propuesta de valor (¿entrega "AI-driven"?), eficiencia del usuario (¿reduce tiempo y carga cognitiva?) y resultados de negocio (¿genera impacto medible?). Encontré 7 problemas priorizados por severidad — 2 críticos (IA invisible en todas las pantallas, configuración manual pesada en los pasos 1-2) y 3 mayores (sin impacto de revenue visible, nula transparencia de la IA, sin acciones masivas). En paralelo mapeé las personas a partir del brief: Maya (Inventory Manager, uso diario, frustrada con los clics repetitivos, no ve impacto financiero, depende del planner para las decisiones grandes) y David (Merchandising Planner, uso semanal, desconfía de la IA tipo caja negra, debe justificar al CSCO, Excel le sigue resultando más rápido para el análisis).',
+      'Hice una auditoría del flujo actual contra tres lentes: propuesta de valor (¿entrega una experiencia impulsada por IA?), eficiencia del usuario (¿reduce tiempo y carga cognitiva?) y resultados de negocio (¿genera impacto medible?). Encontré 7 problemas priorizados por severidad — 2 críticos (IA invisible en todas las pantallas, configuración manual pesada en los pasos 1-2) y 3 mayores (sin impacto de ingresos visible, nula transparencia de la IA, sin acciones masivas). En paralelo mapeé las personas a partir del brief: Maya (Inventory Manager, uso diario, frustrada con los clics repetitivos, no ve impacto financiero, depende del planner para las decisiones grandes) y David (Merchandising Planner, uso semanal, desconfía de la IA tipo caja negra, debe justificar al CSCO, Excel le sigue resultando más rápido para el análisis).',
     decisions: [
       {
         kind: 'Estrategia',
@@ -88,7 +88,7 @@ export const cases: CaseStudy[] = [
     execution: [
       {
         title: 'AI Insights Dashboard — lo urgente, primero',
-        body: 'Reemplacé la lista estática con un inicio accionable. Un banner amarillo arriba expone 3 oportunidades urgentes con +$340K de impacto en revenue de entrada. 4 tarjetas de KPI traducen los datos en contexto: replenishments activos, revisiones de IA pendientes, oportunidad de revenue y tasa de aceptación de IA. Las píldoras de estado (Critical / Review / Approved) y las barras de confianza reemplazan la lista plana — los usuarios saben dónde empezar sin leer.',
+        body: 'Reemplacé la lista estática con un inicio accionable. Un banner amarillo arriba expone 3 oportunidades urgentes con +$340K de impacto en ingresos desde la entrada. 4 tarjetas de KPI traducen los datos en contexto: reabastecimientos activos, revisiones de IA pendientes, oportunidad de ingresos y tasa de aceptación de IA. Las píldoras de estado (Crítico / Revisar / Aprobado) y las barras de confianza reemplazan la lista plana — los usuarios saben dónde empezar sin leer.',
       },
       {
         title: 'Quick Path — Inventory Manager',
@@ -100,7 +100,7 @@ export const cases: CaseStudy[] = [
       },
       {
         title: 'Core Moment — AI Review & Approve',
-        body: 'La pantalla donde StockAI prueba su valor. Impacto en revenue ($340K) y sobrestock evitado ($85K) en lugar de datos operativos. La confianza como señal de primer nivel: porcentaje + barra de color, filtrable y ordenable. Transparencia en línea: expandir una fila muestra los 4 datos detrás de la lógica (sales velocity, stock level, seasonal pattern, similar stores). Aprobación masiva con resguardos — solo se aplica a ítems sobre 80% de confianza; bajo ese umbral, revisión individual obligatoria.',
+        body: 'La pantalla donde StockAI prueba su valor. Impacto en ingresos ($340K) y sobrestock evitado ($85K) en lugar de datos operativos. La confianza como señal de primer nivel: porcentaje + barra de color, filtrable y ordenable. Transparencia en línea: expandir una fila muestra los 4 datos detrás de la lógica (velocidad de venta, nivel de stock, patrón estacional, tiendas similares). Aprobación masiva con resguardos — solo se aplica a ítems sobre 80% de confianza; bajo ese umbral, revisión individual obligatoria.',
       },
     ],
     outcomes: [

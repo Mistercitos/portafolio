@@ -48,6 +48,14 @@ export function proxy(req: NextRequest) {
     return NextResponse.next()
   }
 
+  // El español NO debe exponerse con prefijo `/es`. Si alguien llega a `/es*`
+  // (enlace viejo, bookmark, SEO), lo redirigimos a la versión canónica sin prefijo.
+  if (pathname === '/es' || pathname.startsWith('/es/')) {
+    const url = req.nextUrl.clone()
+    url.pathname = pathname.replace(/^\/es/, '') || '/'
+    return NextResponse.redirect(url)
+  }
+
   // Rutas sin prefijo = territorio español. Decidir según preferencia.
   const preferred = preferredLocale(req)
 

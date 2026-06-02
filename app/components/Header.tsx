@@ -16,9 +16,9 @@ export function Header({ locale }: { locale: Locale }) {
 
   const navItems = [
     { href: localizedPath('/trabajo', locale), label: t.nav.work },
-    { href: localizedPath('/escribo', locale), label: t.nav.writing },
-    { href: localizedPath('/lab', locale), label: t.nav.lab },
     { href: localizedPath('/about', locale), label: t.nav.about },
+    { href: localizedPath('/lab', locale), label: t.nav.lab },
+    { href: localizedPath('/escribo', locale), label: t.nav.writing },
   ]
   const contactItem = { href: localizedPath('/contact', locale), label: t.nav.contact }
   const homeHref = localizedPath('/', locale)
@@ -100,7 +100,7 @@ export function Header({ locale }: { locale: Locale }) {
             }}
           >
             <span style={{ color: 'var(--accent)' }}>.</span>
-            <span>chrisdelbarco</span>
+            <span>ChrisDelBarco</span>
           </ViewTransitionLink>
 
           {/* Desktop nav */}
@@ -210,7 +210,7 @@ export function Header({ locale }: { locale: Locale }) {
                   href={homeHref}
                   style={{ fontSize: 14, fontWeight: 500, letterSpacing: '-0.01em' }}
                 >
-                  <span style={{ color: 'var(--accent)' }}>.</span>chrisdelbarco
+                  <span style={{ color: 'var(--accent)' }}>.</span>ChrisDelBarco
                 </ViewTransitionLink>
                 <button
                   type="button"

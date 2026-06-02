@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import { animate, motion, AnimatePresence } from 'framer-motion'
 
 const PRESETS = [
-  { label: 'Revenue', value: 48230, prefix: '$', delta: 12.4 },
-  { label: 'Active users', value: 14820, prefix: '', delta: -2.1 },
-  { label: 'Conversion', value: 4.8, prefix: '', suffix: '%', decimals: 1, delta: 0.7 },
+  { label: 'Ingresos', value: 48230, prefix: '$', delta: 12.4 },
+  { label: 'Usuarios activos', value: 14820, prefix: '', delta: -2.1 },
+  { label: 'Conversión', value: 4.8, prefix: '', suffix: '%', decimals: 1, delta: 0.7 },
 ]
 
 /**

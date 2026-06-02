@@ -7,17 +7,17 @@ type Row = {
   project: string
   owner: string
   hours: number
-  status: 'On track' | 'At risk' | 'Done'
+  status: 'En curso' | 'En riesgo' | 'Listo'
 }
 
 const INITIAL: Row[] = [
-  { id: '1', project: 'Onboarding revamp', owner: 'Maya R.', hours: 48, status: 'On track' },
-  { id: '2', project: 'Empty state library', owner: 'David C.', hours: 24, status: 'On track' },
-  { id: '3', project: 'Search filters', owner: 'Lina M.', hours: 36, status: 'At risk' },
-  { id: '4', project: 'Brand refresh', owner: 'Carlos P.', hours: 80, status: 'Done' },
+  { id: '1', project: 'Rediseño de onboarding', owner: 'Maya R.', hours: 48, status: 'En curso' },
+  { id: '2', project: 'Biblioteca de empty states', owner: 'David C.', hours: 24, status: 'En curso' },
+  { id: '3', project: 'Filtros de búsqueda', owner: 'Lina M.', hours: 36, status: 'En riesgo' },
+  { id: '4', project: 'Actualización de marca', owner: 'Carlos P.', hours: 80, status: 'Listo' },
 ]
 
-const STATUSES: Row['status'][] = ['On track', 'At risk', 'Done']
+const STATUSES: Row['status'][] = ['En curso', 'En riesgo', 'Listo']
 
 /**
  * Inline editable cell.
@@ -37,10 +37,10 @@ export function InlineEditableCellDemo() {
   return (
     <div style={{ display: 'grid', gap: 12 }}>
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1.2fr 0.8fr 1fr', gap: 0, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--subtle)', paddingBottom: 8, borderBottom: '0.5px solid var(--divider)' }}>
-        <span>Project</span>
-        <span>Owner</span>
-        <span>Hours</span>
-        <span>Status</span>
+        <span>Proyecto</span>
+        <span>Responsable</span>
+        <span>Horas</span>
+        <span>Estado</span>
       </div>
 
       {rows.map((r) => (
@@ -90,7 +90,7 @@ export function InlineEditableCellDemo() {
       ))}
 
       <p style={{ margin: '8px 0 0', fontSize: 11, color: 'var(--muted)' }}>
-        Click cualquier cell para editar · Enter para guardar · Esc para cancelar
+        Haz clic en cualquier celda para editar · Enter para guardar · Esc para cancelar
       </p>
     </div>
   )
@@ -197,9 +197,9 @@ function EditableNumber({
 
 function StatusSelect({ value, onChange }: { value: Row['status']; onChange: (v: Row['status']) => void }) {
   const colors: Record<Row['status'], { bg: string; fg: string }> = {
-    'On track': { bg: 'rgba(16, 185, 129, 0.12)', fg: '#0F6E56' },
-    'At risk': { bg: 'rgba(245, 158, 11, 0.14)', fg: '#A35F0B' },
-    Done: { bg: 'rgba(20, 18, 14, 0.08)', fg: 'var(--text)' as string },
+    'En curso': { bg: 'rgba(16, 185, 129, 0.12)', fg: '#0F6E56' },
+    'En riesgo': { bg: 'rgba(245, 158, 11, 0.14)', fg: '#A35F0B' },
+    Listo: { bg: 'rgba(20, 18, 14, 0.08)', fg: 'var(--text)' as string },
   }
   const c = colors[value]
   return (

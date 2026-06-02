@@ -1,6 +1,6 @@
+import Image from 'next/image'
 import { Reveal } from '@/app/components/Reveal'
 import { Stagger, StaggerItem } from '@/app/components/Stagger'
-import { Placeholder } from '@/app/components/Placeholder'
 import { ViewTransitionLink } from '@/app/components/ViewTransitionLink'
 import { getUI, localizedPath, type Locale } from '@/lib/i18n'
 import type { CaseStudy } from '@/lib/cases'
@@ -13,6 +13,26 @@ import type { CaseStudy } from '@/lib/cases'
 const PURPLE = '#7C3AED'
 const PURPLE_TINT = 'rgba(124, 58, 237, 0.09)'
 const PURPLE_BORDER = 'rgba(124, 58, 237, 0.38)'
+const WOLF_IMAGE_BASE = '/images/work/wolf'
+
+const WOLF_IMAGES = {
+  hero: `${WOLF_IMAGE_BASE}/case-wolf-01-hero-platform-overview.png`,
+  surfaces: {
+    JobSeekers: `${WOLF_IMAGE_BASE}/case-wolf-02-jobseekers-mobile-surface.png`,
+    Clients: `${WOLF_IMAGE_BASE}/case-wolf-03-clients-web-surface.png`,
+    Admin: `${WOLF_IMAGE_BASE}/case-wolf-04-admin-console-surface.png`,
+  },
+  discovery: `${WOLF_IMAGE_BASE}/case-wolf-05-discovery-user-profiles.png`,
+  jobSeekerScreens: [
+    `${WOLF_IMAGE_BASE}/case-wolf-06-search-filters-mobile.png`,
+    `${WOLF_IMAGE_BASE}/case-wolf-07-job-detail-mobile.png`,
+    `${WOLF_IMAGE_BASE}/case-wolf-08-application-mobile.png`,
+    `${WOLF_IMAGE_BASE}/case-wolf-09-worker-profile-mobile.png`,
+  ],
+  designSystem: `${WOLF_IMAGE_BASE}/case-wolf-10-design-system-library.png`,
+  conference: `${WOLF_IMAGE_BASE}/case-wolf-11-conference-material.png`,
+  marketing: `${WOLF_IMAGE_BASE}/case-wolf-12-marketing-user-education.png`,
+}
 
 type Surface = { name: string; kind: string; body: string; accent: string }
 type WolfContent = {
@@ -102,9 +122,9 @@ const WOLF: Record<Locale, WolfContent> = {
     aiResultDesc:
       'Horarios, tipos de trabajo y cantidad de trabajadores — lista para revisar y publicar.',
     labBadge: '✦ Componente en vivo',
-    labTitle: 'Probá el creador multi-input en el Lab',
+    labTitle: 'Prueba el creador multi-input en el Lab',
     labDesc:
-      'El patrón de esta feature está vivo y manipulable: voz, texto y datos estructurados convergiendo en un mismo resultado. Probalo vos mismo.',
+      'El patrón de esta feature está vivo y manipulable: voz, texto y datos estructurados convergiendo en un mismo resultado. Pruébalo directamente.',
     labCta: 'Ir al Lab →',
     sysEyebrow: 'Ejecución',
     sysTitle: 'El sistema de componentes',
@@ -301,7 +321,7 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
 
       {/* Hero shot */}
       <Reveal>
-        <Placeholder label={t.heroShot} caption="Hero shot · 16:9" variant="hero" />
+        <CaseImage src={WOLF_IMAGES.hero} alt={t.heroShot} ratio="16 / 9" variant="hero" priority />
       </Reveal>
 
       {/* ── TRES SUPERFICIES ───────────────────────────────────────────── */}
@@ -319,8 +339,10 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
                   height: '100%',
                 }}
               >
-                <Placeholder
-                  label={`${s.name} — ${s.kind}`}
+                <CaseImage
+                  src={WOLF_IMAGES.surfaces[s.name as keyof typeof WOLF_IMAGES.surfaces]}
+                  alt={`${s.name} — ${s.kind}`}
+                  ratio={s.name === 'JobSeekers' ? '9 / 19.5' : '4 / 3'}
                   variant={s.name === 'JobSeekers' ? 'mobile' : 'gallery'}
                   style={{ border: 'none', borderRadius: 0 }}
                 />
@@ -367,7 +389,7 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
       <Section eyebrow={t.s3Eyebrow} title={t.s3Title}>
         <p style={proseStyle}>{c.research}</p>
         <div style={{ marginTop: 32 }}>
-          <Placeholder label={t.discoveryShot} caption="Process artifacts · 3:2" variant="process" />
+          <CaseImage src={WOLF_IMAGES.discovery} alt={t.discoveryShot} ratio="3 / 2" />
         </div>
       </Section>
 
@@ -420,8 +442,14 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
               gap: 16,
             }}
           >
-            {t.jsScreens.map((screen) => (
-              <Placeholder key={screen} label={screen} variant="mobile" />
+            {t.jsScreens.map((screen, i) => (
+              <CaseImage
+                key={screen}
+                src={WOLF_IMAGES.jobSeekerScreens[i]}
+                alt={screen}
+                ratio="9 / 19.5"
+                variant="mobile"
+              />
             ))}
           </div>
         </section>
@@ -598,7 +626,7 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
       {/* ── SISTEMA DE COMPONENTES ─────────────────────────────────────── */}
       <Section eyebrow={t.sysEyebrow} title={t.sysTitle}>
         <p style={{ ...proseStyle, marginBottom: 28 }}>{c.execution[1]?.body}</p>
-        <Placeholder label={t.sysShot} caption="Design system · 4:3" variant="gallery" />
+        <CaseImage src={WOLF_IMAGES.designSystem} alt={t.sysShot} ratio="4 / 3" />
       </Section>
 
       {/* ── RESULTADOS ─────────────────────────────────────────────────── */}
@@ -681,8 +709,8 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
       <Section eyebrow={t.brandEyebrow} title={t.brandTitle}>
         <p style={{ ...proseStyle, marginBottom: 28 }}>{c.execution[3]?.body}</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
-          <Placeholder label={t.brandShot1} variant="gallery" />
-          <Placeholder label={t.brandShot2} variant="gallery" />
+          <CaseImage src={WOLF_IMAGES.conference} alt={t.brandShot1} ratio="4 / 3" />
+          <CaseImage src={WOLF_IMAGES.marketing} alt={t.brandShot2} ratio="4 / 3" />
         </div>
       </Section>
 
@@ -774,6 +802,52 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
 }
 
 /* ─────────────────────────────────────────────────────────────────────── */
+
+function CaseImage({
+  src,
+  alt,
+  ratio,
+  variant = 'gallery',
+  priority = false,
+  style,
+}: {
+  src: string
+  alt: string
+  ratio: string
+  variant?: 'hero' | 'gallery' | 'mobile'
+  priority?: boolean
+  style?: React.CSSProperties
+}) {
+  const isMobile = variant === 'mobile'
+
+  return (
+    <figure
+      style={{
+        margin: 0,
+        width: isMobile ? 'fit-content' : '100%',
+        maxWidth: isMobile ? 240 : '100%',
+        aspectRatio: ratio,
+        borderRadius: variant === 'hero' ? 24 : 16,
+        border: '0.5px solid var(--border)',
+        background: 'var(--surface-subtle)',
+        overflow: 'hidden',
+        position: 'relative',
+        justifySelf: isMobile ? 'center' : undefined,
+        boxShadow: variant === 'hero' ? 'var(--shadow-soft)' : 'none',
+        ...style,
+      }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority={priority}
+        sizes={isMobile ? '240px' : '(max-width: 720px) calc(100vw - 32px), 1100px'}
+        style={{ objectFit: 'cover' }}
+      />
+    </figure>
+  )
+}
 
 function Meta({ label, value }: { label: string; value: string }) {
   return (

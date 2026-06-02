@@ -6,20 +6,20 @@ import { motion, AnimatePresence } from 'framer-motion'
 type Mode = 'voice' | 'text' | 'paste'
 
 const SAMPLE_NLP =
-  'Necesito 4 designers y 2 engineers para el sprint del 15 al 22 de mayo en el proyecto Atlas, presupuesto 80h c/u.'
+  'Necesito 4 diseñadores y 2 ingenieros para el sprint del 15 al 22 de mayo en el proyecto Atlas, presupuesto 80h c/u.'
 
-const SAMPLE_PASTE = `Designers, 4, 80h
-Engineers, 2, 80h
-Project, Atlas
-Start, 2026-05-15
-End, 2026-05-22`
+const SAMPLE_PASTE = `Diseñadores, 4, 80h
+Ingenieros, 2, 80h
+Proyecto, Atlas
+Inicio, 2026-05-15
+Fin, 2026-05-22`
 
 const PARSED_OUTPUT = [
-  { field: 'Project', value: 'Atlas' },
-  { field: 'Start date', value: '15 May 2026' },
-  { field: 'End date', value: '22 May 2026' },
-  { field: 'Designers', value: '4 × 80h' },
-  { field: 'Engineers', value: '2 × 80h' },
+  { field: 'Proyecto', value: 'Atlas' },
+  { field: 'Fecha de inicio', value: '15 mayo 2026' },
+  { field: 'Fecha de término', value: '22 mayo 2026' },
+  { field: 'Diseñadores', value: '4 × 80h' },
+  { field: 'Ingenieros', value: '2 × 80h' },
 ]
 
 /**
@@ -77,7 +77,7 @@ export function MultiInputAIDemo() {
               textTransform: 'capitalize',
             }}
           >
-            {m === 'text' ? 'NLP' : m === 'paste' ? 'Excel paste' : 'Voice'}
+            {m === 'text' ? 'NLP' : m === 'paste' ? 'Pegar Excel' : 'Voz'}
           </button>
         ))}
       </div>
@@ -114,7 +114,7 @@ export function MultiInputAIDemo() {
               </svg>
             </div>
             <p style={{ margin: 0, fontSize: 13, color: 'var(--text-secondary)' }}>
-              Mantén presionado y dicta: &ldquo;4 designers y 2 engineers, sprint del 15 al 22 de
+              Mantén presionado y dicta: &ldquo;4 diseñadores y 2 ingenieros, sprint del 15 al 22 de
               mayo, 80h cada uno&rdquo;
             </p>
           </div>
@@ -122,7 +122,7 @@ export function MultiInputAIDemo() {
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={mode === 'text' ? 'Describí en lenguaje natural...' : 'Pegá filas separadas por coma o tab...'}
+            placeholder={mode === 'text' ? 'Describe en lenguaje natural...' : 'Pega filas separadas por coma o tab...'}
             rows={mode === 'paste' ? 6 : 4}
             style={{
               width: '100%',
@@ -171,7 +171,7 @@ export function MultiInputAIDemo() {
               cursor: 'pointer',
             }}
           >
-            Reset
+            Reiniciar
           </button>
         ) : null}
       </div>

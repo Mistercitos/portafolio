@@ -6,25 +6,25 @@ import { AnimatePresence, motion } from 'framer-motion'
 type Item = {
   id: string
   title: string
-  category: 'Marketplace' | 'B2B SaaS' | 'Consumer' | 'Enterprise'
-  status: 'Active' | 'In review' | 'Paused'
+  category: 'Marketplace' | 'B2B SaaS' | 'Consumo' | 'Enterprise'
+  status: 'Activo' | 'En revisión' | 'Pausado'
   priority: 1 | 2 | 3
 }
 
 const ITEMS: Item[] = [
-  { id: '1', title: 'Onboarding revamp', category: 'B2B SaaS', status: 'Active', priority: 1 },
-  { id: '2', title: 'Pricing page refresh', category: 'Marketplace', status: 'In review', priority: 2 },
-  { id: '3', title: 'Mobile checkout', category: 'Consumer', status: 'Active', priority: 1 },
-  { id: '4', title: 'Admin dashboard v2', category: 'Enterprise', status: 'Paused', priority: 3 },
-  { id: '5', title: 'Empty state library', category: 'B2B SaaS', status: 'Active', priority: 2 },
-  { id: '6', title: 'Search filters', category: 'Marketplace', status: 'Active', priority: 1 },
-  { id: '7', title: 'Settings restructure', category: 'Enterprise', status: 'In review', priority: 3 },
-  { id: '8', title: 'Notification center', category: 'B2B SaaS', status: 'Active', priority: 2 },
-  { id: '9', title: 'Brand refresh', category: 'Consumer', status: 'Paused', priority: 3 },
+  { id: '1', title: 'Rediseño de onboarding', category: 'B2B SaaS', status: 'Activo', priority: 1 },
+  { id: '2', title: 'Actualización de pricing', category: 'Marketplace', status: 'En revisión', priority: 2 },
+  { id: '3', title: 'Checkout mobile', category: 'Consumo', status: 'Activo', priority: 1 },
+  { id: '4', title: 'Dashboard admin v2', category: 'Enterprise', status: 'Pausado', priority: 3 },
+  { id: '5', title: 'Biblioteca de empty states', category: 'B2B SaaS', status: 'Activo', priority: 2 },
+  { id: '6', title: 'Filtros de búsqueda', category: 'Marketplace', status: 'Activo', priority: 1 },
+  { id: '7', title: 'Reestructura de settings', category: 'Enterprise', status: 'En revisión', priority: 3 },
+  { id: '8', title: 'Centro de notificaciones', category: 'B2B SaaS', status: 'Activo', priority: 2 },
+  { id: '9', title: 'Actualización de marca', category: 'Consumo', status: 'Pausado', priority: 3 },
 ]
 
-const CATEGORIES = ['Marketplace', 'B2B SaaS', 'Consumer', 'Enterprise'] as const
-const STATUSES = ['Active', 'In review', 'Paused'] as const
+const CATEGORIES = ['Marketplace', 'B2B SaaS', 'Consumo', 'Enterprise'] as const
+const STATUSES = ['Activo', 'En revisión', 'Pausado'] as const
 
 /**
  * Smart filter chips with live count.
@@ -86,7 +86,7 @@ export function SmartFilterChipsDemo() {
       </div>
 
       <div>
-        <p style={pillLabel}>Status</p>
+        <p style={pillLabel}>Estado</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           {STATUSES.map((s) => {
             const count = statusCounts.get(s) ?? 0

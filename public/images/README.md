@@ -20,9 +20,7 @@ images/
 │   ├── deliverynow/
 │   └── plannyme/
 └── blog/           Por post
-    ├── tres-formas-de-crear-un-job/
-    ├── tokens-themes-contratos/
-    └── designers-que-codifican/
+    └── tres-formas-de-crear-un-job/
 ```
 
 ## Tamaños (memoria rápida)

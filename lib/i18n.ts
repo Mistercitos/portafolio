@@ -39,8 +39,11 @@ export function localizedPath(path: string, locale: Locale): string {
 
 /** Devuelve la misma ruta en el otro idioma — para el selector de idioma. */
 export function alternatePath(path: string, to: Locale): string {
-  const withoutEn = path.replace(/^\/en(?=\/|$)/, '') || '/'
-  return localizedPath(withoutEn, to)
+  // Quita cualquier prefijo de locale (`/es` o `/en`). Importante: en producción
+  // `usePathname()` puede devolver la ruta ya reescrita por el proxy (`/es/...`),
+  // por lo que hay que normalizar AMBOS prefijos, no solo `/en`.
+  const withoutLocale = path.replace(/^\/(es|en)(?=\/|$)/, '') || '/'
+  return localizedPath(withoutLocale, to)
 }
 
 type UIStrings = {
@@ -113,8 +116,8 @@ export const ui: Record<Locale, UIStrings> = {
     ogLocale: 'es_CL',
     langName: 'Español',
     nav: {
-      work: 'Trabajo',
-      writing: 'Escribo',
+      work: 'Mis Trabajos',
+      writing: 'Blog',
       about: 'Sobre mí',
       lab: 'Lab',
       contact: 'Contacto',
@@ -179,9 +182,9 @@ export const ui: Record<Locale, UIStrings> = {
     ogLocale: 'en_US',
     langName: 'English',
     nav: {
-      work: 'Work',
-      writing: 'Writing',
-      about: 'About',
+      work: 'My Work',
+      writing: 'Blog',
+      about: 'About Me',
       lab: 'Lab',
       contact: 'Contact',
       uses: 'Uses',

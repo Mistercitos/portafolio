@@ -27,7 +27,7 @@ export const uses: UseCategory[] = [
     items: [
       { name: 'Figma', description: 'Mi herramienta por defecto: UI, prototipos, especificaciones y design systems.', url: 'https://figma.com' },
       { name: 'FigJam', description: 'Para workshops de discovery, journey maps y arquitectura de información.' },
-      { name: 'Linear', description: 'Tareas y roadmaps. Más rápido que Jira para equipos chicos.', url: 'https://linear.app' },
+      { name: 'Linear', description: 'Tareas y roadmaps. Más rápido que Jira para equipos pequeños.', url: 'https://linear.app' },
       { name: 'Notion', description: 'Documentación del design system y notas de research.', url: 'https://notion.so' },
     ],
   },

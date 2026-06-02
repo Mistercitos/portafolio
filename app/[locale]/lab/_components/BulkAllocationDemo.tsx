@@ -10,13 +10,13 @@ type Role = {
 }
 
 const ROLES: Role[] = [
-  { id: 'designer', label: 'Designer', rate: 65, category: 'design' },
-  { id: 'designer-sr', label: 'Senior Designer', rate: 95, category: 'design' },
-  { id: 'engineer', label: 'Engineer', rate: 75, category: 'engineering' },
-  { id: 'engineer-sr', label: 'Senior Engineer', rate: 110, category: 'engineering' },
+  { id: 'designer', label: 'Diseñador', rate: 65, category: 'design' },
+  { id: 'designer-sr', label: 'Diseñador senior', rate: 95, category: 'design' },
+  { id: 'engineer', label: 'Ingeniero', rate: 75, category: 'engineering' },
+  { id: 'engineer-sr', label: 'Ingeniero senior', rate: 110, category: 'engineering' },
   { id: 'pm', label: 'Product Manager', rate: 85, category: 'product' },
-  { id: 'researcher', label: 'Researcher', rate: 70, category: 'product' },
-  { id: 'qa', label: 'QA Engineer', rate: 55, category: 'quality' },
+  { id: 'researcher', label: 'Researcher UX', rate: 70, category: 'product' },
+  { id: 'qa', label: 'Ingeniero QA', rate: 55, category: 'quality' },
 ]
 
 type Selection = { roleId: string; count: number }
@@ -74,7 +74,7 @@ export function BulkAllocationDemo() {
         <p style={pillLabel}>Paso 1</p>
         <h3 style={stepTitle}>Asignar roles</h3>
         <p style={stepDesc}>
-          Cada chip suma una persona del rol. Antes era 1 rol por entry — ahora un proyecto puede
+          Cada chip suma una persona del rol. Antes era 1 rol por entrada — ahora un proyecto puede
           tener múltiples roles en una operación.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>

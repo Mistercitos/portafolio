@@ -112,41 +112,50 @@ export function HeroScroll({ locale }: { locale: Locale }) {
       ref={ref}
       aria-label="Hero"
       style={{
-        position: 'sticky',
-        top: 0,
-        height: '100vh',
-        zIndex: 0,
-        overflow: 'hidden',
+        position: 'relative',
+        height: '135svh',
+        minHeight: 900,
         background: 'var(--bg)',
       }}
     >
-      {/* Bloque único — TODO el hero se transforma como una sola pieza */}
       <motion.div
         style={{
-          height: '100%',
-          position: 'relative',
-          scale: heroScale,
-          opacity: heroOpacity,
-          transformOrigin: 'center 45%',
-          willChange: 'transform, opacity',
+          position: 'sticky',
+          top: 0,
+          height: '100svh',
+          overflow: 'hidden',
+          zIndex: 0,
+          background: 'var(--bg)',
         }}
       >
-        {/* Líneas editoriales — parte del bloque cohesivo */}
-        <EditorialLines />
-
-        {/* Contenido principal */}
+        {/* Bloque único — TODO el hero se transforma como una sola pieza */}
         <motion.div
           style={{
-            position: 'relative',
-            zIndex: 2,
             height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            x: contentCursorX,
-            y: contentCursorY,
+            position: 'relative',
+            scale: heroScale,
+            opacity: heroOpacity,
+            transformOrigin: 'center 45%',
+            willChange: 'transform, opacity',
           }}
         >
-          <div className="container" style={{ maxWidth: 920 }}>
+          {/* Líneas editoriales — parte del bloque cohesivo */}
+          <EditorialLines />
+
+          {/* Contenido principal */}
+          <motion.div
+            style={{
+              position: 'relative',
+              zIndex: 2,
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              paddingBlock: 'clamp(72px, 8svh, 132px) clamp(36px, 6svh, 92px)',
+              x: contentCursorX,
+              y: contentCursorY,
+            }}
+          >
+            <div className="container" style={{ maxWidth: 920 }}>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -166,7 +175,7 @@ export function HeroScroll({ locale }: { locale: Locale }) {
             <h1
               style={{
                 margin: 0,
-                fontSize: 'clamp(56px, 8.2vw, 124px)',
+                fontSize: 'clamp(52px, min(8.2vw, 10svh), 124px)',
                 lineHeight: 1.02,
                 letterSpacing: '-0.03em',
                 fontWeight: 600,
@@ -224,9 +233,9 @@ export function HeroScroll({ locale }: { locale: Locale }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 1.35, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                margin: '32px 0 0',
+                margin: 'clamp(24px, 3svh, 32px) 0 0',
                 maxWidth: '50ch',
-                fontSize: 17,
+                fontSize: 'clamp(15px, 1.7svh, 17px)',
                 lineHeight: 1.65,
                 color: 'var(--text-secondary)',
               }}
@@ -238,7 +247,13 @@ export function HeroScroll({ locale }: { locale: Locale }) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 1.55, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: 'flex', alignItems: 'center', gap: 22, marginTop: 32 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 22,
+                marginTop: 'clamp(24px, 3.2svh, 32px)',
+                flexWrap: 'wrap',
+              }}
             >
               <ViewTransitionLink
                 href={localizedPath('/trabajo', locale)}
@@ -269,11 +284,12 @@ export function HeroScroll({ locale }: { locale: Locale }) {
                 {hc.ctaSecondary}
               </ViewTransitionLink>
             </motion.div>
-          </div>
-        </motion.div>
+            </div>
+          </motion.div>
 
-        {/* Scroll hint */}
-        <ScrollHint reduce={!!reduce} label={hc.scrollHint} />
+          {/* Scroll hint */}
+          <ScrollHint reduce={!!reduce} label={hc.scrollHint} />
+        </motion.div>
       </motion.div>
     </section>
   )

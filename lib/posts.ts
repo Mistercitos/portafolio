@@ -31,7 +31,7 @@ export const posts: Post[] = [
     slug: 'tres-formas-de-crear-un-job',
     title: 'Tres formas de crear un Job: diseñar asistencia con IA en un marketplace de staffing',
     excerpt:
-      'Lo que aprendí diseñando tres rutas de entrada en paralelo en Wolf —voz, lenguaje natural y archivos Excel—. Decisiones de UX, las trampas con las que choqué, y por qué la IA no reemplaza al diseño.',
+      'Cómo resolvimos la creación masiva de Jobs en Wolf combinando voz, texto libre, Excel y un punto único de revisión antes de publicar.',
     publishedAt: '2026-05-16',
     readingMinutes: 9,
     tags: ['product-design', 'ai-ux', 'marketplaces', 'design-systems'],
@@ -41,21 +41,21 @@ export const posts: Post[] = [
     body: [
       {
         type: 'p',
-        text: 'El día que un cliente nos pidió crear 47 Jobs en una sola sesión, supe que el formulario tenía que morir.',
+        text: 'El día que un cliente tuvo que crear 47 Jobs en una sola sesión, quedó claro que el formulario no podía seguir siendo la única puerta de entrada.',
       },
       {
         type: 'p',
-        text: 'No el formulario como concepto — sino el formulario como única forma de entrada al sistema. Cuando una operadora de una staffing company en Texas tiene que crear 47 turnos cada lunes a las 7 AM para cubrir las próximas dos semanas, y cada turno tiene su horario, su tipo de trabajo, sus skills requeridos y su pay rate, el formulario tradicional no es una experiencia. Es un castigo.',
+        text: 'No era un problema del formulario como patrón. Era un problema de volumen, contexto y repetición. Una operadora de staffing podía empezar un lunes a las 7 AM con turnos para dos semanas, distintos clientes, horarios, roles, skills y pay rates. En ese escenario, completar campo por campo era una forma lenta de traducir algo que la persona ya tenía armado en su cabeza o en una planilla.',
       },
       {
         type: 'p',
-        text: 'Esta es la historia de cómo terminamos con tres formas distintas de crear un Job en Wolf —dictado por voz, texto en lenguaje natural y carga de Excel— y por qué creo que diseñar para esa flexibilidad de entrada es una de las habilidades más subestimadas del Product Design en 2026.',
+        text: 'Terminamos diseñando tres rutas para crear un Job: dictado por voz, texto libre y carga de Excel. La clave no fue hacer tres productos distintos, sino lograr que todas esas rutas terminaran en la misma pantalla de revisión.',
       },
       { type: 'placeholder', label: 'Las tres rutas de input · diagrama de arquitectura', caption: 'Diagrama · 16:9', variant: 'hero' },
       { type: 'h2', text: 'Contexto: cuando el formulario gana, los operadores pierden' },
       {
         type: 'p',
-        text: 'Wolf es un marketplace multi-lado para la industria de staffing en Estados Unidos. Tres tipos de usuarios coexisten: Admins de la staffing company, Clients (empresas que contratan staff), y Job Seekers (workers que reciben los Jobs en su app mobile).',
+        text: 'Wolf es un marketplace multi-lado para la industria de staffing en Estados Unidos. Conviven tres tipos de usuarios: administradores de la staffing company, clientes que contratan personal y job seekers que reciben los Jobs en la app mobile.',
       },
       {
         type: 'stats',
@@ -67,7 +67,7 @@ export const posts: Post[] = [
       },
       {
         type: 'p',
-        text: 'Cuando llegué al producto, el flow era el formulario clásico. 47 Jobs × 14 campos = 658 inputs. A 2 segundos por input — siendo optimistas — son 22 minutos de data entry para algo que conceptualmente la operadora ya tenía en su cabeza desde el martes anterior.',
+        text: 'Cuando llegué al producto, el flujo principal era el formulario clásico. 47 Jobs × 14 campos = 658 entradas. A 2 segundos por campo —siendo optimistas— son 22 minutos de carga manual para una tarea que, conceptualmente, ya estaba resuelta antes de abrir la plataforma.',
       },
       {
         type: 'pullquote',
@@ -76,59 +76,59 @@ export const posts: Post[] = [
       { type: 'h2', text: 'La hipótesis: cómo se entra un dato no es cómo se guarda' },
       {
         type: 'p',
-        text: 'La primera decisión de UX que tomé fue separar dos cosas que el equipo de producto venía confundiendo: cómo el usuario expresa intención vs cómo el sistema representa esa intención internamente.',
+        text: 'La primera decisión de UX fue separar dos cosas que estábamos mezclando: cómo una persona expresa una intención y cómo el sistema necesita representarla internamente.',
       },
       {
         type: 'p',
-        text: 'Un Job, dentro del sistema, siempre va a ser el mismo objeto: un Job con un schedule, uno o más JobType, un set de requirements y un payRate. Esa estructura no cambia. Lo que sí podía cambiar era cómo la operadora llegaba a ese objeto.',
+        text: 'Dentro del sistema, un Job seguía siendo el mismo objeto: schedule, uno o más JobTypes, requirements y pay rate. Esa estructura no cambiaba. Lo que sí podía cambiar era la forma en que la operadora llegaba a ese objeto.',
       },
       {
         type: 'ol',
         items: [
-          'Voz. Para la operadora que está manejando o multi-tasking. "Necesito 4 cocineros para el sábado de 8 AM a 4 PM en el cliente Hilton Austin, pay rate 22." El sistema escucha, transcribe, parsea y muestra el Job estructurado para confirmación.',
-          'Lenguaje natural escrito. Para la operadora que prefiere tipear pero no quiere navegar 14 inputs. Misma idea, distinto canal.',
-          'Excel upload. Para la operadora que ya tiene la información en un spreadsheet (lo que pasa el 70% del tiempo). Drag, drop, mapeo automático de columnas, preview, confirmación.',
+          'Voz. Para quien está coordinando turnos mientras hace otra cosa. La persona dicta algo como: "Necesito 4 cocineros para el sábado de 8 AM a 4 PM en Hilton Austin, pay rate 22". El sistema estructura la información y la muestra para confirmar.',
+          'Texto libre. Para quien prefiere escribir una instrucción completa sin recorrer 14 campos. Misma intención, otro canal.',
+          'Excel. Para los casos donde la información ya existe en una planilla. Carga del archivo, mapeo de columnas, revisión y confirmación.',
         ],
       },
       {
         type: 'p',
-        text: 'El formulario quedó como cuarta opción — para cuando el operador quiere control granular o está creando un Job que no encaja en ningún patrón previo.',
+        text: 'El formulario quedó como cuarta opción: útil cuando se necesita control granular o cuando el Job no encaja en un patrón previo.',
       },
       { type: 'placeholder', label: 'Pantalla de preview compartida entre las tres rutas', caption: 'Flow · 16:9', variant: 'hero' },
       { type: 'h2', text: 'Decisión #1 — Convergencia visual antes de enviar' },
       {
         type: 'p',
-        text: 'Acá viene una sutileza que cambió el producto: las tres rutas convergen en la misma pantalla de preview antes de hacer submit. Esto sonó obvio cuando lo escribí en el doc de discovery, pero la primera versión de los engineers fue tener tres flujos completamente separados, sin punto de convergencia.',
+        text: 'La decisión que ordenó todo fue obligar a que las tres rutas terminaran en la misma pantalla de revisión. Al principio parecía un detalle, pero evitó que voz, texto y Excel se convirtieran en tres experiencias separadas.',
       },
       {
         type: 'pullquote',
-        text: 'Si el operador no ve el mismo objeto Job en la misma pantalla antes de submit, no va a confiar en la IA. Y si no confía en la IA, va a volver al formulario.',
+        text: 'Si la persona no ve el Job final antes de publicarlo, no confía en el sistema. Y si no confía, vuelve al formulario.',
       },
       {
         type: 'p',
-        text: 'La pantalla de preview se convirtió en el contrato. Lo que el operador ve es exactamente lo que se va a crear en el sistema. Cualquier dato que la IA infirió tiene un badge sutil que dice "inferred". Click en el badge → muestra de dónde salió esa inferencia. Edit inline en cualquier campo antes de submit.',
+        text: 'La pantalla de revisión se convirtió en el contrato. Lo que aparece ahí es exactamente lo que se va a crear. Cualquier dato inferido queda marcado con una señal sutil; al abrirla, se muestra de dónde salió esa interpretación. Cada campo se puede editar en línea antes de publicar.',
       },
       {
         type: 'p',
-        text: 'La entrada podía ser flexible; la verificación, no. Esa asimetría fue lo que nos permitió llevar la IA a producción sin perder la confianza del operador.',
+        text: 'La entrada podía ser flexible; la verificación, no. Esa asimetría fue lo que permitió lanzar asistencia inteligente sin debilitar la confianza de los usuarios.',
       },
       { type: 'h2', text: 'Decisión #2 — Manejar el desastre del Excel real' },
       {
         type: 'p',
-        text: 'La parte de voz y NLP fue divertida de diseñar. La parte de Excel fue donde sufrí. Excel real, en producción, en staffing, es un desastre estructural:',
+        text: 'La ruta por voz y texto libre era relativamente directa de prototipar. Excel fue otra historia. En staffing, las planillas reales suelen venir con estructura irregular:',
       },
       {
         type: 'ul',
         items: [
           'Columnas con nombres distintos según quién armó el archivo (pay, payrate, pay_rate, $/hr).',
-          'Schedules expresados como rango, como días concretos, o como párrafo prosa.',
-          'Múltiples JobTypes embedded en una sola fila usando comas, slashes o columnas según el cliente.',
+          'Schedules expresados como rango, días concretos o texto libre.',
+          'Múltiples JobTypes dentro de una sola fila usando comas, slashes o columnas según el cliente.',
           'Filas vacías mezcladas. Headers en la fila 3 en vez de la 1. Hojas con notas que nadie leyó.',
         ],
       },
       {
         type: 'p',
-        text: 'La trampa común es diseñar el "happy path" y mostrar un error genérico cuando algo sale mal. El error genérico es donde mueren los productos operacionales.',
+        text: 'La salida fácil era diseñar el caso ideal y mostrar un error genérico cuando algo no calzaba. En productos operacionales, ese error genérico es exactamente donde la gente abandona el flujo.',
       },
       { type: 'placeholder', label: 'UI de reconciliación de columnas del Excel', caption: 'Wireframe · 4:3', variant: 'gallery' },
       { type: 'h3', text: 'Lo que hicimos' },
@@ -136,50 +136,50 @@ export const posts: Post[] = [
         type: 'ol',
         items: [
           'Parser tolerante. El backend intenta varias estrategias de mapeo. Cada una produce una confianza.',
-          'UI de reconciliación. Si la confianza es alta, autoaplica el mapping con una banner sutil para revisar. Si la confianza es baja, abre un step explícito donde el operador arrastra columnas a campos.',
-          'Preview row-by-row. Antes de submit, el operador ve cada fila como un Job individual. Los Jobs con warnings se marcan en naranja y se editan inline.',
-          'Partial submit. Si 45 de 47 Jobs están OK y 2 tienen warnings, el operador puede submitear los 45 y dejar los 2 en draft.',
+          'UI de reconciliación. Si la confianza es alta, se aplica el mapeo y se muestra un aviso para revisar. Si la confianza es baja, se abre un paso explícito donde la persona arrastra columnas hacia campos.',
+          'Revisión fila por fila. Antes de publicar, cada fila aparece como un Job individual. Los Jobs con advertencias se marcan en naranja y se editan en línea.',
+          'Publicación parcial. Si 45 de 47 Jobs están listos y 2 tienen advertencias, se pueden publicar los 45 y dejar los otros 2 como borrador.',
         ],
       },
       {
         type: 'p',
-        text: 'Partial submit fue la que más resistencia generó en engineering. La razón era razonable: cómo manejar el estado de "draft Jobs pendientes" en la base de datos. Pero desde UX la respuesta era obvia: si los obligamos a resolver el Excel completo antes de crear un solo Job, el operador prefiere abrir el formulario y empezar de cero. Lo vi en testing 6 veces.',
+        text: 'La publicación parcial fue lo que más discusión generó con ingeniería. La preocupación era válida: había que manejar borradores pendientes en la base de datos. Pero en pruebas vimos el patrón con claridad: si obligábamos a resolver todo el Excel antes de crear un solo Job, la persona prefería cerrar el flujo y empezar desde el formulario.',
       },
       {
         type: 'p',
-        text: 'Acordamos un compromiso: drafts persisten 7 días, se notifica al operador 48 horas antes del cleanup. Resolvió el problema de UX sin generar un graveyard infinito en la DB.',
+        text: 'El acuerdo fue simple: los borradores persisten 7 días y se avisa 48 horas antes de limpiarlos. Resolvió el problema de UX sin dejar estados pendientes para siempre.',
       },
       { type: 'h2', text: 'Decisión #3 — Cuándo NO usar IA' },
       {
         type: 'p',
-        text: 'Después del segundo mes en producción, descubrimos algo incómodo: para Jobs muy simples — un solo turno, un solo worker, un cliente conocido — la ruta de voz/NLP era más lenta que el formulario.',
+        text: 'Después del segundo mes en producción apareció un dato incómodo: para Jobs muy simples —un turno, un trabajador, un cliente conocido— la ruta de voz o texto libre podía ser más lenta que el formulario.',
       },
       {
         type: 'p',
-        text: 'Tenía sentido en retrospectiva: la IA tiene un overhead conversacional. Decir "necesito un electricista para mañana de 9 a 5 en Marriott downtown" toma 5 segundos. Pero llenar tres campos en un formulario optimizado toma 4. Y el preview de la IA agrega otros 3-4 segundos para confirmar.',
+        text: 'Tenía sentido. Decir "necesito un electricista para mañana de 9 a 5 en Marriott downtown" toma varios segundos, y luego hay que revisar el resultado. Si el formulario optimizado resuelve ese caso en tres campos, no vale la pena esconderlo.',
       },
       {
         type: 'pullquote',
-        text: 'La IA no es la experiencia del producto. Es apenas una de las formas de entrar a ella.',
+        text: 'La asistencia inteligente no reemplaza la experiencia del producto. Es una entrada más.',
       },
       {
         type: 'p',
-        text: 'Esta distinción me parece la más subestimada del momento. Hay muchos productos diseñando con la premisa de que IA = todo conversacional = mejor. Es falso, y el dato lo demuestra.',
+        text: 'Esa distinción fue importante para el roadmap. No todo debía volverse conversacional. La mejor experiencia era dejar que cada caso usara la entrada que realmente le convenía.',
       },
-      { type: 'h2', text: 'Lo que llevo a mi próximo rol' },
+      { type: 'h2', text: 'Lo que aprendimos' },
       {
         type: 'ol',
         items: [
           'Separar intención de representación. El sistema interno puede ser rígido. La forma en que el usuario llega a él no tiene por qué serlo.',
-          'La pantalla de convergencia es el contrato. Cualquier flow paralelo necesita un único punto donde el usuario verifica antes de comprometer.',
-          'Diseñar el camino del error con el mismo rigor que el happy path. Mapeo de columnas, partial submit, drafts persistentes — son decisiones de UX, no de engineering.',
-          'No empujes IA donde no aporta. El formulario seguía siendo más rápido para Jobs simples. Aceptarlo y diseñarlo así es la diferencia entre un producto que respeta a su usuario y uno que persigue una tendencia.',
+          'La pantalla de convergencia es el contrato. Cualquier flujo paralelo necesita un punto único donde la persona verifica antes de confirmar.',
+          'Diseñar el camino del error con el mismo rigor que el caso ideal. Mapeo de columnas, publicación parcial y borradores persistentes son decisiones de UX, no solo de implementación.',
+          'No usar asistencia inteligente donde no aporta. Si el formulario es más rápido para Jobs simples, hay que mantenerlo visible y optimizado.',
         ],
       },
       { type: 'divider' },
       {
         type: 'p',
-        text: 'Esto fue un trabajo de equipo. Yo era el único Product Designer del producto, pero fue posible gracias a la colaboración constante con 7 engineers y varias rondas de user testing con operadoras reales en el mid-west y Texas. El Design System creció de 0 a 60-100+ componentes durante este periodo — sin esa pieza estructural, las tres rutas de input no se podrían haber lanzado con consistencia visual sin tirar el roadmap por la ventana.',
+        text: 'Yo era el único Product Designer del producto, pero esto fue trabajo de equipo. Lo sacamos adelante con colaboración constante con 7 ingenieros y varias rondas de pruebas con operadoras reales en Texas y el Midwest. El Design System también fue clave: creció de 0 a 60-100+ componentes durante ese periodo y permitió que las tres rutas se lanzaran con consistencia visual sin romper el roadmap.',
       },
     ],
   },
@@ -220,7 +220,7 @@ export const posts: Post[] = [
     slug: 'designers-que-codifican',
     title: 'Por qué los Senior Product Designers deberían escribir código en 2026',
     excerpt:
-      'El falso dilema entre diseñar y codear. Por qué los Product Designers que también escriben código de producción se están volviendo el nuevo estándar — y qué stack aprender si empezás hoy.',
+      'El falso dilema entre diseñar y codear. Por qué los Product Designers que también escriben código de producción se están volviendo el nuevo estándar — y qué stack aprender si empiezas hoy.',
     publishedAt: '2026-06-08',
     readingMinutes: 8,
     tags: ['design-engineering', 'product-design', 'career'],

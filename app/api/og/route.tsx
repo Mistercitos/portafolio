@@ -35,7 +35,7 @@ export async function GET(request: Request) {
           }}
         >
           <span>
-            <span style={{ color: accent }}>.</span>chrisdelbarco
+            <span style={{ color: accent }}>.</span>ChrisDelBarco
           </span>
           <span style={{ color: 'rgba(20,18,14,0.55)', fontSize: 18, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
             {eyebrow}

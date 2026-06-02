@@ -3,10 +3,10 @@
 import { useState } from 'react'
 
 const PRESETS = [
-  { name: 'Default', wght: 500, wdth: 100 },
+  { name: 'Base', wght: 500, wdth: 100 },
   { name: 'Display', wght: 700, wdth: 105 },
   { name: 'Editorial', wght: 350, wdth: 95 },
-  { name: 'Caption', wght: 450, wdth: 100 },
+  { name: 'Texto pequeño', wght: 450, wdth: 100 },
 ]
 
 /**
@@ -78,7 +78,7 @@ export function VariableFontLabDemo() {
 
       <div style={{ display: 'grid', gap: 18 }}>
         <Slider
-          label="Weight"
+          label="Peso"
           axis="wght"
           value={wght}
           min={100}
@@ -87,7 +87,7 @@ export function VariableFontLabDemo() {
           onChange={setWght}
         />
         <Slider
-          label="Width"
+          label="Ancho"
           axis="wdth"
           value={wdth}
           min={75}
@@ -121,7 +121,7 @@ export function VariableFontLabDemo() {
       </div>
 
       <div>
-        <p style={pillLabel}>CSS output</p>
+        <p style={pillLabel}>Salida CSS</p>
         <pre
           style={{
             margin: 0,

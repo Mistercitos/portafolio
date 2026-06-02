@@ -11,11 +11,11 @@ type Role = {
 
 const ROLES: Role[] = [
   { id: 'cook', label: 'Cocinero', rate: 22, category: 'kitchen' },
-  { id: 'server', label: 'Server', rate: 18, category: 'service' },
-  { id: 'dish', label: 'Dishwasher', rate: 16, category: 'support' },
-  { id: 'busser', label: 'Busser', rate: 17, category: 'service' },
-  { id: 'prep', label: 'Prep cook', rate: 19, category: 'kitchen' },
-  { id: 'host', label: 'Host', rate: 17, category: 'service' },
+  { id: 'server', label: 'Mesero', rate: 18, category: 'service' },
+  { id: 'dish', label: 'Lavaplatos', rate: 16, category: 'support' },
+  { id: 'busser', label: 'Ayudante de salón', rate: 17, category: 'service' },
+  { id: 'prep', label: 'Cocinero de preparación', rate: 19, category: 'kitchen' },
+  { id: 'host', label: 'Anfitrión', rate: 17, category: 'service' },
   { id: 'bar', label: 'Bartender', rate: 24, category: 'service' },
 ]
 
@@ -90,7 +90,7 @@ export function JobTypeSelectorDemo() {
           Asignar JobTypes
         </h3>
         <p style={{ margin: '4px 0 14px', fontSize: 13, color: 'var(--muted)' }}>
-          Cada chip agrega un worker del rol. Antes esto era 1 JobType por Job — ahora un Job puede
+          Cada chip agrega un trabajador del rol. Antes esto era 1 JobType por Job — ahora un Job puede
           tener varios JobTypes en una sola operación.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -237,7 +237,7 @@ export function JobTypeSelectorDemo() {
                         {role.label}
                       </p>
                       <p style={{ margin: '2px 0 0', fontSize: 11, color: 'var(--muted)' }}>
-                        ${role.rate}/h · {s.count} {s.count === 1 ? 'worker' : 'workers'} · turno {shift}h
+                        ${role.rate}/h · {s.count} {s.count === 1 ? 'trabajador' : 'trabajadores'} · turno {shift}h
                       </p>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -284,7 +284,7 @@ export function JobTypeSelectorDemo() {
               color: 'var(--muted)',
             }}
           >
-            {totalWorkers} {totalWorkers === 1 ? 'worker' : 'workers'} · turno {shift}h
+            {totalWorkers} {totalWorkers === 1 ? 'trabajador' : 'trabajadores'} · turno {shift}h
           </p>
           <p
             className="serif"
