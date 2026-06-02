@@ -14,21 +14,16 @@ const PURPLE = '#7C3AED'
 const PURPLE_TINT = 'rgba(124, 58, 237, 0.09)'
 const PURPLE_BORDER = 'rgba(124, 58, 237, 0.38)'
 const WOLF_IMAGE_BASE = '/images/work/wolf'
+const WOLF_IMAGE_VERSION = '20260602b'
 
 const WOLF_IMAGES = {
-  hero: `${WOLF_IMAGE_BASE}/case-wolf-01-hero-platform-overview.webp`,
+  hero: `${WOLF_IMAGE_BASE}/case-wolf-01-hero-platform-overview.webp?v=${WOLF_IMAGE_VERSION}`,
   surfaces: {
     JobSeekers: `${WOLF_IMAGE_BASE}/case-wolf-02-jobseekers-mobile-surface.webp`,
     Clients: `${WOLF_IMAGE_BASE}/case-wolf-03-clients-web-surface.webp`,
     Admin: `${WOLF_IMAGE_BASE}/case-wolf-04-admin-console-surface.webp`,
   },
   discovery: `${WOLF_IMAGE_BASE}/case-wolf-05-discovery-user-profiles.webp`,
-  jobSeekerScreens: [
-    `${WOLF_IMAGE_BASE}/case-wolf-06-search-filters-mobile.webp`,
-    `${WOLF_IMAGE_BASE}/case-wolf-07-job-detail-mobile.webp`,
-    `${WOLF_IMAGE_BASE}/case-wolf-08-application-mobile.webp`,
-    `${WOLF_IMAGE_BASE}/case-wolf-09-worker-profile-mobile.webp`,
-  ],
   designSystem: `${WOLF_IMAGE_BASE}/case-wolf-10-design-system-library.webp`,
   conference: `${WOLF_IMAGE_BASE}/case-wolf-11-conference-material.webp`,
   marketing: `${WOLF_IMAGE_BASE}/case-wolf-12-marketing-user-education.webp`,
@@ -437,18 +432,36 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
               gap: 16,
             }}
           >
             {t.jsScreens.map((screen, i) => (
-              <CaseImage
+              <div
                 key={screen}
-                src={WOLF_IMAGES.jobSeekerScreens[i]}
-                alt={screen}
-                ratio="9 / 19.5"
-                variant="mobile"
-              />
+                style={{
+                  padding: 18,
+                  borderRadius: 16,
+                  border: '0.5px solid var(--border)',
+                  background: 'var(--panel)',
+                }}
+              >
+                <span
+                  className="serif"
+                  style={{
+                    display: 'block',
+                    marginBottom: 10,
+                    fontSize: 13,
+                    fontStyle: 'italic',
+                    color: PURPLE,
+                  }}
+                >
+                  0{i + 1}
+                </span>
+                <p style={{ margin: 0, fontSize: 15, fontWeight: 500, color: 'var(--text)' }}>
+                  {screen}
+                </p>
+              </div>
             ))}
           </div>
         </section>
