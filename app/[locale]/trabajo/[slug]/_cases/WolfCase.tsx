@@ -14,10 +14,9 @@ const PURPLE = '#7C3AED'
 const PURPLE_TINT = 'rgba(124, 58, 237, 0.09)'
 const PURPLE_BORDER = 'rgba(124, 58, 237, 0.38)'
 const WOLF_IMAGE_BASE = '/images/work/wolf'
-const WOLF_IMAGE_VERSION = '20260602b'
 
 const WOLF_IMAGES = {
-  hero: `${WOLF_IMAGE_BASE}/case-wolf-01-hero-platform-overview.webp?v=${WOLF_IMAGE_VERSION}`,
+  hero: `${WOLF_IMAGE_BASE}/case-wolf-01-hero-platform-overview.webp`,
   surfaces: {
     JobSeekers: `${WOLF_IMAGE_BASE}/case-wolf-02-jobseekers-mobile-surface.webp`,
     Clients: `${WOLF_IMAGE_BASE}/case-wolf-03-clients-web-surface.webp`,
