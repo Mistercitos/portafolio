@@ -16,22 +16,22 @@ const PURPLE_BORDER = 'rgba(124, 58, 237, 0.38)'
 const WOLF_IMAGE_BASE = '/images/work/wolf'
 
 const WOLF_IMAGES = {
-  hero: `${WOLF_IMAGE_BASE}/case-wolf-01-hero-platform-overview.png`,
+  hero: `${WOLF_IMAGE_BASE}/case-wolf-01-hero-platform-overview.webp`,
   surfaces: {
-    JobSeekers: `${WOLF_IMAGE_BASE}/case-wolf-02-jobseekers-mobile-surface.png`,
-    Clients: `${WOLF_IMAGE_BASE}/case-wolf-03-clients-web-surface.png`,
-    Admin: `${WOLF_IMAGE_BASE}/case-wolf-04-admin-console-surface.png`,
+    JobSeekers: `${WOLF_IMAGE_BASE}/case-wolf-02-jobseekers-mobile-surface.webp`,
+    Clients: `${WOLF_IMAGE_BASE}/case-wolf-03-clients-web-surface.webp`,
+    Admin: `${WOLF_IMAGE_BASE}/case-wolf-04-admin-console-surface.webp`,
   },
-  discovery: `${WOLF_IMAGE_BASE}/case-wolf-05-discovery-user-profiles.png`,
+  discovery: `${WOLF_IMAGE_BASE}/case-wolf-05-discovery-user-profiles.webp`,
   jobSeekerScreens: [
-    `${WOLF_IMAGE_BASE}/case-wolf-06-search-filters-mobile.png`,
-    `${WOLF_IMAGE_BASE}/case-wolf-07-job-detail-mobile.png`,
-    `${WOLF_IMAGE_BASE}/case-wolf-08-application-mobile.png`,
-    `${WOLF_IMAGE_BASE}/case-wolf-09-worker-profile-mobile.png`,
+    `${WOLF_IMAGE_BASE}/case-wolf-06-search-filters-mobile.webp`,
+    `${WOLF_IMAGE_BASE}/case-wolf-07-job-detail-mobile.webp`,
+    `${WOLF_IMAGE_BASE}/case-wolf-08-application-mobile.webp`,
+    `${WOLF_IMAGE_BASE}/case-wolf-09-worker-profile-mobile.webp`,
   ],
-  designSystem: `${WOLF_IMAGE_BASE}/case-wolf-10-design-system-library.png`,
-  conference: `${WOLF_IMAGE_BASE}/case-wolf-11-conference-material.png`,
-  marketing: `${WOLF_IMAGE_BASE}/case-wolf-12-marketing-user-education.png`,
+  designSystem: `${WOLF_IMAGE_BASE}/case-wolf-10-design-system-library.webp`,
+  conference: `${WOLF_IMAGE_BASE}/case-wolf-11-conference-material.webp`,
+  marketing: `${WOLF_IMAGE_BASE}/case-wolf-12-marketing-user-education.webp`,
 }
 
 type Surface = { name: string; kind: string; body: string; accent: string }
@@ -342,8 +342,7 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
                 <CaseImage
                   src={WOLF_IMAGES.surfaces[s.name as keyof typeof WOLF_IMAGES.surfaces]}
                   alt={`${s.name} — ${s.kind}`}
-                  ratio={s.name === 'JobSeekers' ? '9 / 19.5' : '4 / 3'}
-                  variant={s.name === 'JobSeekers' ? 'mobile' : 'gallery'}
+                  ratio="4 / 3"
                   style={{ border: 'none', borderRadius: 0 }}
                 />
                 <div style={{ padding: 20 }}>
