@@ -4,9 +4,11 @@ import { Reveal } from '@/app/components/Reveal'
 import { Stagger, StaggerItem } from '@/app/components/Stagger'
 import { ViewTransitionLink } from '@/app/components/ViewTransitionLink'
 import { getCases, getFeaturedCases } from '@/lib/cases'
+import { getPublishedPosts } from '@/lib/posts'
 import { localizedPath, toLocale, type Locale } from '@/lib/i18n'
 
 type Principle = { n: string; title: string; body: string }
+type LabItem = { title: string; body: string }
 type HomeContent = {
   featuredEyebrow: string
   featuredTitle: string
@@ -14,7 +16,18 @@ type HomeContent = {
   moreOne: string
   moreMany: string
   moreTitle: string
+  moreBody: string
   seeAll: string
+  labEyebrow: string
+  labTitle: string
+  labBody: string
+  labCta: string
+  labItems: LabItem[]
+  writingEyebrow: string
+  writingTitle: string
+  writingBody: string
+  writingCta: string
+  readArticle: string
   howEyebrow: string
   howTitle: string
   howBody: string
@@ -30,7 +43,34 @@ const HOME: Record<Locale, HomeContent> = {
     moreOne: 'proyecto más',
     moreMany: 'proyectos más',
     moreTitle: 'El paso por agencia y tres exploraciones personales.',
+    moreBody:
+      'También hay contexto de marca, agencia, productos conceptuales y exploraciones personales que completan la historia.',
     seeAll: 'Ver todos los case studies',
+    labEyebrow: 'Lab',
+    labTitle: 'Componentes, patrones y experimentos vivos.',
+    labBody:
+      'Un espacio para probar interacciones, estados, tokens y pequeñas decisiones de interfaz que suelen perderse cuando solo se muestran pantallas finales.',
+    labCta: 'Explorar Lab',
+    labItems: [
+      {
+        title: 'Multi-input AI',
+        body: 'Voz, texto y datos estructurados convergiendo en un mismo resultado editable.',
+      },
+      {
+        title: 'Design tokens',
+        body: 'Color, tipografía y estados como decisiones de sistema, no como valores sueltos.',
+      },
+      {
+        title: 'Empty states',
+        body: 'Microcopy y jerarquía para convertir ausencia de datos en orientación real.',
+      },
+    ],
+    writingEyebrow: 'Blog',
+    writingTitle: 'Escribo sobre decisiones de producto.',
+    writingBody:
+      'Notas sobre diseño operacional, IA en interfaces complejas, design systems y el cruce entre diseño e ingeniería.',
+    writingCta: 'Ir al Blog',
+    readArticle: 'Leer artículo',
     howEyebrow: 'Cómo trabajo',
     howTitle: 'Diseño que sobrevive al contacto con ingeniería.',
     howBody:
@@ -66,7 +106,34 @@ const HOME: Record<Locale, HomeContent> = {
     moreOne: 'more project',
     moreMany: 'more projects',
     moreTitle: 'The agency years and three personal explorations.',
+    moreBody:
+      'There is also brand work, agency context, concept products, and personal explorations that round out the story.',
     seeAll: 'See all case studies',
+    labEyebrow: 'Lab',
+    labTitle: 'Live components, patterns, and experiments.',
+    labBody:
+      'A space to test interactions, states, tokens, and small interface decisions that often disappear when only final screens are shown.',
+    labCta: 'Explore Lab',
+    labItems: [
+      {
+        title: 'Multi-input AI',
+        body: 'Voice, text, and structured data converging into one editable result.',
+      },
+      {
+        title: 'Design tokens',
+        body: 'Color, type, and states treated as system decisions, not isolated values.',
+      },
+      {
+        title: 'Empty states',
+        body: 'Microcopy and hierarchy that turn missing data into real orientation.',
+      },
+    ],
+    writingEyebrow: 'Blog',
+    writingTitle: 'I write about product decisions.',
+    writingBody:
+      'Notes on operational design, AI in complex interfaces, design systems, and the crossover between design and engineering.',
+    writingCta: 'Go to Blog',
+    readArticle: 'Read article',
     howEyebrow: 'How I work',
     howTitle: 'Design that survives contact with engineering.',
     howBody:
@@ -105,6 +172,7 @@ export default async function HomePage({
   const t = HOME[locale]
   const featured = getFeaturedCases(locale)
   const remainingCount = getCases(locale).length - featured.length
+  const [latestPost] = getPublishedPosts(locale)
 
   return (
     <>
@@ -180,12 +248,14 @@ export default async function HomePage({
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 gap: 24,
-                paddingTop: 32,
-                borderTop: '0.5px solid var(--divider)',
+                padding: '28px 32px',
+                borderRadius: 20,
+                border: '0.5px solid var(--border)',
+                background: 'var(--surface-subtle)',
                 flexWrap: 'wrap',
               }}
             >
-              <div>
+              <div style={{ maxWidth: '58ch' }}>
                 <p
                   style={{
                     margin: 0,
@@ -211,6 +281,16 @@ export default async function HomePage({
                 >
                   {t.moreTitle}
                 </p>
+                <p
+                  style={{
+                    margin: '8px 0 0',
+                    fontSize: 14,
+                    lineHeight: 1.6,
+                    color: 'var(--text-secondary)',
+                  }}
+                >
+                  {t.moreBody}
+                </p>
               </div>
               <ViewTransitionLink
                 href={localizedPath('/trabajo', locale)}
@@ -220,13 +300,12 @@ export default async function HomePage({
                   gap: 10,
                   padding: '14px 22px',
                   borderRadius: 999,
-                  border: '0.5px solid var(--border-strong)',
-                  background: 'transparent',
-                  color: 'var(--text)',
+                  background: 'var(--accent)',
+                  color: 'var(--text-inverse)',
                   fontSize: 14,
                   fontWeight: 500,
                   letterSpacing: '0.01em',
-                  transition: 'background var(--t) var(--ease), border-color var(--t) var(--ease)',
+                  boxShadow: 'var(--shadow-soft)',
                 }}
               >
                 {t.seeAll}
@@ -248,6 +327,268 @@ export default async function HomePage({
           </Reveal>
         </div>
       </section>
+
+      <section
+        style={{
+          paddingBlock: '64px 40px',
+          position: 'relative',
+          zIndex: 1,
+          background: 'var(--bg)',
+        }}
+        id="lab-preview"
+      >
+        <div className="container">
+          <Reveal>
+            <div
+              className="responsive-category-header"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'minmax(0, 0.95fr) minmax(0, 1.35fr)',
+                gap: 64,
+                alignItems: 'start',
+                paddingBlock: 40,
+                borderTop: '0.5px solid var(--divider)',
+                borderBottom: '0.5px solid var(--divider)',
+              }}
+            >
+              <div>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: 11,
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    color: 'var(--subtle)',
+                    marginBottom: 12,
+                  }}
+                >
+                  {t.labEyebrow}
+                </p>
+                <h2
+                  className="serif"
+                  style={{
+                    margin: 0,
+                    fontSize: 'clamp(28px, 3.4vw, 44px)',
+                    fontWeight: 500,
+                    fontStyle: 'italic',
+                    lineHeight: 1.15,
+                    letterSpacing: '-0.02em',
+                    color: 'var(--text)',
+                  }}
+                >
+                  {t.labTitle}
+                </h2>
+                <p
+                  style={{
+                    margin: '18px 0 0',
+                    maxWidth: '44ch',
+                    fontSize: 15,
+                    lineHeight: 1.65,
+                    color: 'var(--text-secondary)',
+                  }}
+                >
+                  {t.labBody}
+                </p>
+                <ViewTransitionLink
+                  href={localizedPath('/lab', locale)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    marginTop: 24,
+                    fontSize: 14,
+                    fontWeight: 500,
+                    color: 'var(--accent)',
+                  }}
+                >
+                  {t.labCta}
+                  <span aria-hidden>→</span>
+                </ViewTransitionLink>
+              </div>
+
+              <Stagger gap={0.1} style={{ display: 'grid', gap: 0 }}>
+                {t.labItems.map((item, i) => (
+                  <StaggerItem key={item.title}>
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: '44px minmax(0, 1fr)',
+                        gap: 18,
+                        paddingBlock: 22,
+                        borderTop: i === 0 ? 'none' : '0.5px solid var(--divider)',
+                      }}
+                    >
+                      <span
+                        className="serif"
+                        style={{
+                          fontSize: 14,
+                          fontStyle: 'italic',
+                          color: 'var(--accent)',
+                          marginTop: 3,
+                        }}
+                      >
+                        0{i + 1}
+                      </span>
+                      <div>
+                        <p style={{ margin: 0, fontSize: 17, fontWeight: 500, color: 'var(--text)' }}>
+                          {item.title}
+                        </p>
+                        <p
+                          style={{
+                            margin: '6px 0 0',
+                            fontSize: 14,
+                            lineHeight: 1.65,
+                            color: 'var(--text-secondary)',
+                          }}
+                        >
+                          {item.body}
+                        </p>
+                      </div>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {latestPost ? (
+        <section
+          style={{
+            paddingBlock: '64px 40px',
+            position: 'relative',
+            zIndex: 1,
+            background: 'var(--bg)',
+          }}
+          id="blog-preview"
+        >
+          <div className="container">
+            <Reveal>
+              <div
+                className="responsive-category-header"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'minmax(0, 0.9fr) minmax(0, 1.35fr)',
+                  gap: 64,
+                  alignItems: 'start',
+                }}
+              >
+                <div>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: 11,
+                      letterSpacing: '0.18em',
+                      textTransform: 'uppercase',
+                      color: 'var(--subtle)',
+                      marginBottom: 12,
+                    }}
+                  >
+                    {t.writingEyebrow}
+                  </p>
+                  <h2
+                    className="serif"
+                    style={{
+                      margin: 0,
+                      fontSize: 'clamp(28px, 3.4vw, 44px)',
+                      fontWeight: 500,
+                      fontStyle: 'italic',
+                      lineHeight: 1.15,
+                      letterSpacing: '-0.02em',
+                      color: 'var(--text)',
+                    }}
+                  >
+                    {t.writingTitle}
+                  </h2>
+                  <p
+                    style={{
+                      margin: '18px 0 0',
+                      maxWidth: '44ch',
+                      fontSize: 15,
+                      lineHeight: 1.65,
+                      color: 'var(--text-secondary)',
+                    }}
+                  >
+                    {t.writingBody}
+                  </p>
+                </div>
+
+                <div
+                  style={{
+                    paddingBlock: 28,
+                    borderTop: '0.5px solid var(--divider)',
+                    borderBottom: '0.5px solid var(--divider)',
+                  }}
+                >
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: 11,
+                      letterSpacing: '0.16em',
+                      textTransform: 'uppercase',
+                      color: 'var(--subtle)',
+                    }}
+                  >
+                    {latestPost.category} · {latestPost.readingMinutes} min
+                  </p>
+                  <h3
+                    style={{
+                      margin: '14px 0 0',
+                      fontSize: 'clamp(22px, 2.5vw, 32px)',
+                      fontWeight: 500,
+                      lineHeight: 1.18,
+                      letterSpacing: '-0.02em',
+                      color: 'var(--text)',
+                    }}
+                  >
+                    {latestPost.title}
+                  </h3>
+                  <p
+                    style={{
+                      margin: '14px 0 0',
+                      fontSize: 15,
+                      lineHeight: 1.65,
+                      color: 'var(--text-secondary)',
+                    }}
+                  >
+                    {latestPost.excerpt}
+                  </p>
+                  <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap', marginTop: 24 }}>
+                    <ViewTransitionLink
+                      href={localizedPath(`/escribo/${latestPost.slug}`, locale)}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 10,
+                        padding: '12px 18px',
+                        borderRadius: 999,
+                        background: 'var(--accent)',
+                        color: 'var(--text-inverse)',
+                        fontSize: 14,
+                        fontWeight: 500,
+                      }}
+                    >
+                      {t.readArticle}
+                      <span aria-hidden>→</span>
+                    </ViewTransitionLink>
+                    <ViewTransitionLink
+                      href={localizedPath('/escribo', locale)}
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 500,
+                        color: 'var(--text-secondary)',
+                      }}
+                    >
+                      {t.writingCta}
+                    </ViewTransitionLink>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
 
       <section
         style={{
