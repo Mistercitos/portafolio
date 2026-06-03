@@ -1,26 +1,27 @@
-import { Reveal } from '@/app/components/Reveal'
+﻿import { Reveal } from '@/app/components/Reveal'
 import { Stagger, StaggerItem } from '@/app/components/Stagger'
 import { Placeholder } from '@/app/components/Placeholder'
 import { ViewTransitionLink } from '@/app/components/ViewTransitionLink'
 import type { CaseStudy } from '@/lib/cases'
+import { getUI, localizedPath, type Locale } from '@/lib/i18n'
 
 /**
  * Layout dedicado del case study de Outbuild (ex IPSUM).
  *
- * A diferencia del layout genérico, este se estructura alrededor de lo que
- * hace único a Outbuild: una historia de evolución de rol —de diseñador de
- * marketing a Product Designer + Head of Marketing— y un producto, ProPlanner,
- * pensado para el contexto extremo de una obra de construcción.
+ * A diferencia del layout genÃ©rico, este se estructura alrededor de lo que
+ * hace Ãºnico a Outbuild: una historia de evoluciÃ³n de rol â€”de diseÃ±ador de
+ * marketing a Product Designer + Head of Marketingâ€” y un producto, ProPlanner,
+ * pensado para el contexto extremo de una obra de construcciÃ³n.
  *
  * Secciones exclusivas de Outbuild:
- * - La trayectoria — progresión visual de cómo creció el rol
- * - El telón de fondo — estallido social + pandemia como contexto
- * - Diseñar para la obra — panel de constraints reales del terreno
- * - Un producto que se conecta — ecosistema de integraciones, Procore destacado
- * - De IPSUM a Outbuild — panel de transformación de marca, cierre en alto
+ * - La trayectoria â€” progresiÃ³n visual de cÃ³mo creciÃ³ el rol
+ * - El telÃ³n de fondo â€” estallido social + pandemia como contexto
+ * - DiseÃ±ar para la obra â€” panel de constraints reales del terreno
+ * - Un producto que se conecta â€” ecosistema de integraciones, Procore destacado
+ * - De IPSUM a Outbuild â€” panel de transformaciÃ³n de marca, cierre en alto
  */
 
-// Acento del proyecto — teal. Outbuild trabaja en tonos teal.
+// Acento del proyecto â€” teal. Outbuild trabaja en tonos teal.
 const TEAL = '#0D9488'
 const TEAL_LIGHT = '#5EEAD4'
 const TEAL_TINT = 'rgba(13, 148, 136, 0.09)'
@@ -29,23 +30,23 @@ const TEAL_BORDER = 'rgba(13, 148, 136, 0.38)'
 const ROLE_STAGES = [
   {
     phase: 'Entrada',
-    title: 'Diseñador de marketing',
-    body: 'Contratado con una misión concreta: crear el material de marketing que haría crecer la base de clientes.',
+    title: 'DiseÃ±ador de marketing',
+    body: 'Contratado con una misiÃ³n concreta: crear el material de marketing que harÃ­a crecer la base de clientes.',
   },
   {
-    phase: 'Expansión',
-    title: 'Rediseño del sitio web',
-    body: 'El primer encargo cumplido abrió el segundo — un rediseño completo del sitio web corporativo, de punta a punta.',
+    phase: 'ExpansiÃ³n',
+    title: 'RediseÃ±o del sitio web',
+    body: 'El primer encargo cumplido abriÃ³ el segundo â€” un rediseÃ±o completo del sitio web corporativo, de punta a punta.',
   },
   {
     phase: 'Liderazgo',
     title: 'Head of Marketing',
-    body: 'Cuando la dirección del área quedó disponible, la compañía me pidió asumirla y responder por todo el marketing.',
+    body: 'Cuando la direcciÃ³n del Ã¡rea quedÃ³ disponible, la compaÃ±Ã­a me pidiÃ³ asumirla y responder por todo el marketing.',
   },
   {
     phase: 'Producto',
     title: 'Product Designer',
-    body: 'Con responsabilidades sobre la plataforma, pasé a diseñar ProPlanner como su Product Designer.',
+    body: 'Con responsabilidades sobre la plataforma, pasÃ© a diseÃ±ar ProPlanner como su Product Designer.',
   },
 ]
 
@@ -53,22 +54,22 @@ const CONSTRAINTS = [
   {
     icon: 'signal',
     title: 'Conectividad intermitente',
-    body: 'Las obras de construcción rara vez tienen buena señal. Las tareas críticas tenían que resistir una conexión que se cae.',
+    body: 'Las obras de construcciÃ³n rara vez tienen buena seÃ±al. Las tareas crÃ­ticas tenÃ­an que resistir una conexiÃ³n que se cae.',
   },
   {
     icon: 'cube',
     title: 'Modelos BIM',
-    body: 'Archivos pesados y complejos que el producto debía manejar sin volverse lento ni intimidante para el usuario.',
+    body: 'Archivos pesados y complejos que el producto debÃ­a manejar sin volverse lento ni intimidante para el usuario.',
   },
   {
     icon: 'user',
     title: 'Usuarios sin software',
-    body: 'Buena parte de los usuarios en terreno no tenía historia previa de uso de herramientas digitales.',
+    body: 'Buena parte de los usuarios en terreno no tenÃ­a historia previa de uso de herramientas digitales.',
   },
   {
     icon: 'split',
     title: 'Dos perfiles opuestos',
-    body: 'El jefe de terreno, en movimiento, y el planificador de oficina, con visión completa. Un solo producto para ambos.',
+    body: 'El jefe de terreno, en movimiento, y el planificador de oficina, con visiÃ³n completa. Un solo producto para ambos.',
   },
 ]
 
@@ -76,29 +77,30 @@ const INTEGRATIONS = [
   {
     name: 'GeoVictoria',
     role: 'Control de asistencia',
-    body: 'Conectó la planificación del proyecto con la marcación real de asistencia del personal en obra.',
+    body: 'ConectÃ³ la planificaciÃ³n del proyecto con la marcaciÃ³n real de asistencia del personal en obra.',
     strategic: false,
   },
   {
     name: 'Modelos BIM',
-    role: 'Información del proyecto',
-    body: 'Soporte de modelos BIM para que la planificación se apoyara en la información real de cada proyecto.',
+    role: 'InformaciÃ³n del proyecto',
+    body: 'Soporte de modelos BIM para que la planificaciÃ³n se apoyara en la informaciÃ³n real de cada proyecto.',
     strategic: false,
   },
   {
     name: 'Procore',
-    role: 'Integración global',
-    body: 'La conexión con uno de los referentes globales del construction-tech — integrar ProPlanner al ecosistema de herramientas que las constructoras ya usaban a diario.',
+    role: 'IntegraciÃ³n global',
+    body: 'La conexiÃ³n con uno de los referentes globales del construction-tech â€” integrar ProPlanner al ecosistema de herramientas que las constructoras ya usaban a diario.',
     strategic: true,
   },
 ]
 
-export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
+export function OutbuildCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStudy; locale?: Locale }) {
+  const ui = getUI(locale)
   return (
     <div className="container" style={{ maxWidth: 1100, paddingTop: 40, paddingBottom: 40 }}>
       {/* Back link */}
       <ViewTransitionLink
-        href="/trabajo"
+        href={localizedPath('/trabajo', locale)}
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -108,13 +110,13 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
           marginBottom: 40,
         }}
       >
-        <span aria-hidden>←</span>
-        Volver a todo el trabajo
+        <span aria-hidden>â†</span>
+        {ui.caseChrome.backToWork}
       </ViewTransitionLink>
 
-      {/* ── HERO ───────────────────────────────────────────────────────── */}
+      {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <header style={{ paddingBottom: 64, maxWidth: 880 }}>
-        {/* Cover — marca del proyecto, mantiene el shared element transition */}
+        {/* Cover â€” marca del proyecto, mantiene el shared element transition */}
         <div
           style={{
             viewTransitionName: `cover-${c.slug}`,
@@ -148,10 +150,10 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             marginBottom: 20,
           }}
         >
-          {c.yearStart} — {c.yearEnd} · {c.role}
+          {c.yearStart} â€” {c.yearEnd} Â· {c.role}
         </p>
 
-        {/* Nombre del proyecto — ancla visual */}
+        {/* Nombre del proyecto â€” ancla visual */}
         <h1
           style={{
             margin: 0,
@@ -162,10 +164,10 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             color: 'var(--text)',
           }}
         >
-          {c.title.split(' — ')[0]}
+          {c.title.split(' â€” ')[0]}
         </h1>
 
-        {/* Descriptor — lede editorial */}
+        {/* Descriptor â€” lede editorial */}
         <p
           className="serif"
           style={{
@@ -179,7 +181,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             maxWidth: '22ch',
           }}
         >
-          {c.title.split(' — ')[1] ?? c.title}
+          {c.title.split(' â€” ')[1] ?? c.title}
         </p>
 
         <p
@@ -205,30 +207,30 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
           <Meta label="Empresa" value={c.company} />
           <Meta label="Producto" value="ProPlanner" />
           <Meta label="Equipo" value={c.teamSize} />
-          <Meta label="Plataforma" value={c.platforms.join(' · ')} />
-          <Meta label="Disciplinas" value={c.techStack.join(' · ')} />
+          <Meta label="Plataforma" value={c.platforms.join(' Â· ')} />
+          <Meta label="Disciplinas" value={c.techStack.join(' Â· ')} />
         </dl>
       </header>
 
       {/* Hero shot */}
       <Reveal>
         <Placeholder
-          label="ProPlanner — vista general de la plataforma de gestión de proyectos"
-          caption="Hero shot · 16:9"
+          label="ProPlanner â€” vista general de la plataforma de gestiÃ³n de proyectos"
+          caption="Hero shot Â· 16:9"
           variant="hero"
         />
       </Reveal>
 
-      {/* ── EL CONTEXTO ────────────────────────────────────────────────── */}
-      <Section eyebrow="El contexto" title="Construir software para la construcción">
+      {/* â”€â”€ EL CONTEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <Section eyebrow="El contexto" title="Construir software para la construcciÃ³n">
         <p style={proseStyle}>{c.context}</p>
       </Section>
 
-      {/* ── LA TRAYECTORIA (signature) ─────────────────────────────────── */}
-      <Section eyebrow="La trayectoria" title="Un rol que no dejó de crecer">
+      {/* â”€â”€ LA TRAYECTORIA (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <Section eyebrow="La trayectoria" title="Un rol que no dejÃ³ de crecer">
         <p style={{ ...proseStyle, marginBottom: 40 }}>
-          No entré como Product Designer. Entré para resolver un problema de marketing — y cada
-          encargo cumplido fue ampliando el siguiente. En menos de dos años el rol pasó por cuatro
+          No entrÃ© como Product Designer. EntrÃ© para resolver un problema de marketing â€” y cada
+          encargo cumplido fue ampliando el siguiente. En menos de dos aÃ±os el rol pasÃ³ por cuatro
           etapas, sin que ninguna reemplazara del todo a la anterior.
         </p>
 
@@ -298,7 +300,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
           ))}
         </Stagger>
 
-        {/* Distribución de tiempo 60/40 */}
+        {/* DistribuciÃ³n de tiempo 60/40 */}
         <div style={{ marginTop: 44 }}>
           <div
             style={{
@@ -321,7 +323,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 fontWeight: 600,
               }}
             >
-              60% · Producto
+              60% Â· Producto
             </div>
             <div
               style={{
@@ -335,7 +337,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 fontWeight: 600,
               }}
             >
-              40% · Marketing y marca
+              40% Â· Marketing y marca
             </div>
           </div>
           <p
@@ -345,12 +347,12 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               color: 'var(--subtle)',
             }}
           >
-            La distribución de mi tiempo una vez que el rol abarcó las dos disciplinas a la vez.
+            La distribuciÃ³n de mi tiempo una vez que el rol abarcÃ³ las dos disciplinas a la vez.
           </p>
         </div>
       </Section>
 
-      {/* ── EL TELÓN DE FONDO (signature) ──────────────────────────────── */}
+      {/* â”€â”€ EL TELÃ“N DE FONDO (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Reveal>
         <section
           style={{
@@ -372,7 +374,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               marginBottom: 18,
             }}
           >
-            2019 – 2021 · El telón de fondo
+            2019 â€“ 2021 Â· El telÃ³n de fondo
           </p>
           <p
             className="serif"
@@ -387,20 +389,20 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               maxWidth: '40ch',
             }}
           >
-            El alcance del rol creció rápido, pero no creció en un vacío.
+            El alcance del rol creciÃ³ rÃ¡pido, pero no creciÃ³ en un vacÃ­o.
           </p>
           <p style={{ ...proseStyle, marginTop: 20, maxWidth: '68ch' }}>
-            Todo esto ocurrió mientras Chile vivía las réplicas del estallido social de octubre de
-            2019 y el mundo entraba en pandemia — un contexto que, de un día para otro, obligó a la
-            compañía a dejar la oficina y reinventarse como un equipo completamente remoto. Sostener
-            el estándar de diseño, dirigir el marketing y aprender el oficio de Product Designer
-            ocurrió, todo, sobre ese terreno movedizo.
+            Todo esto ocurriÃ³ mientras Chile vivÃ­a las rÃ©plicas del estallido social de octubre de
+            2019 y el mundo entraba en pandemia â€” un contexto que, de un dÃ­a para otro, obligÃ³ a la
+            compaÃ±Ã­a a dejar la oficina y reinventarse como un equipo completamente remoto. Sostener
+            el estÃ¡ndar de diseÃ±o, dirigir el marketing y aprender el oficio de Product Designer
+            ocurriÃ³, todo, sobre ese terreno movedizo.
           </p>
         </section>
       </Reveal>
 
-      {/* ── DISEÑAR PARA LA OBRA (signature) ───────────────────────────── */}
-      <Section eyebrow="Discovery" title="Diseñar para la obra, no para la oficina">
+      {/* â”€â”€ DISEÃ‘AR PARA LA OBRA (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <Section eyebrow="Discovery" title="DiseÃ±ar para la obra, no para la oficina">
         <p style={proseStyle}>{c.research}</p>
 
         <Stagger
@@ -465,14 +467,14 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
 
         <div style={{ marginTop: 32 }}>
           <Placeholder
-            label="ProPlanner en contexto de obra — uso en terreno"
-            caption="Contexto de uso · 3:2"
+            label="ProPlanner en contexto de obra â€” uso en terreno"
+            caption="Contexto de uso Â· 3:2"
             variant="process"
           />
         </div>
       </Section>
 
-      {/* ── DECISIONES ─────────────────────────────────────────────────── */}
+      {/* â”€â”€ DECISIONES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Section eyebrow="Decisiones" title="Tres decisiones que definieron el trabajo">
         <Stagger gap={0.14} style={{ display: 'grid', gap: 28 }}>
           {c.decisions.map((d) => (
@@ -509,12 +511,12 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </Stagger>
       </Section>
 
-      {/* ── EL PRODUCTO: PROPLANNER ────────────────────────────────────── */}
+      {/* â”€â”€ EL PRODUCTO: PROPLANNER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Section eyebrow="El producto" title="ProPlanner, de la planilla a la plataforma">
         <p style={{ ...proseStyle, marginBottom: 32 }}>{c.execution[0]?.body}</p>
         <Placeholder
-          label="ProPlanner — carta Gantt y programación de actividades"
-          caption="Pantalla principal · 16:9"
+          label="ProPlanner â€” carta Gantt y programaciÃ³n de actividades"
+          caption="Pantalla principal Â· 16:9"
           variant="hero"
         />
         <div
@@ -525,13 +527,13 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             gap: 16,
           }}
         >
-          <Placeholder label="Planificación de recursos del proyecto" variant="gallery" />
+          <Placeholder label="PlanificaciÃ³n de recursos del proyecto" variant="gallery" />
           <Placeholder label="Vista general de un proyecto en obra" variant="gallery" />
         </div>
       </Section>
 
-      {/* ── UN PRODUCTO QUE SE CONECTA (signature) ─────────────────────── */}
-      <Section eyebrow="Ejecución" title="Un producto que se conecta al rubro">
+      {/* â”€â”€ UN PRODUCTO QUE SE CONECTA (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <Section eyebrow="EjecuciÃ³n" title="Un producto que se conecta al rubro">
         <p style={{ ...proseStyle, marginBottom: 32 }}>{c.execution[1]?.body}</p>
         <Stagger
           gap={0.1}
@@ -571,7 +573,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                       textTransform: 'uppercase',
                     }}
                   >
-                    Líder global
+                    LÃ­der global
                   </span>
                 ) : null}
                 <p
@@ -613,7 +615,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </Stagger>
       </Section>
 
-      {/* ── RESULTADOS ─────────────────────────────────────────────────── */}
+      {/* â”€â”€ RESULTADOS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Reveal>
         <section style={{ marginTop: 96, marginBottom: 8 }} className="responsive-section">
           <p
@@ -689,8 +691,8 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </section>
       </Reveal>
 
-      {/* ── MARCA Y MARKETING ──────────────────────────────────────────── */}
-      <Section eyebrow="Más allá del producto" title="Marca, marketing y dirección de área">
+      {/* â”€â”€ MARCA Y MARKETING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <Section eyebrow="MÃ¡s allÃ¡ del producto" title="Marca, marketing y direcciÃ³n de Ã¡rea">
         <p style={{ ...proseStyle, marginBottom: 28 }}>{c.execution[2]?.body}</p>
         <div
           style={{
@@ -699,13 +701,13 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             gap: 16,
           }}
         >
-          <Placeholder label="Rediseño del sitio web corporativo" variant="gallery" />
-          <Placeholder label="Material de marketing y captación de clientes" variant="gallery" />
-          <Placeholder label="Sistema de marca — transición IPSUM a Outbuild" variant="gallery" />
+          <Placeholder label="RediseÃ±o del sitio web corporativo" variant="gallery" />
+          <Placeholder label="Material de marketing y captaciÃ³n de clientes" variant="gallery" />
+          <Placeholder label="Sistema de marca â€” transiciÃ³n IPSUM a Outbuild" variant="gallery" />
         </div>
       </Section>
 
-      {/* ── DE IPSUM A OUTBUILD (signature, cierre en alto) ────────────── */}
+      {/* â”€â”€ DE IPSUM A OUTBUILD (signature, cierre en alto) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Reveal>
         <section
           style={{
@@ -745,7 +747,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             De IPSUM a Outbuild
           </h2>
 
-          {/* Transformación de marca */}
+          {/* TransformaciÃ³n de marca */}
           <div
             style={{
               margin: '36px 0',
@@ -765,7 +767,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                   color: 'var(--subtle)',
                 }}
               >
-                En Latinoamérica
+                En LatinoamÃ©rica
               </p>
               <span
                 className="serif"
@@ -783,7 +785,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               aria-hidden
               style={{ fontSize: 30, color: TEAL, lineHeight: 1 }}
             >
-              →
+              â†’
             </span>
             <div>
               <p
@@ -825,14 +827,14 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               maxWidth: '60ch',
             }}
           >
-            La apuesta fue competir en el mercado más grande del mundo del construction-tech. Un
-            producto que nació resolviendo la planificación de obras en Latinoamérica terminó
+            La apuesta fue competir en el mercado mÃ¡s grande del mundo del construction-tech. Un
+            producto que naciÃ³ resolviendo la planificaciÃ³n de obras en LatinoamÃ©rica terminÃ³
             cruzando a Estados Unidos.
           </p>
         </section>
       </Reveal>
 
-      {/* ── APRENDIZAJES ───────────────────────────────────────────────── */}
+      {/* â”€â”€ APRENDIZAJES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Section eyebrow="Aprendizajes" title="Lo que me llevo">
         <ol style={{ display: 'grid', gap: 14, margin: 0, padding: 0, listStyle: 'none' }}>
           {c.takeaways.map((t, i) => (
@@ -864,7 +866,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </ol>
       </Section>
 
-      {/* ── CTA ────────────────────────────────────────────────────────── */}
+      {/* â”€â”€ CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Reveal>
         <div
           style={{
@@ -889,11 +891,11 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               letterSpacing: '-0.01em',
             }}
           >
-            ¿Seguimos con otro proyecto?
+            Â¿Seguimos con otro proyecto?
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <ViewTransitionLink
-              href="/trabajo"
+              href={localizedPath('/trabajo', locale)}
               style={{
                 padding: '12px 22px',
                 borderRadius: 999,
@@ -903,10 +905,10 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 fontWeight: 500,
               }}
             >
-              Ver todo el trabajo
+              {ui.caseChrome.seeAllWork}
             </ViewTransitionLink>
             <ViewTransitionLink
-              href="/contact"
+              href={localizedPath('/contact', locale)}
               style={{
                 padding: '12px 22px',
                 borderRadius: 999,
@@ -916,7 +918,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 fontWeight: 500,
               }}
             >
-              Hablemos
+              {ui.caseChrome.letsTalk}
             </ViewTransitionLink>
           </div>
         </div>
@@ -925,7 +927,7 @@ export function OutbuildCase({ caseStudy: c }: { caseStudy: CaseStudy }) {
   )
 }
 
-/* ─────────────────────────────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 function Meta({ label, value }: { label: string; value: string }) {
   return (
@@ -1055,3 +1057,4 @@ const proseStyle: React.CSSProperties = {
   color: 'var(--text-secondary)',
   maxWidth: '64ch',
 }
+

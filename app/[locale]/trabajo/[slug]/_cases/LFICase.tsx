@@ -1,57 +1,142 @@
-import { Reveal } from '@/app/components/Reveal'
+﻿import { Reveal } from '@/app/components/Reveal'
 import { Stagger, StaggerItem } from '@/app/components/Stagger'
 import { Placeholder } from '@/app/components/Placeholder'
 import { ViewTransitionLink } from '@/app/components/ViewTransitionLink'
 import type { CaseStudy } from '@/lib/cases'
+import { getUI, localizedPath, type Locale } from '@/lib/i18n'
 
-/**
- * Layout dedicado del case study de LFI Agencia Digital.
- *
- * Lo que hace único a LFI: es el capítulo de agencia —el primero de la
- * carrera— y su valor está en la amplitud del roster de clientes y en un
- * encargo insignia, la señalética de la Torre Scotiabank.
- *
- * Secciones exclusivas de LFI:
- * - El muro de clientes — el roster completo agrupado por sector
- * - Scotiabank — panel protagonista con el dato del 90%
- *
- * Nota de color: la marca de LFI es monocromática. Para darle vida al case
- * se usa un acento azul cobalto (decisión de portafolio, no de la marca).
- */
-
-// Acento del case — azul cobalto.
 const BLUE = '#2563EB'
 const BLUE_TINT = 'rgba(37, 99, 235, 0.09)'
 const BLUE_BORDER = 'rgba(37, 99, 235, 0.38)'
 
-const CLIENTS = [
-  { name: 'Scotiabank', sector: 'Banca' },
-  { name: 'Walmart Chile', sector: 'Retail' },
-  { name: 'Marca Chile', sector: 'Gobierno' },
-  { name: 'Consejo para la Transparencia', sector: 'Gobierno' },
-  { name: 'Study Melbourne', sector: 'Gobierno · Australia' },
-  { name: 'Clínica Alemana', sector: 'Salud' },
-  { name: 'Colbún', sector: 'Energía' },
-  { name: 'Generadora Metropolitana', sector: 'Energía' },
-  { name: 'Universidad Santo Tomás', sector: 'Educación' },
-  { name: 'Universidad Finis Terrae', sector: 'Educación' },
-  { name: 'Viña Casas del Bosque', sector: 'Vino' },
-]
+const CLIENTS: Record<Locale, Array<{ name: string; sector: string }>> = {
+  es: [
+    { name: 'Scotiabank', sector: 'Banca' },
+    { name: 'Walmart Chile', sector: 'Retail' },
+    { name: 'Marca Chile', sector: 'Gobierno' },
+    { name: 'Consejo para la Transparencia', sector: 'Gobierno' },
+    { name: 'Study Melbourne', sector: 'Gobierno · Australia' },
+    { name: 'Clínica Alemana', sector: 'Salud' },
+    { name: 'Colbún', sector: 'Energía' },
+    { name: 'Generadora Metropolitana', sector: 'Energía' },
+    { name: 'Universidad Santo Tomás', sector: 'Educación' },
+    { name: 'Universidad Finis Terrae', sector: 'Educación' },
+    { name: 'Viña Casas del Bosque', sector: 'Vino' },
+  ],
+  en: [
+    { name: 'Scotiabank', sector: 'Banking' },
+    { name: 'Walmart Chile', sector: 'Retail' },
+    { name: 'Marca Chile', sector: 'Government' },
+    { name: 'Consejo para la Transparencia', sector: 'Government' },
+    { name: 'Study Melbourne', sector: 'Government · Australia' },
+    { name: 'Clínica Alemana', sector: 'Healthcare' },
+    { name: 'Colbún', sector: 'Energy' },
+    { name: 'Generadora Metropolitana', sector: 'Energy' },
+    { name: 'Universidad Santo Tomás', sector: 'Education' },
+    { name: 'Universidad Finis Terrae', sector: 'Education' },
+    { name: 'Viña Casas del Bosque', sector: 'Wine' },
+  ],
+}
 
-const SCOTIA_WORK = [
-  'Comunicación interna',
-  'Mailing',
-  'Cambio de imagen de marca',
-  'Señalética de la torre',
-  'Material impreso',
-]
+const SCOTIA_WORK: Record<Locale, string[]> = {
+  es: [
+    'Comunicación interna',
+    'Mailing',
+    'Cambio de imagen de marca',
+    'Señalética de la torre',
+    'Material impreso',
+  ],
+  en: [
+    'Internal communication',
+    'Email campaigns',
+    'Brand transition',
+    'Tower signage',
+    'Printed material',
+  ],
+}
 
-export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
+const LFI_COPY = {
+  es: {
+    metaClientsLabel: 'Clientes',
+    metaClientsValue: 'Más de 10 marcas',
+    metaProjectsLabel: 'Proyectos',
+    metaDisciplinesLabel: 'Disciplinas',
+    heroLabel: 'Selección de piezas — LFI Agencia Digital',
+    heroCaption: 'Hero shot · 16:9',
+    contextTitle: 'Mi primer estudio de diseño',
+    rosterEyebrow: 'El roster',
+    rosterTitle: 'Diez marcas, siete sectores',
+    rosterBody:
+      'En poco más de un año pasé por un abanico de clientes que pocas veces se ve junto: banca, gobierno —incluido un cliente internacional—, educación, salud, energía, retail y vino. Cada logo es un sistema de marca distinto que hubo que aprender y respetar.',
+    challengeTitle: 'Tres frentes del trabajo de agencia',
+    discoveryTitle: 'Entender la marca antes de tocarla',
+    processLabel: 'Auditoría de sistemas de marca · referencias por cliente',
+    processCaption: 'Process artifacts · 3:2',
+    decisionsTitle: 'Tres decisiones que marcaron mi forma de trabajar',
+    scotiaEyebrow: 'El cliente insignia',
+    scotiaIntro:
+      'Scotiabank fue el cliente más grande con el que trabajé en LFI, y me tocó en un momento poco común: la compra de BBVA Chile. Mi foco principal fue la comunicación interna y el mailing — el flujo de piezas que mantiene informada y alineada a una organización de miles de personas, justo cuando esa organización estaba creciendo y transformándose.',
+    scotiaBrand:
+      'Esa adquisición trajo un cambio de imagen de marca —nuevo logo, nueva paleta de colores— y la llegada de Scotiabank Azul, la marca con la que se integraron las operaciones que venían de BBVA. Los lineamientos bajaban desde la casa matriz en Canadá, y parte del trabajo era aterrizar esas guías globales a cada pieza local sin perder nada en el camino.',
+    scotiaMetric:
+      'de la señalética y el material impreso de la Torre Scotiabank, su edificio corporativo, salió de mi escritorio.',
+    scotiaReflection:
+      'Pasar de una pieza de mailing a la señalética de un edificio completo es cambiar de disciplina sin cambiar de cliente: del detalle de una plantilla a cómo cientos de personas se orientan, cada día, dentro de una torre.',
+    scotiaPlaceholder: 'Torre Scotiabank — señalética y wayfinding',
+    scotiaCaption: 'Diseño de entorno · 16:9',
+    executionTitle: 'Lo que produje, canal por canal',
+    digitalPlaceholder: 'Piezas digitales — redes y mailing',
+    printPlaceholder: 'Material impreso y de marca',
+    resultsTitle: 'El impacto del trabajo',
+    takeawaysTitle: 'Lo que me llevo',
+  },
+  en: {
+    metaClientsLabel: 'Clients',
+    metaClientsValue: '10+ brands',
+    metaProjectsLabel: 'Projects',
+    metaDisciplinesLabel: 'Disciplines',
+    heroLabel: 'Selection of work — LFI Digital Agency',
+    heroCaption: 'Hero shot · 16:9',
+    contextTitle: 'My first design studio',
+    rosterEyebrow: 'The roster',
+    rosterTitle: 'Ten brands, seven sectors',
+    rosterBody:
+      'In just over a year, I worked across a client roster you rarely see together: banking, government —including an international client—, education, healthcare, energy, retail, and wine. Each logo was a different brand system to learn and respect.',
+    challengeTitle: 'Three fronts of agency work',
+    discoveryTitle: 'Understanding the brand before touching it',
+    processLabel: 'Brand-system audit · client references',
+    processCaption: 'Process artifacts · 3:2',
+    decisionsTitle: 'Three decisions that shaped how I work',
+    scotiaEyebrow: 'Signature client',
+    scotiaIntro:
+      'Scotiabank was the largest client I worked with at LFI, and the timing was unusual: the acquisition of BBVA Chile. My main focus was internal communication and email — the stream of pieces that keeps an organization of thousands informed and aligned while it is growing and transforming.',
+    scotiaBrand:
+      'That acquisition brought a brand transition: a new logo, a new color palette, and the arrival of Scotiabank Azul, the brand used to integrate the BBVA operations. Guidelines came from headquarters in Canada, and part of the work was translating those global rules into local pieces without losing consistency.',
+    scotiaMetric:
+      'of the signage and printed material for the Scotiabank Tower, its corporate headquarters, came from my desk.',
+    scotiaReflection:
+      'Moving from an email piece to the signage of an entire building means changing discipline without changing client: from the detail of a template to how hundreds of people orient themselves every day inside a tower.',
+    scotiaPlaceholder: 'Scotiabank Tower — signage and wayfinding',
+    scotiaCaption: 'Environmental design · 16:9',
+    executionTitle: 'What I produced, channel by channel',
+    digitalPlaceholder: 'Digital pieces — social and email',
+    printPlaceholder: 'Printed and brand material',
+    resultsTitle: 'The impact of the work',
+    takeawaysTitle: 'What I took forward',
+  },
+} satisfies Record<Locale, Record<string, string>>
+
+export function LFICase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStudy; locale?: Locale }) {
+  const ui = getUI(locale)
+  const t = LFI_COPY[locale]
+  const clients = CLIENTS[locale]
+  const scotiaWork = SCOTIA_WORK[locale]
+  const [titleLead, titleRest] = c.title.split(' — ')
+
   return (
     <div className="container" style={{ maxWidth: 1100, paddingTop: 40, paddingBottom: 40 }}>
-      {/* Back link */}
       <ViewTransitionLink
-        href="/trabajo"
+        href={localizedPath('/trabajo', locale)}
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -62,10 +147,9 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         }}
       >
         <span aria-hidden>←</span>
-        Volver a todo el trabajo
+        {ui.caseChrome.backToWork}
       </ViewTransitionLink>
 
-      {/* ── HERO ───────────────────────────────────────────────────────── */}
       <header style={{ paddingBottom: 64, maxWidth: 880 }}>
         <div
           style={{
@@ -113,7 +197,7 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             color: 'var(--text)',
           }}
         >
-          {c.title.split(' — ')[0]}
+          {titleLead}
         </h1>
 
         <p
@@ -129,7 +213,7 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             maxWidth: '22ch',
           }}
         >
-          {c.title.split(' — ')[1] ?? c.title}
+          {titleRest ?? c.title}
         </p>
 
         <p
@@ -152,35 +236,24 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             borderBottom: '0.5px solid var(--divider)',
           }}
         >
-          <Meta label="Empresa" value={c.company} />
-          <Meta label="Clientes" value="Más de 10 marcas" />
-          <Meta label="Proyectos" value={c.teamSize} />
-          <Meta label="Plataforma" value={c.platforms.join(' · ')} />
-          <Meta label="Disciplinas" value={c.techStack.join(' · ')} />
+          <Meta label={ui.caseMeta.company} value={c.company} />
+          <Meta label={t.metaClientsLabel} value={t.metaClientsValue} />
+          <Meta label={t.metaProjectsLabel} value={c.teamSize} />
+          <Meta label={ui.caseMeta.platform} value={c.platforms.join(' · ')} />
+          <Meta label={t.metaDisciplinesLabel} value={c.techStack.join(' · ')} />
         </dl>
       </header>
 
-      {/* Hero shot */}
       <Reveal>
-        <Placeholder
-          label="Selección de piezas — LFI Agencia Digital"
-          caption="Hero shot · 16:9"
-          variant="hero"
-        />
+        <Placeholder label={t.heroLabel} caption={t.heroCaption} variant="hero" />
       </Reveal>
 
-      {/* ── EL CONTEXTO ────────────────────────────────────────────────── */}
-      <Section eyebrow="El contexto" title="Mi primer estudio de diseño">
+      <Section eyebrow={ui.caseSection.context} title={t.contextTitle}>
         <p style={proseStyle}>{c.context}</p>
       </Section>
 
-      {/* ── EL MURO DE CLIENTES (signature) ────────────────────────────── */}
-      <Section eyebrow="El roster" title="Diez marcas, siete sectores">
-        <p style={{ ...proseStyle, marginBottom: 36 }}>
-          En poco más de un año pasé por un abanico de clientes que pocas veces se ve junto:
-          banca, gobierno —incluido un cliente internacional—, educación, salud, energía, retail
-          y vino. Cada logo es un sistema de marca distinto que hubo que aprender y respetar.
-        </p>
+      <Section eyebrow={t.rosterEyebrow} title={t.rosterTitle}>
+        <p style={{ ...proseStyle, marginBottom: 36 }}>{t.rosterBody}</p>
         <Stagger
           gap={0.06}
           style={{
@@ -189,7 +262,7 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             gap: 12,
           }}
         >
-          {CLIENTS.map((client) => (
+          {clients.map((client) => (
             <StaggerItem key={client.name}>
               <div
                 style={{
@@ -231,14 +304,10 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </Stagger>
       </Section>
 
-      {/* ── EL DESAFÍO ─────────────────────────────────────────────────── */}
-      <Section eyebrow="El desafío" title="Tres frentes del trabajo de agencia">
+      <Section eyebrow={ui.caseSection.challenge} title={t.challengeTitle}>
         <Stagger gap={0.1} style={{ display: 'grid', gap: 18 }}>
           {c.challenge.map((ch) => (
-            <StaggerItem
-              key={ch.title}
-              style={{ paddingLeft: 20, borderLeft: `2px solid ${BLUE}` }}
-            >
+            <StaggerItem key={ch.title} style={{ paddingLeft: 20, borderLeft: `2px solid ${BLUE}` }}>
               <h3 style={{ margin: 0, fontSize: 18, fontWeight: 500, color: 'var(--text)' }}>
                 {ch.title}
               </h3>
@@ -248,20 +317,14 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </Stagger>
       </Section>
 
-      {/* ── DISCOVERY ──────────────────────────────────────────────────── */}
-      <Section eyebrow="Discovery" title="Entender la marca antes de tocarla">
+      <Section eyebrow={ui.caseSection.discovery} title={t.discoveryTitle}>
         <p style={proseStyle}>{c.research}</p>
         <div style={{ marginTop: 32 }}>
-          <Placeholder
-            label="Auditoría de sistemas de marca · referencias por cliente"
-            caption="Process artifacts · 3:2"
-            variant="process"
-          />
+          <Placeholder label={t.processLabel} caption={t.processCaption} variant="process" />
         </div>
       </Section>
 
-      {/* ── DECISIONES ─────────────────────────────────────────────────── */}
-      <Section eyebrow="Decisiones" title="Tres decisiones que marcaron mi forma de trabajar">
+      <Section eyebrow={ui.caseSection.decisions} title={t.decisionsTitle}>
         <Stagger gap={0.14} style={{ display: 'grid', gap: 28 }}>
           {c.decisions.map((d) => (
             <StaggerItem key={d.title}>
@@ -297,7 +360,6 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </Stagger>
       </Section>
 
-      {/* ── SCOTIABANK (signature) ─────────────────────────────────────── */}
       <Reveal>
         <section
           style={{
@@ -320,7 +382,7 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               letterSpacing: '0.04em',
             }}
           >
-            El cliente insignia
+            {t.scotiaEyebrow}
           </p>
           <h2
             className="serif"
@@ -336,21 +398,9 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
           >
             Scotiabank
           </h2>
-          <p style={{ ...proseStyle, marginTop: 18 }}>
-            Scotiabank fue el cliente más grande con el que trabajé en LFI, y me tocó en un momento
-            poco común: la compra de BBVA Chile. Mi foco principal fue la comunicación interna y el
-            mailing — el flujo de piezas que mantiene informada y alineada a una organización de
-            miles de personas, justo cuando esa organización estaba creciendo y transformándose.
-          </p>
-          <p style={{ ...proseStyle, marginTop: 16 }}>
-            Esa adquisición trajo un cambio de imagen de marca —nuevo logo, nueva paleta de
-            colores— y la llegada de Scotiabank Azul, la marca con la que se integraron las
-            operaciones que venían de BBVA. Los lineamientos bajaban desde la casa matriz en Canadá,
-            y parte del trabajo era aterrizar esas guías globales a cada pieza local sin perder nada
-            en el camino.
-          </p>
+          <p style={{ ...proseStyle, marginTop: 18 }}>{t.scotiaIntro}</p>
+          <p style={{ ...proseStyle, marginTop: 16 }}>{t.scotiaBrand}</p>
 
-          {/* El dato del 90% */}
           <div
             style={{
               display: 'flex',
@@ -383,20 +433,14 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 fontWeight: 500,
               }}
             >
-              de la señalética y el material impreso de la Torre Scotiabank, su edificio corporativo,
-              salió de mi escritorio.
+              {t.scotiaMetric}
             </p>
           </div>
 
-          <p style={{ ...proseStyle, marginBottom: 28 }}>
-            Pasar de una pieza de mailing a la señalética de un edificio completo es cambiar de
-            disciplina sin cambiar de cliente: del detalle de una plantilla a cómo cientos de
-            personas se orientan, cada día, dentro de una torre.
-          </p>
+          <p style={{ ...proseStyle, marginBottom: 28 }}>{t.scotiaReflection}</p>
 
-          {/* Áreas del trabajo con Scotiabank */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            {SCOTIA_WORK.map((area) => (
+            {scotiaWork.map((area) => (
               <span
                 key={area}
                 style={{
@@ -415,17 +459,12 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
           </div>
 
           <div style={{ marginTop: 32 }}>
-            <Placeholder
-              label="Torre Scotiabank — señalética y wayfinding"
-              caption="Diseño de entorno · 16:9"
-              variant="hero"
-            />
+            <Placeholder label={t.scotiaPlaceholder} caption={t.scotiaCaption} variant="hero" />
           </div>
         </section>
       </Reveal>
 
-      {/* ── EJECUCIÓN MULTICANAL ───────────────────────────────────────── */}
-      <Section eyebrow="Ejecución" title="Lo que produje, canal por canal">
+      <Section eyebrow={ui.caseSection.execution} title={t.executionTitle}>
         <Stagger
           gap={0.1}
           style={{
@@ -478,12 +517,11 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             gap: 16,
           }}
         >
-          <Placeholder label="Piezas digitales — redes y mailing" variant="gallery" />
-          <Placeholder label="Material impreso y de marca" variant="gallery" />
+          <Placeholder label={t.digitalPlaceholder} variant="gallery" />
+          <Placeholder label={t.printPlaceholder} variant="gallery" />
         </div>
       </Section>
 
-      {/* ── RESULTADOS ─────────────────────────────────────────────────── */}
       <Reveal>
         <section style={{ marginTop: 96, marginBottom: 8 }} className="responsive-section">
           <p
@@ -496,7 +534,7 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               marginBottom: 12,
             }}
           >
-            Resultados
+            {ui.caseSection.results}
           </p>
           <h2
             className="serif"
@@ -510,7 +548,7 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               color: 'var(--text)',
             }}
           >
-            El impacto del trabajo
+            {t.resultsTitle}
           </h2>
           <Stagger gap={0.1} style={{ display: 'grid', gap: 0 }}>
             {c.outcomes.map((o, i) => (
@@ -524,8 +562,7 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                     alignItems: 'center',
                     paddingBlock: 36,
                     borderTop: '0.5px solid var(--divider)',
-                    borderBottom:
-                      i === c.outcomes.length - 1 ? '0.5px solid var(--divider)' : 'none',
+                    borderBottom: i === c.outcomes.length - 1 ? '0.5px solid var(--divider)' : 'none',
                   }}
                 >
                   <p
@@ -559,12 +596,11 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </section>
       </Reveal>
 
-      {/* ── APRENDIZAJES ───────────────────────────────────────────────── */}
-      <Section eyebrow="Aprendizajes" title="Lo que me llevo">
+      <Section eyebrow={ui.caseSection.takeaways} title={t.takeawaysTitle}>
         <ol style={{ display: 'grid', gap: 14, margin: 0, padding: 0, listStyle: 'none' }}>
-          {c.takeaways.map((t, i) => (
+          {c.takeaways.map((takeaway, i) => (
             <li
-              key={i}
+              key={takeaway}
               style={{
                 display: 'flex',
                 gap: 16,
@@ -585,13 +621,12 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               >
                 0{i + 1}
               </span>
-              <p style={{ margin: 0, fontSize: 17, color: 'var(--text)', lineHeight: 1.55 }}>{t}</p>
+              <p style={{ margin: 0, fontSize: 17, color: 'var(--text)', lineHeight: 1.55 }}>{takeaway}</p>
             </li>
           ))}
         </ol>
       </Section>
 
-      {/* ── CTA ────────────────────────────────────────────────────────── */}
       <Reveal>
         <div
           style={{
@@ -616,11 +651,11 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               letterSpacing: '-0.01em',
             }}
           >
-            ¿Seguimos con otro proyecto?
+            {ui.caseChrome.nextProject}
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <ViewTransitionLink
-              href="/trabajo"
+              href={localizedPath('/trabajo', locale)}
               style={{
                 padding: '12px 22px',
                 borderRadius: 999,
@@ -630,10 +665,10 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 fontWeight: 500,
               }}
             >
-              Ver todo el trabajo
+              {ui.caseChrome.seeAllWork}
             </ViewTransitionLink>
             <ViewTransitionLink
-              href="/contact"
+              href={localizedPath('/contact', locale)}
               style={{
                 padding: '12px 22px',
                 borderRadius: 999,
@@ -643,7 +678,7 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 fontWeight: 500,
               }}
             >
-              Hablemos
+              {ui.caseChrome.letsTalk}
             </ViewTransitionLink>
           </div>
         </div>
@@ -651,8 +686,6 @@ export function LFICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
     </div>
   )
 }
-
-/* ─────────────────────────────────────────────────────────────────────── */
 
 function Meta({ label, value }: { label: string; value: string }) {
   return (

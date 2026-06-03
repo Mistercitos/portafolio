@@ -1,22 +1,23 @@
-import Image from 'next/image'
+﻿import Image from 'next/image'
 import { Reveal } from '@/app/components/Reveal'
 import { Stagger, StaggerItem } from '@/app/components/Stagger'
 import { ViewTransitionLink } from '@/app/components/ViewTransitionLink'
 import type { CaseStudy } from '@/lib/cases'
+import { getUI, localizedPath, type Locale } from '@/lib/i18n'
 
 /**
  * Layout dedicado del case study de StockAI.
  *
  * StockAI es un design challenge acotado en tiempo, no un trabajo profesional.
  * El layout se estructura alrededor de eso: el cambio de paradigma de un
- * formulario manual a un flujo con IA, la auditoría que lo originó, las dos
- * personas que había que servir, y un core moment que concentró el esfuerzo.
+ * formulario manual a un flujo con IA, la auditorÃ­a que lo originÃ³, las dos
+ * personas que habÃ­a que servir, y un core moment que concentrÃ³ el esfuerzo.
  *
  * Secciones exclusivas de StockAI:
- * - El cambio de paradigma — antes / después del flujo
- * - La auditoría — los problemas encontrados, por severidad
- * - Las dos personas — Maya y David, lado a lado
- * - El core moment — la pantalla protagonista, panel destacado
+ * - El cambio de paradigma â€” antes / despuÃ©s del flujo
+ * - La auditorÃ­a â€” los problemas encontrados, por severidad
+ * - Las dos personas â€” Maya y David, lado a lado
+ * - El core moment â€” la pantalla protagonista, panel destacado
  *
  * Acento: azul + dorado, los colores de marca de StockAI.
  */
@@ -38,41 +39,41 @@ const STOCKAI_IMAGES = {
 }
 
 const SEVERITY: Record<string, { color: string; tint: string }> = {
-  Crítico: { color: '#C0392B', tint: 'rgba(192, 57, 43, 0.10)' },
+  CrÃ­tico: { color: '#C0392B', tint: 'rgba(192, 57, 43, 0.10)' },
   Mayor: { color: '#B45309', tint: 'rgba(180, 83, 9, 0.10)' },
 }
 
 const PARADIGM = {
   before: {
-    label: 'Antes — el usuario como operador',
+    label: 'Antes â€” el usuario como operador',
     steps: ['Configurar', 'Calcular', 'Revisar'],
   },
   after: {
-    label: 'Después — el usuario como decisor',
+    label: 'DespuÃ©s â€” el usuario como decisor',
     steps: ['La IA propone', 'El usuario decide', 'El sistema ejecuta'],
   },
 }
 
 const AUDIT = [
   {
-    severity: 'Crítico',
+    severity: 'CrÃ­tico',
     title: 'La IA era invisible',
-    body: 'No aparecía en ninguna pantalla del flujo. El producto se veía como un ERP, no como inteligencia.',
+    body: 'No aparecÃ­a en ninguna pantalla del flujo. El producto se veÃ­a como un ERP, no como inteligencia.',
   },
   {
-    severity: 'Crítico',
-    title: 'Configuración manual pesada',
-    body: 'Los pasos 1 y 2 obligaban a configurar a mano cada replenishment, sin una sola recomendación.',
+    severity: 'CrÃ­tico',
+    title: 'ConfiguraciÃ³n manual pesada',
+    body: 'Los pasos 1 y 2 obligaban a configurar a mano cada replenishment, sin una sola recomendaciÃ³n.',
   },
   {
     severity: 'Mayor',
     title: 'Sin impacto de revenue visible',
-    body: 'La pantalla de revisión mostraba unidades, nunca el impacto financiero de la decisión.',
+    body: 'La pantalla de revisiÃ³n mostraba unidades, nunca el impacto financiero de la decisiÃ³n.',
   },
   {
     severity: 'Mayor',
     title: 'Nula transparencia de la IA',
-    body: 'Cuando había cálculo, no se explicaba la lógica. Imposible confiar en una caja negra.',
+    body: 'Cuando habÃ­a cÃ¡lculo, no se explicaba la lÃ³gica. Imposible confiar en una caja negra.',
   },
   {
     severity: 'Mayor',
@@ -86,9 +87,9 @@ const PERSONAS = [
     initial: 'M',
     name: 'Maya',
     role: 'Inventory Manager',
-    cadence: 'Uso diario · sesiones de 15-30 min',
+    cadence: 'Uso diario Â· sesiones de 15-30 min',
     points: [
-      'Ejecuta el día a día del inventario',
+      'Ejecuta el dÃ­a a dÃ­a del inventario',
       'Frustrada con los clics repetitivos',
       'No ve el impacto financiero de sus decisiones',
       'Depende del planner para las decisiones grandes',
@@ -98,28 +99,29 @@ const PERSONAS = [
     initial: 'D',
     name: 'David',
     role: 'Merchandising Planner',
-    cadence: 'Uso semanal · sesiones de 1-2 horas',
+    cadence: 'Uso semanal Â· sesiones de 1-2 horas',
     points: [
       'Define la estrategia de allocation',
-      'Desconfía de la IA tipo caja negra',
-      'Debe justificar cada decisión al CSCO',
-      'Excel le sigue resultando más rápido para analizar',
+      'DesconfÃ­a de la IA tipo caja negra',
+      'Debe justificar cada decisiÃ³n al CSCO',
+      'Excel le sigue resultando mÃ¡s rÃ¡pido para analizar',
     ],
   },
 ]
 
 const CORE_STATS = [
-  { metric: '$340K', label: 'Impacto en revenue de la decisión' },
+  { metric: '$340K', label: 'Impacto en revenue de la decisiÃ³n' },
   { metric: '$85K', label: 'Sobrestock evitado' },
   { metric: '60%', label: 'Del esfuerzo del challenge, en esta pantalla' },
 ]
 
-export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
+export function StockAICase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStudy; locale?: Locale }) {
+  const ui = getUI(locale)
   return (
     <div className="container" style={{ maxWidth: 1100, paddingTop: 40, paddingBottom: 40 }}>
       {/* Back link */}
       <ViewTransitionLink
-        href="/trabajo"
+        href={localizedPath('/trabajo', locale)}
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -129,11 +131,11 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
           marginBottom: 40,
         }}
       >
-        <span aria-hidden>←</span>
-        Volver a todo el trabajo
+        <span aria-hidden>â†</span>
+        {ui.caseChrome.backToWork}
       </ViewTransitionLink>
 
-      {/* ── HERO ───────────────────────────────────────────────────────── */}
+      {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <header style={{ paddingBottom: 64, maxWidth: 880 }}>
         <div
           style={{
@@ -168,7 +170,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             marginBottom: 20,
           }}
         >
-          Design Challenge · 4 días · Senior Product Designer
+          Design Challenge Â· 4 dÃ­as Â· Senior Product Designer
         </p>
 
         <h1
@@ -181,7 +183,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             color: 'var(--text)',
           }}
         >
-          {c.title.split(' — ')[0]}
+          {c.title.split(' â€” ')[0]}
         </h1>
 
         <p
@@ -197,7 +199,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             maxWidth: '22ch',
           }}
         >
-          {c.title.split(' — ')[1] ?? c.title}
+          {c.title.split(' â€” ')[1] ?? c.title}
         </p>
 
         <p
@@ -222,9 +224,9 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         >
           <Meta label="Formato" value="Design Challenge" />
           <Meta label="Rol" value={c.role} />
-          <Meta label="Duración" value="4 días" />
-          <Meta label="Plataforma" value={c.platforms.join(' · ')} />
-          <Meta label="Stack" value={c.techStack.join(' · ')} />
+          <Meta label="DuraciÃ³n" value="4 dÃ­as" />
+          <Meta label="Plataforma" value={c.platforms.join(' Â· ')} />
+          <Meta label="Stack" value={c.techStack.join(' Â· ')} />
         </dl>
       </header>
 
@@ -232,22 +234,22 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
       <Reveal>
         <CaseImage
           src={STOCKAI_IMAGES.hero}
-          alt="StockAI — flujo de replenishment rediseñado"
+          alt="StockAI â€” flujo de replenishment rediseÃ±ado"
           ratio="16 / 9"
           variant="hero"
           priority
         />
       </Reveal>
 
-      {/* ── EL CONTEXTO ────────────────────────────────────────────────── */}
-      <Section eyebrow="El brief" title="Un producto que prometía IA y entregaba un formulario">
+      {/* â”€â”€ EL CONTEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <Section eyebrow="El brief" title="Un producto que prometÃ­a IA y entregaba un formulario">
         <p style={proseStyle}>{c.context}</p>
       </Section>
 
-      {/* ── EL CAMBIO DE PARADIGMA (signature) ─────────────────────────── */}
+      {/* â”€â”€ EL CAMBIO DE PARADIGMA (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Section eyebrow="El cambio de paradigma" title="De configurar a aprobar">
         <p style={{ ...proseStyle, marginBottom: 36 }}>
-          El producto no fallaba por mala UX — fallaba porque la IA era invisible. El rediseño parte
+          El producto no fallaba por mala UX â€” fallaba porque la IA era invisible. El rediseÃ±o parte
           de un solo movimiento: cambiar el rol del usuario. Dejar de ser quien configura para pasar
           a ser quien decide.
         </p>
@@ -258,8 +260,8 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </div>
       </Section>
 
-      {/* ── LA AUDITORÍA (signature) ───────────────────────────────────── */}
-      <Section eyebrow="Discovery" title="La auditoría que originó el rediseño">
+      {/* â”€â”€ LA AUDITORÃA (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <Section eyebrow="Discovery" title="La auditorÃ­a que originÃ³ el rediseÃ±o">
         <p style={{ ...proseStyle, marginBottom: 36 }}>{c.research}</p>
         <p
           style={{
@@ -269,7 +271,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
             color: 'var(--subtle)',
           }}
         >
-          De los 7 problemas, estos cinco —los críticos y mayores— guiaron el rediseño.
+          De los 7 problemas, estos cinco â€”los crÃ­ticos y mayoresâ€” guiaron el rediseÃ±o.
         </p>
         <Stagger gap={0.08} style={{ display: 'grid', gap: 0 }}>
           {AUDIT.map((issue, i) => {
@@ -333,11 +335,11 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </Stagger>
       </Section>
 
-      {/* ── LAS DOS PERSONAS (signature) ───────────────────────────────── */}
+      {/* â”€â”€ LAS DOS PERSONAS (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Section eyebrow="Las personas" title="Dos usuarios, un solo producto">
         <p style={{ ...proseStyle, marginBottom: 36 }}>
           Maya y David usan StockAI de formas opuestas. Servir a ambos sin duplicar el producto fue
-          el marco de todo el rediseño.
+          el marco de todo el rediseÃ±o.
         </p>
         <Stagger
           gap={0.12}
@@ -417,7 +419,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                       }}
                     >
                       <span aria-hidden style={{ color: BLUE, flexShrink: 0 }}>
-                        —
+                        â€”
                       </span>
                       {pt}
                     </li>
@@ -429,8 +431,8 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </Stagger>
       </Section>
 
-      {/* ── DECISIONES ─────────────────────────────────────────────────── */}
-      <Section eyebrow="Decisiones" title="Tres decisiones que definieron el rediseño">
+      {/* â”€â”€ DECISIONES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <Section eyebrow="Decisiones" title="Tres decisiones que definieron el rediseÃ±o">
         <Stagger gap={0.14} style={{ display: 'grid', gap: 28 }}>
           {c.decisions.map((d) => (
             <StaggerItem key={d.title}>
@@ -466,8 +468,8 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </Stagger>
       </Section>
 
-      {/* ── LA EJECUCIÓN — 3 PANTALLAS ─────────────────────────────────── */}
-      <Section eyebrow="Ejecución" title="Tres pantallas que reconstruyen el flujo">
+      {/* â”€â”€ LA EJECUCIÃ“N â€” 3 PANTALLAS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <Section eyebrow="EjecuciÃ³n" title="Tres pantallas que reconstruyen el flujo">
         <div style={{ display: 'grid', gap: 56 }}>
           {c.execution.slice(0, 3).map((ex, i) => {
             const image = STOCKAI_IMAGES.execution[i] ?? STOCKAI_IMAGES.hero
@@ -496,7 +498,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 <p style={{ ...proseStyle, marginBottom: 20 }}>{ex.body}</p>
                 <CaseImage
                   src={image}
-                  alt={`StockAI — ${ex.title}`}
+                  alt={`StockAI â€” ${ex.title}`}
                   ratio={i === 0 ? '16 / 9' : '4 / 3'}
                   variant={i === 0 ? 'hero' : 'gallery'}
                 />
@@ -506,7 +508,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </div>
       </Section>
 
-      {/* ── EL CORE MOMENT (signature) ─────────────────────────────────── */}
+      {/* â”€â”€ EL CORE MOMENT (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Reveal>
         <section
           style={{
@@ -532,7 +534,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               marginBottom: 16,
             }}
           >
-            ✦ El core moment
+            âœ¦ El core moment
           </span>
           <h2
             className="serif"
@@ -592,7 +594,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
           <div style={{ marginTop: 28 }}>
             <CaseImage
               src={STOCKAI_IMAGES.coreMoment}
-              alt="StockAI — AI Review & Approve en alta fidelidad"
+              alt="StockAI â€” AI Review & Approve en alta fidelidad"
               ratio="16 / 9"
               variant="hero"
             />
@@ -600,7 +602,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </section>
       </Reveal>
 
-      {/* ── RESULTADOS ─────────────────────────────────────────────────── */}
+      {/* â”€â”€ RESULTADOS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Reveal>
         <section style={{ marginTop: 96, marginBottom: 8 }} className="responsive-section">
           <p
@@ -681,13 +683,13 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               color: 'var(--subtle)',
             }}
           >
-            Métricas objetivo definidas en el challenge — un ejercicio de diseño, no datos de
-            producción.
+            MÃ©tricas objetivo definidas en el challenge â€” un ejercicio de diseÃ±o, no datos de
+            producciÃ³n.
           </p>
         </section>
       </Reveal>
 
-      {/* ── APRENDIZAJES ───────────────────────────────────────────────── */}
+      {/* â”€â”€ APRENDIZAJES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Section eyebrow="Aprendizajes" title="Lo que me llevo">
         <ol style={{ display: 'grid', gap: 14, margin: 0, padding: 0, listStyle: 'none' }}>
           {c.takeaways.map((t, i) => (
@@ -719,7 +721,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
         </ol>
       </Section>
 
-      {/* ── CTA ────────────────────────────────────────────────────────── */}
+      {/* â”€â”€ CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Reveal>
         <div
           style={{
@@ -744,11 +746,11 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
               letterSpacing: '-0.01em',
             }}
           >
-            ¿Seguimos con otro proyecto?
+            Â¿Seguimos con otro proyecto?
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <ViewTransitionLink
-              href="/trabajo"
+              href={localizedPath('/trabajo', locale)}
               style={{
                 padding: '12px 22px',
                 borderRadius: 999,
@@ -758,10 +760,10 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 fontWeight: 500,
               }}
             >
-              Ver todo el trabajo
+              {ui.caseChrome.seeAllWork}
             </ViewTransitionLink>
             <ViewTransitionLink
-              href="/contact"
+              href={localizedPath('/contact', locale)}
               style={{
                 padding: '12px 22px',
                 borderRadius: 999,
@@ -771,7 +773,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
                 fontWeight: 500,
               }}
             >
-              Hablemos
+              {ui.caseChrome.letsTalk}
             </ViewTransitionLink>
           </div>
         </div>
@@ -780,7 +782,7 @@ export function StockAICase({ caseStudy: c }: { caseStudy: CaseStudy }) {
   )
 }
 
-/* ─────────────────────────────────────────────────────────────────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 function CaseImage({
   src,
@@ -868,7 +870,7 @@ function ParadigmRow({
             </span>
             {i < data.steps.length - 1 ? (
               <span aria-hidden style={{ color: isAfter ? BLUE : 'var(--subtle)', fontSize: 18 }}>
-                →
+                â†’
               </span>
             ) : null}
           </div>
@@ -959,3 +961,4 @@ const proseStyle: React.CSSProperties = {
   color: 'var(--text-secondary)',
   maxWidth: '64ch',
 }
+

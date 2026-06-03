@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Reveal } from '@/app/components/Reveal'
 import { Stagger, StaggerItem } from '@/app/components/Stagger'
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const c = getCaseBySlug(slug, locale)
   if (!c) return { title: locale === 'en' ? 'Case study not found' : 'Case study no encontrado' }
   const ogImage = `/api/og?title=${encodeURIComponent(c.title)}&eyebrow=${encodeURIComponent(
-    `Case study · ${c.category}`,
+    `Case study Â· ${c.category}`,
   )}`
   const path = `/trabajo/${c.slug}`
   return {
@@ -112,10 +112,8 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
     ],
   }
 
-  // Los layouts dedicados están escritos con narrativa en español.
-  // En inglés usamos el layout genérico alimentado por `cases.en.ts`
-  // para evitar mezclar idiomas dentro de /en/trabajo/*.
-  if (locale === 'es' && c.slug === 'wolf') {
+  // Mismo layout dedicado para ambos idiomas: cambia el contenido, no la composicion visual.
+  if (c.slug === 'wolf') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -124,61 +122,61 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
     )
   }
 
-  if (locale === 'es' && c.slug === 'outbuild') {
+  if (c.slug === 'outbuild') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <OutbuildCase caseStudy={c} />
+        <OutbuildCase caseStudy={c} locale={locale} />
       </>
     )
   }
 
-  if (locale === 'es' && c.slug === 'lfi') {
+  if (c.slug === 'lfi') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <LFICase caseStudy={c} />
+        <LFICase caseStudy={c} locale={locale} />
       </>
     )
   }
 
-  if (locale === 'es' && c.slug === 'stockai') {
+  if (c.slug === 'stockai') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <StockAICase caseStudy={c} />
+        <StockAICase caseStudy={c} locale={locale} />
       </>
     )
   }
 
-  if (locale === 'es' && c.slug === 'astros') {
+  if (c.slug === 'astros') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <AstrosCase caseStudy={c} />
+        <AstrosCase caseStudy={c} locale={locale} />
       </>
     )
   }
 
-  if (locale === 'es' && c.slug === 'deliverynow') {
+  if (c.slug === 'deliverynow') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <DeliveryNowCase caseStudy={c} />
+        <DeliveryNowCase caseStudy={c} locale={locale} />
       </>
     )
   }
 
-  if (locale === 'es' && c.slug === 'plannyme') {
+  if (c.slug === 'plannyme') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <PlannyMeCase caseStudy={c} />
+        <PlannyMeCase caseStudy={c} locale={locale} />
       </>
     )
   }
 
-  // Layout genérico de respaldo (todos los slugs actuales tienen layout dedicado).
+  // Layout genÃ©rico de respaldo (todos los slugs actuales tienen layout dedicado).
   return (
     <article style={{ paddingTop: 40 }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -194,7 +192,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             marginBottom: 40,
           }}
         >
-          <span aria-hidden>←</span>
+          <span aria-hidden>â†</span>
           {ui.caseChrome.backToHome}
         </ViewTransitionLink>
 
@@ -241,7 +239,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
                 marginBottom: 16,
               }}
             >
-              {c.yearStart} — {c.yearEnd === 'present' ? ui.caseMeta.present : c.yearEnd} · {c.role}
+              {c.yearStart} â€” {c.yearEnd === 'present' ? ui.caseMeta.present : c.yearEnd} Â· {c.role}
             </div>
             <h1
               style={{
@@ -286,7 +284,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
         <Reveal>
           <div style={{ marginTop: 48 }}>
             <Placeholder
-              label={`Hero shot — ${c.company}`}
+              label={`Hero shot â€” ${c.company}`}
               caption="16:9"
               variant="hero"
             />
