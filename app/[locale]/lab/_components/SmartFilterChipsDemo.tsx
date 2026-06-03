@@ -2,107 +2,88 @@
 
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import type { Locale } from '@/lib/i18n'
 
 type Item = {
   id: string
   title: string
-  category: 'Marketplace' | 'B2B SaaS' | 'Consumo' | 'Enterprise'
-  status: 'Activo' | 'En revisión' | 'Pausado'
+  category: string
+  status: string
   priority: 1 | 2 | 3
 }
 
-const ITEMS: Item[] = [
-  { id: '1', title: 'Rediseño de onboarding', category: 'B2B SaaS', status: 'Activo', priority: 1 },
-  { id: '2', title: 'Actualización de pricing', category: 'Marketplace', status: 'En revisión', priority: 2 },
-  { id: '3', title: 'Checkout mobile', category: 'Consumo', status: 'Activo', priority: 1 },
-  { id: '4', title: 'Dashboard admin v2', category: 'Enterprise', status: 'Pausado', priority: 3 },
-  { id: '5', title: 'Biblioteca de empty states', category: 'B2B SaaS', status: 'Activo', priority: 2 },
-  { id: '6', title: 'Filtros de búsqueda', category: 'Marketplace', status: 'Activo', priority: 1 },
-  { id: '7', title: 'Reestructura de settings', category: 'Enterprise', status: 'En revisión', priority: 3 },
-  { id: '8', title: 'Centro de notificaciones', category: 'B2B SaaS', status: 'Activo', priority: 2 },
-  { id: '9', title: 'Actualización de marca', category: 'Consumo', status: 'Pausado', priority: 3 },
-]
+const DATA: Record<Locale, { items: Item[]; categories: string[]; statuses: string[]; labels: Record<string, string> }> = {
+  es: {
+    categories: ['Marketplace', 'B2B SaaS', 'Consumo', 'Enterprise'],
+    statuses: ['Activo', 'En revisión', 'Pausado'],
+    labels: { category: 'Categoría', status: 'Estado', clear: 'Limpiar filtros', one: 'resultado', many: 'resultados' },
+    items: [
+      { id: '1', title: 'Rediseño de onboarding', category: 'B2B SaaS', status: 'Activo', priority: 1 },
+      { id: '2', title: 'Actualización de pricing', category: 'Marketplace', status: 'En revisión', priority: 2 },
+      { id: '3', title: 'Checkout mobile', category: 'Consumo', status: 'Activo', priority: 1 },
+      { id: '4', title: 'Dashboard admin v2', category: 'Enterprise', status: 'Pausado', priority: 3 },
+      { id: '5', title: 'Biblioteca de empty states', category: 'B2B SaaS', status: 'Activo', priority: 2 },
+      { id: '6', title: 'Filtros de búsqueda', category: 'Marketplace', status: 'Activo', priority: 1 },
+      { id: '7', title: 'Reestructura de settings', category: 'Enterprise', status: 'En revisión', priority: 3 },
+      { id: '8', title: 'Centro de notificaciones', category: 'B2B SaaS', status: 'Activo', priority: 2 },
+      { id: '9', title: 'Actualización de marca', category: 'Consumo', status: 'Pausado', priority: 3 },
+    ],
+  },
+  en: {
+    categories: ['Marketplace', 'B2B SaaS', 'Consumer', 'Enterprise'],
+    statuses: ['Active', 'In review', 'Paused'],
+    labels: { category: 'Category', status: 'Status', clear: 'Clear filters', one: 'result', many: 'results' },
+    items: [
+      { id: '1', title: 'Onboarding redesign', category: 'B2B SaaS', status: 'Active', priority: 1 },
+      { id: '2', title: 'Pricing update', category: 'Marketplace', status: 'In review', priority: 2 },
+      { id: '3', title: 'Mobile checkout', category: 'Consumer', status: 'Active', priority: 1 },
+      { id: '4', title: 'Admin dashboard v2', category: 'Enterprise', status: 'Paused', priority: 3 },
+      { id: '5', title: 'Empty states library', category: 'B2B SaaS', status: 'Active', priority: 2 },
+      { id: '6', title: 'Search filters', category: 'Marketplace', status: 'Active', priority: 1 },
+      { id: '7', title: 'Settings restructure', category: 'Enterprise', status: 'In review', priority: 3 },
+      { id: '8', title: 'Notification center', category: 'B2B SaaS', status: 'Active', priority: 2 },
+      { id: '9', title: 'Brand update', category: 'Consumer', status: 'Paused', priority: 3 },
+    ],
+  },
+}
 
-const CATEGORIES = ['Marketplace', 'B2B SaaS', 'Consumo', 'Enterprise'] as const
-const STATUSES = ['Activo', 'En revisión', 'Pausado'] as const
-
-/**
- * Smart filter chips with live count.
- *
- * Pattern: cada filter chip lleva su count actual. Click → filtra
- * con motion. Combinable: filtros se acumulan. "Limpiar" reset todo.
- */
-export function SmartFilterChipsDemo() {
+export function SmartFilterChipsDemo({ locale = 'es' }: { locale?: Locale }) {
+  const { items, categories, statuses, labels } = DATA[locale]
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null)
   const [statusFilter, setStatusFilter] = useState<string | null>(null)
 
   const filtered = useMemo(() => {
-    return ITEMS.filter((it) => {
+    return items.filter((it) => {
       if (categoryFilter && it.category !== categoryFilter) return false
       if (statusFilter && it.status !== statusFilter) return false
       return true
     })
-  }, [categoryFilter, statusFilter])
+  }, [items, categoryFilter, statusFilter])
 
   const categoryCounts = useMemo(() => {
     const map = new Map<string, number>()
-    for (const it of ITEMS) {
+    for (const it of items) {
       if (statusFilter && it.status !== statusFilter) continue
       map.set(it.category, (map.get(it.category) ?? 0) + 1)
     }
     return map
-  }, [statusFilter])
+  }, [items, statusFilter])
 
   const statusCounts = useMemo(() => {
     const map = new Map<string, number>()
-    for (const it of ITEMS) {
+    for (const it of items) {
       if (categoryFilter && it.category !== categoryFilter) continue
       map.set(it.status, (map.get(it.status) ?? 0) + 1)
     }
     return map
-  }, [categoryFilter])
+  }, [items, categoryFilter])
 
   const hasFilters = categoryFilter || statusFilter
 
   return (
     <div style={{ display: 'grid', gap: 22 }}>
-      <div>
-        <p style={pillLabel}>Categoría</p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-          {CATEGORIES.map((c) => {
-            const count = categoryCounts.get(c) ?? 0
-            const active = categoryFilter === c
-            return (
-              <Chip
-                key={c}
-                label={c}
-                count={count}
-                active={active}
-                onClick={() => setCategoryFilter(active ? null : c)}
-              />
-            )
-          })}
-        </div>
-      </div>
-
-      <div>
-        <p style={pillLabel}>Estado</p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-          {STATUSES.map((s) => {
-            const count = statusCounts.get(s) ?? 0
-            const active = statusFilter === s
-            return (
-              <Chip
-                key={s}
-                label={s}
-                count={count}
-                active={active}
-                onClick={() => setStatusFilter(active ? null : s)}
-              />
-            )
-          })}
-        </div>
-      </div>
+      <FilterGroup label={labels.category} options={categories} counts={categoryCounts} value={categoryFilter} onChange={setCategoryFilter} />
+      <FilterGroup label={labels.status} options={statuses} counts={statusCounts} value={statusFilter} onChange={setStatusFilter} />
 
       {hasFilters ? (
         <button
@@ -121,18 +102,13 @@ export function SmartFilterChipsDemo() {
             cursor: 'pointer',
           }}
         >
-          × Limpiar filtros
+          × {labels.clear}
         </button>
       ) : null}
 
-      <div
-        style={{
-          paddingTop: 18,
-          borderTop: '0.5px solid var(--divider)',
-        }}
-      >
+      <div style={{ paddingTop: 18, borderTop: '0.5px solid var(--divider)' }}>
         <p style={{ margin: '0 0 12px', fontSize: 11, letterSpacing: '0.06em', color: 'var(--muted)' }}>
-          {filtered.length} {filtered.length === 1 ? 'resultado' : 'resultados'}
+          {filtered.length} {filtered.length === 1 ? labels.one : labels.many}
         </p>
         <AnimatePresence mode="popLayout">
           <div style={{ display: 'grid', gap: 8 }}>
@@ -171,17 +147,42 @@ export function SmartFilterChipsDemo() {
   )
 }
 
-function Chip({
+function FilterGroup({
   label,
-  count,
-  active,
-  onClick,
+  options,
+  counts,
+  value,
+  onChange,
 }: {
   label: string
-  count: number
-  active: boolean
-  onClick: () => void
+  options: string[]
+  counts: Map<string, number>
+  value: string | null
+  onChange: (value: string | null) => void
 }) {
+  return (
+    <div>
+      <p style={pillLabel}>{label}</p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        {options.map((option) => {
+          const count = counts.get(option) ?? 0
+          const active = value === option
+          return (
+            <Chip
+              key={option}
+              label={option}
+              count={count}
+              active={active}
+              onClick={() => onChange(active ? null : option)}
+            />
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function Chip({ label, count, active, onClick }: { label: string; count: number; active: boolean; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
@@ -199,14 +200,11 @@ function Chip({
         display: 'inline-flex',
         alignItems: 'center',
         gap: 6,
-        transition: 'all var(--t-fast) var(--ease)',
         opacity: count === 0 && !active ? 0.5 : 1,
       }}
     >
       {label}
-      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, opacity: active ? 0.9 : 0.55 }}>
-        {count}
-      </span>
+      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, opacity: active ? 0.9 : 0.55 }}>{count}</span>
     </button>
   )
 }

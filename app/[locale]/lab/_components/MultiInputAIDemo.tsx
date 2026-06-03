@@ -1,35 +1,82 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import type { Locale } from '@/lib/i18n'
 
 type Mode = 'voice' | 'text' | 'paste'
 
-const SAMPLE_NLP =
-  'Necesito 4 diseñadores y 2 ingenieros para el sprint del 15 al 22 de mayo en el proyecto Atlas, presupuesto 80h c/u.'
-
-const SAMPLE_PASTE = `Diseñadores, 4, 80h
+const COPY = {
+  es: {
+    sampleNlp:
+      'Necesito 4 diseñadores y 2 ingenieros para el sprint del 15 al 22 de mayo en el proyecto Atlas, presupuesto 80h c/u.',
+    samplePaste: `Diseñadores, 4, 80h
 Ingenieros, 2, 80h
 Proyecto, Atlas
 Inicio, 2026-05-15
-Fin, 2026-05-22`
+Fin, 2026-05-22`,
+    parsedOutput: [
+      { field: 'Proyecto', value: 'Atlas' },
+      { field: 'Fecha de inicio', value: '15 mayo 2026' },
+      { field: 'Fecha de termino', value: '22 mayo 2026' },
+      { field: 'Diseñadores', value: '4 x 80h' },
+      { field: 'Ingenieros', value: '2 x 80h' },
+    ],
+    paste: 'Pegar Excel',
+    voice: 'Voz',
+    voicePrompt:
+      'Mantén presionado y dicta: "4 diseñadores y 2 ingenieros, sprint del 15 al 22 de mayo, 80h cada uno"',
+    textPlaceholder: 'Describe en lenguaje natural...',
+    pastePlaceholder: 'Pega filas separadas por coma o tab...',
+    processing: 'Procesando...',
+    process: 'Procesar con IA',
+    reset: 'Reiniciar',
+    parsed: 'Parseado · pantalla de preview compartida',
+  },
+  en: {
+    sampleNlp:
+      'I need 4 designers and 2 engineers for the May 15-22 sprint on Project Atlas, budget 80h each.',
+    samplePaste: `Designers, 4, 80h
+Engineers, 2, 80h
+Project, Atlas
+Start, 2026-05-15
+End, 2026-05-22`,
+    parsedOutput: [
+      { field: 'Project', value: 'Atlas' },
+      { field: 'Start date', value: 'May 15, 2026' },
+      { field: 'End date', value: 'May 22, 2026' },
+      { field: 'Designers', value: '4 x 80h' },
+      { field: 'Engineers', value: '2 x 80h' },
+    ],
+    paste: 'Paste Excel',
+    voice: 'Voice',
+    voicePrompt:
+      'Press and hold, then say: "4 designers and 2 engineers, May 15-22 sprint, 80h each"',
+    textPlaceholder: 'Describe it in natural language...',
+    pastePlaceholder: 'Paste comma- or tab-separated rows...',
+    processing: 'Processing...',
+    process: 'Process with AI',
+    reset: 'Reset',
+    parsed: 'Parsed · shared preview screen',
+  },
+} satisfies Record<Locale, {
+  sampleNlp: string
+  samplePaste: string
+  parsedOutput: { field: string; value: string }[]
+  paste: string
+  voice: string
+  voicePrompt: string
+  textPlaceholder: string
+  pastePlaceholder: string
+  processing: string
+  process: string
+  reset: string
+  parsed: string
+}>
 
-const PARSED_OUTPUT = [
-  { field: 'Proyecto', value: 'Atlas' },
-  { field: 'Fecha de inicio', value: '15 mayo 2026' },
-  { field: 'Fecha de término', value: '22 mayo 2026' },
-  { field: 'Diseñadores', value: '4 × 80h' },
-  { field: 'Ingenieros', value: '2 × 80h' },
-]
-
-/**
- * Multi-input AI assist.
- *
- * Pattern: la misma intención del usuario puede expresarse de tres formas
- * (voz, texto natural, paste estructurado). Las tres convergen en el mismo
- * objeto interno + pantalla de preview compartida.
- */
-export function MultiInputAIDemo() {
+export function MultiInputAIDemo({ locale = 'es' }: { locale?: Locale }) {
+  const copy = COPY[locale]
+  const parsedOutput = useMemo(() => copy.parsedOutput, [copy])
   const [mode, setMode] = useState<Mode>('text')
   const [input, setInput] = useState('')
   const [parsed, setParsed] = useState(false)
@@ -52,8 +99,8 @@ export function MultiInputAIDemo() {
   const setMode_ = (m: Mode) => {
     setMode(m)
     setParsed(false)
-    if (m === 'text') setInput(SAMPLE_NLP)
-    if (m === 'paste') setInput(SAMPLE_PASTE)
+    if (m === 'text') setInput(copy.sampleNlp)
+    if (m === 'paste') setInput(copy.samplePaste)
     if (m === 'voice') setInput('')
   }
 
@@ -74,10 +121,9 @@ export function MultiInputAIDemo() {
               fontSize: 13,
               fontWeight: 500,
               cursor: 'pointer',
-              textTransform: 'capitalize',
             }}
           >
-            {m === 'text' ? 'NLP' : m === 'paste' ? 'Pegar Excel' : 'Voz'}
+            {m === 'text' ? 'NLP' : m === 'paste' ? copy.paste : copy.voice}
           </button>
         ))}
       </div>
@@ -113,16 +159,13 @@ export function MultiInputAIDemo() {
                 <line x1="8" y1="23" x2="16" y2="23" />
               </svg>
             </div>
-            <p style={{ margin: 0, fontSize: 13, color: 'var(--text-secondary)' }}>
-              Mantén presionado y dicta: &ldquo;4 diseñadores y 2 ingenieros, sprint del 15 al 22 de
-              mayo, 80h cada uno&rdquo;
-            </p>
+            <p style={{ margin: 0, fontSize: 13, color: 'var(--text-secondary)' }}>{copy.voicePrompt}</p>
           </div>
         ) : (
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={mode === 'text' ? 'Describe en lenguaje natural...' : 'Pega filas separadas por coma o tab...'}
+            placeholder={mode === 'text' ? copy.textPlaceholder : copy.pastePlaceholder}
             rows={mode === 'paste' ? 6 : 4}
             style={{
               width: '100%',
@@ -156,7 +199,7 @@ export function MultiInputAIDemo() {
             cursor: input.trim().length === 0 ? 'not-allowed' : 'pointer',
           }}
         >
-          {processing ? 'Procesando…' : '✨ Procesar con IA'}
+          {processing ? copy.processing : copy.process}
         </button>
         {parsed ? (
           <button
@@ -171,7 +214,7 @@ export function MultiInputAIDemo() {
               cursor: 'pointer',
             }}
           >
-            Reiniciar
+            {copy.reset}
           </button>
         ) : null}
       </div>
@@ -200,10 +243,10 @@ export function MultiInputAIDemo() {
                 marginBottom: 12,
               }}
             >
-              ✓ Parseado · pantalla de preview compartida
+              {copy.parsed}
             </p>
             <div style={{ display: 'grid', gap: 8 }}>
-              {PARSED_OUTPUT.map((row) => (
+              {parsedOutput.map((row) => (
                 <div
                   key={row.field}
                   style={{

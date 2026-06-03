@@ -112,8 +112,10 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
     ],
   }
 
-  // Cada case study con copy validado tiene su layout dedicado.
-  if (c.slug === 'wolf') {
+  // Los layouts dedicados están escritos con narrativa en español.
+  // En inglés usamos el layout genérico alimentado por `cases.en.ts`
+  // para evitar mezclar idiomas dentro de /en/trabajo/*.
+  if (locale === 'es' && c.slug === 'wolf') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -122,7 +124,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
     )
   }
 
-  if (c.slug === 'outbuild') {
+  if (locale === 'es' && c.slug === 'outbuild') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -131,7 +133,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
     )
   }
 
-  if (c.slug === 'lfi') {
+  if (locale === 'es' && c.slug === 'lfi') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -140,7 +142,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
     )
   }
 
-  if (c.slug === 'stockai') {
+  if (locale === 'es' && c.slug === 'stockai') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -149,7 +151,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
     )
   }
 
-  if (c.slug === 'astros') {
+  if (locale === 'es' && c.slug === 'astros') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -158,7 +160,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
     )
   }
 
-  if (c.slug === 'deliverynow') {
+  if (locale === 'es' && c.slug === 'deliverynow') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -167,7 +169,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
     )
   }
 
-  if (c.slug === 'plannyme') {
+  if (locale === 'es' && c.slug === 'plannyme') {
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

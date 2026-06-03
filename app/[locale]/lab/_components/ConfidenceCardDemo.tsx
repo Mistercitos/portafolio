@@ -1,78 +1,147 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import type { Locale } from '@/lib/i18n'
 
-const RECOMMENDATIONS = [
-  {
-    id: 'r1',
-    title: 'Aumentar stock — Item A',
-    detail: '180 → 240 unidades',
-    confidence: 95,
-    impact: '+$28K',
-    reasoning: [
-      { label: 'Velocidad de venta', value: '+18% (14 días)' },
-      { label: 'Nivel de stock', value: '8% de seguridad' },
-      { label: 'Patrón estacional', value: 'Q4 fuerte' },
-      { label: 'Ítems similares', value: '+22% promedio' },
-    ],
-  },
-  {
-    id: 'r2',
-    title: 'Redistribuir — Item B',
-    detail: '95 unidades a hub B',
-    confidence: 82,
-    impact: '+$12K',
-    reasoning: [
-      { label: 'Velocidad de venta', value: '+9% (14 días)' },
-      { label: 'Nivel de stock', value: '14% de seguridad' },
-      { label: 'Patrón estacional', value: 'Neutral' },
-      { label: 'Ítems similares', value: '+11% promedio' },
-    ],
-  },
-  {
-    id: 'r3',
-    title: 'Pausar reorden — Item C',
-    detail: 'Pausar por 2 semanas',
-    confidence: 68,
-    impact: '−$3K riesgo',
-    reasoning: [
-      { label: 'Velocidad de venta', value: '−6% (14 días)' },
-      { label: 'Nivel de stock', value: '38% sobre objetivo' },
-      { label: 'Patrón estacional', value: 'Suave' },
-      { label: 'Ítems similares', value: '−4% promedio' },
-    ],
-  },
-]
+type Recommendation = {
+  id: string
+  title: string
+  detail: string
+  confidence: number
+  impact: string
+  reasoning: { label: string; value: string }[]
+}
 
-/**
- * Confidence-driven decision card.
- *
- * Pattern: cada recomendación AI viene con bar de confianza visible,
- * razonamiento expandible inline, y override siempre disponible.
- * El usuario decide qué tan rápido confiar.
- */
-export function ConfidenceCardDemo() {
+const RECOMMENDATIONS: Record<Locale, Recommendation[]> = {
+  es: [
+    {
+      id: 'r1',
+      title: 'Aumentar stock - Item A',
+      detail: '180 -> 240 unidades',
+      confidence: 95,
+      impact: '+$28K',
+      reasoning: [
+        { label: 'Velocidad de venta', value: '+18% (14 dias)' },
+        { label: 'Nivel de stock', value: '8% de seguridad' },
+        { label: 'Patron estacional', value: 'Q4 fuerte' },
+        { label: 'Items similares', value: '+22% promedio' },
+      ],
+    },
+    {
+      id: 'r2',
+      title: 'Redistribuir - Item B',
+      detail: '95 unidades a hub B',
+      confidence: 82,
+      impact: '+$12K',
+      reasoning: [
+        { label: 'Velocidad de venta', value: '+9% (14 dias)' },
+        { label: 'Nivel de stock', value: '14% de seguridad' },
+        { label: 'Patron estacional', value: 'Neutral' },
+        { label: 'Items similares', value: '+11% promedio' },
+      ],
+    },
+    {
+      id: 'r3',
+      title: 'Pausar reorden - Item C',
+      detail: 'Pausar por 2 semanas',
+      confidence: 68,
+      impact: '-$3K riesgo',
+      reasoning: [
+        { label: 'Velocidad de venta', value: '-6% (14 dias)' },
+        { label: 'Nivel de stock', value: '38% sobre objetivo' },
+        { label: 'Patron estacional', value: 'Suave' },
+        { label: 'Items similares', value: '-4% promedio' },
+      ],
+    },
+  ],
+  en: [
+    {
+      id: 'r1',
+      title: 'Increase stock - Item A',
+      detail: '180 -> 240 units',
+      confidence: 95,
+      impact: '+$28K',
+      reasoning: [
+        { label: 'Sales velocity', value: '+18% (14 days)' },
+        { label: 'Stock level', value: '8% safety buffer' },
+        { label: 'Seasonal pattern', value: 'Strong Q4' },
+        { label: 'Similar items', value: '+22% average' },
+      ],
+    },
+    {
+      id: 'r2',
+      title: 'Redistribute - Item B',
+      detail: '95 units to hub B',
+      confidence: 82,
+      impact: '+$12K',
+      reasoning: [
+        { label: 'Sales velocity', value: '+9% (14 days)' },
+        { label: 'Stock level', value: '14% safety buffer' },
+        { label: 'Seasonal pattern', value: 'Neutral' },
+        { label: 'Similar items', value: '+11% average' },
+      ],
+    },
+    {
+      id: 'r3',
+      title: 'Pause reorder - Item C',
+      detail: 'Pause for 2 weeks',
+      confidence: 68,
+      impact: '-$3K risk',
+      reasoning: [
+        { label: 'Sales velocity', value: '-6% (14 days)' },
+        { label: 'Stock level', value: '38% above target' },
+        { label: 'Seasonal pattern', value: 'Soft' },
+        { label: 'Similar items', value: '-4% average' },
+      ],
+    },
+  ],
+}
+
+const COPY = {
+  es: {
+    threshold: 'Umbral para aprobacion masiva',
+    confidence: 'confianza',
+    aiConfidence: 'Confianza de IA',
+    hide: 'Ocultar razonamiento',
+    why: 'Por que',
+    adjust: 'Ajustar manualmente',
+    approve: 'Aprobar',
+  },
+  en: {
+    threshold: 'Bulk approval threshold',
+    confidence: 'confidence',
+    aiConfidence: 'AI confidence',
+    hide: 'Hide reasoning',
+    why: 'Why',
+    adjust: 'Adjust manually',
+    approve: 'Approve',
+  },
+} satisfies Record<Locale, Record<string, string>>
+
+export function ConfidenceCardDemo({ locale = 'es' }: { locale?: Locale }) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [threshold, setThreshold] = useState(80)
   const [animatedConfidence, setAnimatedConfidence] = useState<Record<string, number>>({})
+  const recommendations = useMemo(() => RECOMMENDATIONS[locale], [locale])
+  const copy = COPY[locale]
 
   useEffect(() => {
-    RECOMMENDATIONS.forEach((r) => {
+    recommendations.forEach((r) => {
       const t = setTimeout(() => {
         setAnimatedConfidence((prev) => ({ ...prev, [r.id]: r.confidence }))
       }, 200)
       return () => clearTimeout(t)
     })
-  }, [])
+  }, [recommendations])
 
   return (
     <div style={{ display: 'grid', gap: 24 }}>
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-          <p style={pillLabel}>Umbral para aprobación masiva</p>
+          <p style={pillLabel}>{copy.threshold}</p>
           <p style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--accent)' }}>
-            ≥ {threshold}% confianza
+            &gt;= {threshold}% {copy.confidence}
           </p>
         </div>
         <input
@@ -87,7 +156,7 @@ export function ConfidenceCardDemo() {
       </div>
 
       <div style={{ display: 'grid', gap: 10 }}>
-        {RECOMMENDATIONS.map((r) => {
+        {recommendations.map((r) => {
           const isExpanded = expandedId === r.id
           const aboveThreshold = r.confidence >= threshold
           const conf = animatedConfidence[r.id] ?? 0
@@ -133,7 +202,7 @@ export function ConfidenceCardDemo() {
                     }}
                   >
                     <p style={{ margin: 0, fontSize: 11, letterSpacing: '0.08em', color: 'var(--subtle)' }}>
-                      Confianza de IA
+                      {copy.aiConfidence}
                     </p>
                     <p style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text)' }}>
                       {r.confidence}%
@@ -154,13 +223,10 @@ export function ConfidenceCardDemo() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <button
-                    onClick={() => setExpandedId(isExpanded ? null : r.id)}
-                    style={ghostButton}
-                  >
-                    {isExpanded ? '↑ Ocultar razonamiento' : '↓ ¿Por qué?'}
+                  <button onClick={() => setExpandedId(isExpanded ? null : r.id)} style={ghostButton}>
+                    {isExpanded ? copy.hide : copy.why}
                   </button>
-                  <button style={ghostButton}>Ajustar manualmente</button>
+                  <button style={ghostButton}>{copy.adjust}</button>
                   <button
                     disabled={!aboveThreshold}
                     style={{
@@ -168,7 +234,7 @@ export function ConfidenceCardDemo() {
                       ...(aboveThreshold ? {} : { background: 'var(--accent-weak)', color: 'var(--accent)', cursor: 'not-allowed' }),
                     }}
                   >
-                    Aprobar
+                    {copy.approve}
                   </button>
                 </div>
               </div>
