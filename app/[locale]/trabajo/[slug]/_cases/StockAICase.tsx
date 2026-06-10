@@ -117,6 +117,20 @@ const CORE_STATS = [
 
 export function StockAICase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStudy; locale?: Locale }) {
   const ui = getUI(locale)
+  const impactCopy =
+    locale === 'en'
+      ? {
+          eyebrow: 'Projected impact',
+          title: 'The result before the process',
+          body: 'A time-boxed challenge, framed around measurable product outcomes instead of screen count.',
+          note: 'Target metrics defined for the challenge, not production data.',
+        }
+      : {
+          eyebrow: 'Impacto proyectado',
+          title: 'El resultado antes del proceso',
+          body: 'Un challenge acotado en tiempo, planteado desde resultados de producto y no desde cantidad de pantallas.',
+          note: 'Métricas objetivo definidas para el challenge, no datos de producción.',
+        }
   return (
     <div className="container" style={{ maxWidth: 1100, paddingTop: 40, paddingBottom: 40 }}>
       {/* Back link */}
@@ -239,6 +253,94 @@ export function StockAICase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseSt
           variant="hero"
           priority
         />
+      </Reveal>
+
+      <Reveal>
+        <section
+          style={{
+            marginTop: 32,
+            padding: '32px',
+            borderRadius: 24,
+            border: `0.5px solid ${BLUE_BORDER}`,
+            background: BLUE_TINT,
+          }}
+          className="responsive-section"
+        >
+          <p
+            style={{
+              margin: 0,
+              fontSize: 11,
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              color: BLUE,
+              marginBottom: 10,
+              fontWeight: 600,
+            }}
+          >
+            {impactCopy.eyebrow}
+          </p>
+          <div
+            className="responsive-category-header"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 0.9fr) minmax(0, 1.35fr)',
+              gap: 36,
+              alignItems: 'start',
+            }}
+          >
+            <div>
+              <h2
+                className="serif"
+                style={{
+                  margin: 0,
+                  fontSize: 'clamp(28px, 3.2vw, 40px)',
+                  fontWeight: 500,
+                  fontStyle: 'italic',
+                  lineHeight: 1.15,
+                  letterSpacing: '-0.02em',
+                  color: 'var(--text)',
+                }}
+              >
+                {impactCopy.title}
+              </h2>
+              <p style={{ margin: '12px 0 0', fontSize: 14, lineHeight: 1.6, color: 'var(--text-secondary)' }}>
+                {impactCopy.body}
+              </p>
+              <p style={{ margin: '12px 0 0', fontSize: 12, fontStyle: 'italic', color: 'var(--subtle)' }}>
+                {impactCopy.note}
+              </p>
+            </div>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                gap: 18,
+              }}
+            >
+              {c.outcomes.slice(0, 4).map((o) => (
+                <div key={o.label}>
+                  <p
+                    className="serif"
+                    style={{
+                      margin: 0,
+                      fontSize: 'clamp(30px, 4vw, 48px)',
+                      fontStyle: 'italic',
+                      fontWeight: 500,
+                      lineHeight: 1.05,
+                      letterSpacing: '-0.02em',
+                      color: BLUE,
+                    }}
+                  >
+                    {o.metric}
+                  </p>
+                  <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.45, color: 'var(--text-secondary)' }}>
+                    {o.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </Reveal>
 
       {/* â”€â”€ EL CONTEXTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}

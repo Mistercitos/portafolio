@@ -200,6 +200,18 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
   const t = WOLF[locale]
   const ui = getUI(locale)
   const yearEnd = c.yearEnd === 'present' ? ui.caseMeta.present : c.yearEnd
+  const impactCopy =
+    locale === 'en'
+      ? {
+          eyebrow: 'Impact snapshot',
+          title: 'The value before the process',
+          body: 'A quick read of the scale and business context before the full case study.',
+        }
+      : {
+          eyebrow: 'Impacto rápido',
+          title: 'El valor antes del proceso',
+          body: 'Una lectura rápida de escala y contexto de negocio antes de entrar al case completo.',
+        }
 
   return (
     <div className="container" style={{ maxWidth: 1100, paddingTop: 40, paddingBottom: 40 }}>
@@ -316,6 +328,91 @@ export function WolfCase({ caseStudy: c, locale }: { caseStudy: CaseStudy; local
       {/* Hero shot */}
       <Reveal>
         <CaseImage src={WOLF_IMAGES.hero} alt={t.heroShot} ratio="16 / 9" variant="hero" priority />
+      </Reveal>
+
+      <Reveal>
+        <section
+          style={{
+            marginTop: 32,
+            padding: '32px',
+            borderRadius: 24,
+            border: `0.5px solid ${PURPLE_BORDER}`,
+            background: PURPLE_TINT,
+          }}
+          className="responsive-section"
+        >
+          <p
+            style={{
+              margin: 0,
+              fontSize: 11,
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              color: PURPLE,
+              marginBottom: 10,
+              fontWeight: 600,
+            }}
+          >
+            {impactCopy.eyebrow}
+          </p>
+          <div
+            className="responsive-category-header"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 0.9fr) minmax(0, 1.35fr)',
+              gap: 36,
+              alignItems: 'start',
+            }}
+          >
+            <div>
+              <h2
+                className="serif"
+                style={{
+                  margin: 0,
+                  fontSize: 'clamp(28px, 3.2vw, 40px)',
+                  fontWeight: 500,
+                  fontStyle: 'italic',
+                  lineHeight: 1.15,
+                  letterSpacing: '-0.02em',
+                  color: 'var(--text)',
+                }}
+              >
+                {impactCopy.title}
+              </h2>
+              <p style={{ margin: '12px 0 0', fontSize: 14, lineHeight: 1.6, color: 'var(--text-secondary)' }}>
+                {impactCopy.body}
+              </p>
+            </div>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                gap: 18,
+              }}
+            >
+              {c.outcomes.slice(0, 4).map((o) => (
+                <div key={o.label}>
+                  <p
+                    className="serif"
+                    style={{
+                      margin: 0,
+                      fontSize: 'clamp(30px, 4vw, 48px)',
+                      fontStyle: 'italic',
+                      fontWeight: 500,
+                      lineHeight: 1.05,
+                      letterSpacing: '-0.02em',
+                      color: PURPLE,
+                    }}
+                  >
+                    {o.metric}
+                  </p>
+                  <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.45, color: 'var(--text-secondary)' }}>
+                    {o.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </Reveal>
 
       {/* ── TRES SUPERFICIES ───────────────────────────────────────────── */}

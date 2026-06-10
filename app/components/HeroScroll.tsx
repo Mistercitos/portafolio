@@ -37,6 +37,7 @@ type HeroContent = {
   fallingWord: string
   tail: string
   intro: string
+  chips: string[]
   ctaPrimary: string
   ctaSecondary: string
   scrollHint: string
@@ -50,7 +51,8 @@ const HERO: Record<Locale, HeroContent> = {
     fallingWord: 'complejos',
     tail: '.',
     intro:
-      'Llevo más de 7 años diseñando productos en SaaS, B2B y marketplaces para clientes de Estados Unidos y Latinoamérica. Diseño pensando en cómo se va a construir, y muchas veces lo construyo yo mismo.',
+      '7+ años diseñando productos SaaS, B2B y marketplaces para equipos de Estados Unidos y Latinoamérica. Diseño pensando en cómo se va a construir, y muchas veces lo construyo yo mismo.',
+    chips: ['7+ años', 'B2B SaaS', 'Marketplaces', 'Design Systems', 'React'],
     ctaPrimary: 'Ver case studies',
     ctaSecondary: '¿Cómo trabajo?',
     scrollHint: 'Scroll',
@@ -62,7 +64,8 @@ const HERO: Record<Locale, HeroContent> = {
     fallingWord: 'complex',
     tail: ' digital products.',
     intro:
-      "I've spent 7+ years designing products in SaaS, B2B, and marketplaces for clients in the US and Latin America. I design with how it will be built in mind — and often I build it myself.",
+      "7+ years designing SaaS, B2B, and marketplace products for teams in the US and Latin America. I design with how it will be built in mind, and often I build it myself.",
+    chips: ['7+ years', 'B2B SaaS', 'Marketplaces', 'Design Systems', 'React'],
     ctaPrimary: 'View case studies',
     ctaSecondary: 'How I work',
     scrollHint: 'Scroll',
@@ -113,8 +116,8 @@ export function HeroScroll({ locale }: { locale: Locale }) {
       aria-label="Hero"
       style={{
         position: 'relative',
-        height: '135svh',
-        minHeight: 900,
+        height: '118svh',
+        minHeight: 760,
         background: 'var(--bg)',
       }}
     >
@@ -122,7 +125,8 @@ export function HeroScroll({ locale }: { locale: Locale }) {
         style={{
           position: 'sticky',
           top: 0,
-          height: '100svh',
+          height: '100dvh',
+          minHeight: 640,
           overflow: 'hidden',
           zIndex: 0,
           background: 'var(--bg)',
@@ -150,7 +154,7 @@ export function HeroScroll({ locale }: { locale: Locale }) {
               height: '100%',
               display: 'flex',
               alignItems: 'center',
-              paddingBlock: 'clamp(72px, 8svh, 132px) clamp(36px, 6svh, 92px)',
+              paddingBlock: 'clamp(72px, 7svh, 108px) clamp(28px, 4svh, 56px)',
               x: contentCursorX,
               y: contentCursorY,
             }}
@@ -175,12 +179,12 @@ export function HeroScroll({ locale }: { locale: Locale }) {
               <h1
                 style={{
                   margin: 0,
-                  fontSize: 'clamp(52px, min(8.2vw, 10svh), 124px)',
-                  lineHeight: 1.02,
+                  fontSize: 'clamp(48px, min(7.4vw, 8.8svh), 112px)',
+                  lineHeight: 1,
                   letterSpacing: '-0.03em',
                   fontWeight: 600,
                   color: 'var(--text)',
-                  maxWidth: '11ch',
+                  maxWidth: '12ch',
                 }}
               >
                 <PhraseReveal text={hc.line1} delay={0.05} reduce={!!reduce} />
@@ -200,7 +204,7 @@ export function HeroScroll({ locale }: { locale: Locale }) {
                 }}
                 style={{ display: 'flex', gap: 8, marginTop: 30, flexWrap: 'wrap' }}
               >
-                {['Marketplace', 'B2B SaaS', 'Design systems'].map((chip) => (
+                {hc.chips.map((chip) => (
                   <motion.span
                     key={chip}
                     variants={{
@@ -251,7 +255,7 @@ export function HeroScroll({ locale }: { locale: Locale }) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: 22,
-                  marginTop: 'clamp(24px, 3.2svh, 32px)',
+                  marginTop: 'clamp(20px, 2.8svh, 28px)',
                   flexWrap: 'wrap',
                 }}
               >
@@ -278,7 +282,7 @@ export function HeroScroll({ locale }: { locale: Locale }) {
                 </ViewTransitionLink>
 
                 <ViewTransitionLink
-                  href={localizedPath('/about', locale)}
+                  href={localizedPath('/#how-i-work', locale)}
                   style={{ fontSize: 14, color: 'var(--text-secondary)' }}
                 >
                   {hc.ctaSecondary}
