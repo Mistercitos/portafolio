@@ -6,15 +6,15 @@ import type { CaseStudy } from '@/lib/cases'
 import { getUI, localizedPath, type Locale } from '@/lib/i18n'
 
 /**
- * Layout dedicado del case study de Astros â€” exploraciÃ³n personal.
+ * Layout dedicado del case study de Astros — exploración personal.
  *
  * Astros es un concepto de travel planning con una capa social. El layout se
  * estructura alrededor de su tesis: centralizar un plan que hoy vive disperso,
- * y servir a dos roles â€”el que organiza y el que sigueâ€” con dos vistas.
+ * y servir a dos roles —el que organiza y el que sigue— con dos vistas.
  *
  * Secciones exclusivas de Astros:
- * - El problema â€” las apps dispersas convergiendo en una sola
- * - Dos vistas â€” Mi vista / Plan del grupo
+ * - El problema — las apps dispersas convergiendo en una sola
+ * - Dos vistas — Mi vista / Plan del grupo
  */
 
 const VIOLET = '#5B21B6'
@@ -26,13 +26,13 @@ const SCATTERED = ['Maps', 'Notes', 'WhatsApp', 'Booking', 'Excel']
 const VIEWS = [
   {
     name: 'Mi vista',
-    tag: 'Individual Â· hoy',
-    body: 'Solo el bloque del dÃ­a: lo que tengo que hacer ahora, sin el ruido del plan completo.',
+    tag: 'Individual · hoy',
+    body: 'Solo el bloque del día: lo que tengo que hacer ahora, sin el ruido del plan completo.',
   },
   {
     name: 'Plan del grupo',
-    tag: 'Compartido Â· completo',
-    body: 'El itinerario entero, los gastos y las decisiones tomadas â€” el estado real del viaje para todos.',
+    tag: 'Compartido · completo',
+    body: 'El itinerario entero, los gastos y las decisiones tomadas — el estado real del viaje para todos.',
   },
 ]
 
@@ -51,11 +51,11 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
           marginBottom: 40,
         }}
       >
-        <span aria-hidden>â†</span>
+        <span aria-hidden>←</span>
         {ui.caseChrome.backToWork}
       </ViewTransitionLink>
 
-      {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── HERO ───────────────────────────────────────────────────────── */}
       <header style={{ paddingBottom: 64, maxWidth: 880 }}>
         <div
           style={{
@@ -90,7 +90,7 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
             marginBottom: 20,
           }}
         >
-          ExploraciÃ³n personal Â· {c.yearStart}
+          Exploración personal · {c.yearStart}
         </p>
 
         <h1
@@ -103,7 +103,7 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
             color: 'var(--text)',
           }}
         >
-          {c.title.split(' â€” ')[0]}
+          {c.title.split(' — ')[0]}
         </h1>
 
         <p
@@ -119,7 +119,7 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
             maxWidth: '22ch',
           }}
         >
-          {c.title.split(' â€” ')[1] ?? c.title}
+          {c.title.split(' — ')[1] ?? c.title}
         </p>
 
         <p
@@ -142,23 +142,23 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
             borderBottom: '0.5px solid var(--divider)',
           }}
         >
-          <Meta label="Tipo" value="ExploraciÃ³n personal" />
+          <Meta label="Tipo" value="Exploración personal" />
           <Meta label="Rol" value={c.role} />
-          <Meta label="Plataforma" value={c.platforms.join(' Â· ')} />
-          <Meta label="Disciplinas" value={c.techStack.join(' Â· ')} />
+          <Meta label="Plataforma" value={c.platforms.join(' · ')} />
+          <Meta label="Disciplinas" value={c.techStack.join(' · ')} />
         </dl>
       </header>
 
       {/* Hero shot */}
       <Reveal>
         <Placeholder
-          label="Astros â€” concepto de travel planning"
-          caption="Hero shot Â· 16:9"
+          label="Astros — concepto de travel planning"
+          caption="Hero shot · 16:9"
           variant="hero"
         />
       </Reveal>
 
-      {/* â”€â”€ EL PROBLEMA (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── EL PROBLEMA (signature) ────────────────────────────────────── */}
       <Section eyebrow="El problema" title="Un plan que vive en mil lugares">
         <p style={{ ...proseStyle, marginBottom: 36 }}>{c.context}</p>
 
@@ -185,7 +185,7 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
                 fontWeight: 600,
               }}
             >
-              Antes Â· disperso
+              Antes · disperso
             </p>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               {SCATTERED.map((app) => (
@@ -207,7 +207,7 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
           </div>
 
           <span aria-hidden style={{ fontSize: 26, color: VIOLET }}>
-            â†’
+            →
           </span>
 
           <div style={{ flex: '0 0 auto' }}>
@@ -221,7 +221,7 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
                 fontWeight: 600,
               }}
             >
-              DespuÃ©s Â· un solo lugar
+              Después · un solo lugar
             </p>
             <span
               style={{
@@ -241,19 +241,19 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
         </div>
       </Section>
 
-      {/* â”€â”€ DISCOVERY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── DISCOVERY ──────────────────────────────────────────────────── */}
       <Section eyebrow="Discovery" title="Ocho viajeros, un mismo dolor">
         <p style={proseStyle}>{c.research}</p>
         <div style={{ marginTop: 32 }}>
           <Placeholder
-            label="SÃ­ntesis de entrevistas Â· journey del viaje grupal"
-            caption="Process artifacts Â· 3:2"
+            label="Síntesis de entrevistas · journey del viaje grupal"
+            caption="Process artifacts · 3:2"
             variant="process"
           />
         </div>
       </Section>
 
-      {/* â”€â”€ EL DESAFÃO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── EL DESAFÍO ─────────────────────────────────────────────────── */}
       <Section eyebrow={ui.caseSection.challenge} title={locale === 'en' ? 'Three product tensions' : 'Tres tensiones del producto'}>
         <Stagger gap={0.1} style={{ display: 'grid', gap: 18 }}>
           {c.challenge.map((ch) => (
@@ -270,7 +270,7 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
         </Stagger>
       </Section>
 
-      {/* â”€â”€ DECISIONES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── DECISIONES ─────────────────────────────────────────────────── */}
       <Section eyebrow={ui.caseSection.decisions} title={locale === 'en' ? 'Three design decisions' : 'Tres decisiones de diseño'}>
         <Stagger gap={0.14} style={{ display: 'grid', gap: 28 }}>
           {c.decisions.map((d) => (
@@ -307,11 +307,11 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
         </Stagger>
       </Section>
 
-      {/* â”€â”€ DOS VISTAS (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── DOS VISTAS (signature) ─────────────────────────────────────── */}
       <Section eyebrow="El concepto" title="Una app, dos vistas">
         <p style={{ ...proseStyle, marginBottom: 36 }}>
           El grupo siempre tiene un organizador y varios que solo quieren seguir. En vez de obligar
-          a todos a configurar, Astros separa el producto en dos vistas explÃ­citas.
+          a todos a configurar, Astros separa el producto en dos vistas explícitas.
         </p>
         <Stagger
           gap={0.12}
@@ -373,7 +373,7 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
         </Stagger>
       </Section>
 
-      {/* â”€â”€ EJECUCIÃ“N â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── EJECUCIÓN ──────────────────────────────────────────────────── */}
       <Section eyebrow={ui.caseSection.execution} title={locale === 'en' ? 'What I designed' : 'Lo que diseñé'}>
         <div style={{ display: 'grid', gap: 56 }}>
           {c.execution.map((ex, i) => (
@@ -392,7 +392,7 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
               <p style={{ ...proseStyle, marginTop: 10, marginBottom: 20 }}>{ex.body}</p>
               <Placeholder
                 label={ex.title}
-                caption={i === 1 ? 'Flow mobile Â· 9:19.5' : 'Pantalla Â· 4:3'}
+                caption={i === 1 ? 'Flow mobile · 9:19.5' : 'Pantalla · 4:3'}
                 variant={i === 1 ? 'mobile' : 'gallery'}
               />
             </div>
@@ -400,10 +400,10 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
         </div>
       </Section>
 
-      {/* â”€â”€ RESULTADOS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── RESULTADOS ─────────────────────────────────────────────────── */}
       <OutcomeSection outcomes={c.outcomes} ui={ui} locale={locale} />
 
-      {/* â”€â”€ APRENDIZAJES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── APRENDIZAJES ───────────────────────────────────────────────── */}
       <Section eyebrow={ui.caseSection.takeaways} title={locale === 'en' ? 'What I took forward' : 'Lo que me llevo'}>
         <ol style={{ display: 'grid', gap: 14, margin: 0, padding: 0, listStyle: 'none' }}>
           {c.takeaways.map((t, i) => (
@@ -440,7 +440,7 @@ export function AstrosCase({ caseStudy: c, locale = 'es' }: { caseStudy: CaseStu
   )
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────────────────────────────────────────────────── */
 
 function OutcomeSection({ outcomes, ui, locale }: { outcomes: CaseStudy['outcomes']; ui: ReturnType<typeof getUI>; locale: Locale }) {
   return (

@@ -6,14 +6,14 @@ import type { CaseStudy } from '@/lib/cases'
 import { getUI, localizedPath, type Locale } from '@/lib/i18n'
 
 /**
- * Layout dedicado del case study de DeliveryNow â€” exploraciÃ³n personal.
+ * Layout dedicado del case study de DeliveryNow — exploración personal.
  *
  * DeliveryNow es un concepto de delivery sostenible. El layout se estructura
  * alrededor de su movimiento central: invertir el default. La sostenibilidad
  * deja de ser un opt-in escondido para volverse el estado por defecto.
  *
- * SecciÃ³n exclusiva de DeliveryNow:
- * - La inversiÃ³n del default â€” opt-in escondido vs opt-out por defecto
+ * Sección exclusiva de DeliveryNow:
+ * - La inversión del default — opt-in escondido vs opt-out por defecto
  */
 
 const GREEN = '#059669'
@@ -35,11 +35,11 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
           marginBottom: 40,
         }}
       >
-        <span aria-hidden>â†</span>
+        <span aria-hidden>←</span>
         {ui.caseChrome.backToWork}
       </ViewTransitionLink>
 
-      {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── HERO ───────────────────────────────────────────────────────── */}
       <header style={{ paddingBottom: 64, maxWidth: 880 }}>
         <div
           style={{
@@ -74,7 +74,7 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
             marginBottom: 20,
           }}
         >
-          ExploraciÃ³n personal Â· {c.yearStart}
+          Exploración personal · {c.yearStart}
         </p>
 
         <h1
@@ -87,7 +87,7 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
             color: 'var(--text)',
           }}
         >
-          {c.title.split(' â€” ')[0]}
+          {c.title.split(' — ')[0]}
         </h1>
 
         <p
@@ -103,7 +103,7 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
             maxWidth: '22ch',
           }}
         >
-          {c.title.split(' â€” ')[1] ?? c.title}
+          {c.title.split(' — ')[1] ?? c.title}
         </p>
 
         <p
@@ -126,40 +126,40 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
             borderBottom: '0.5px solid var(--divider)',
           }}
         >
-          <Meta label="Tipo" value="ExploraciÃ³n personal" />
+          <Meta label="Tipo" value="Exploración personal" />
           <Meta label="Rol" value={c.role} />
-          <Meta label="Plataforma" value={c.platforms.join(' Â· ')} />
-          <Meta label="Disciplinas" value={c.techStack.join(' Â· ')} />
+          <Meta label="Plataforma" value={c.platforms.join(' · ')} />
+          <Meta label="Disciplinas" value={c.techStack.join(' · ')} />
         </dl>
       </header>
 
       {/* Hero shot */}
       <Reveal>
         <Placeholder
-          label="DeliveryNow â€” concepto de delivery sostenible"
-          caption="Hero shot Â· 16:9"
+          label="DeliveryNow — concepto de delivery sostenible"
+          caption="Hero shot · 16:9"
           variant="hero"
         />
       </Reveal>
 
-      {/* â”€â”€ EL PROBLEMA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <Section eyebrow="El problema" title="Pedir comida no deberÃ­a costarle al planeta">
+      {/* ── EL PROBLEMA ────────────────────────────────────────────────── */}
+      <Section eyebrow="El problema" title="Pedir comida no debería costarle al planeta">
         <p style={proseStyle}>{c.context}</p>
       </Section>
 
-      {/* â”€â”€ DISCOVERY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── DISCOVERY ──────────────────────────────────────────────────── */}
       <Section eyebrow="Discovery" title="Lo que hacen las apps que ya existen">
         <p style={proseStyle}>{c.research}</p>
         <div style={{ marginTop: 32 }}>
           <Placeholder
-            label="AnÃ¡lisis competitivo Â· 5 apps de delivery"
-            caption="Process artifacts Â· 3:2"
+            label="Análisis competitivo · 5 apps de delivery"
+            caption="Process artifacts · 3:2"
             variant="process"
           />
         </div>
       </Section>
 
-      {/* â”€â”€ EL DESAFÃO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── EL DESAFÍO ─────────────────────────────────────────────────── */}
       <Section eyebrow={ui.caseSection.challenge} title={locale === 'en' ? 'Three product tensions' : 'Tres tensiones del producto'}>
         <Stagger gap={0.1} style={{ display: 'grid', gap: 18 }}>
           {c.challenge.map((ch) => (
@@ -176,11 +176,11 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
         </Stagger>
       </Section>
 
-      {/* â”€â”€ LA INVERSIÃ“N DEL DEFAULT (signature) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── LA INVERSIÓN DEL DEFAULT (signature) ───────────────────────── */}
       <Section eyebrow="El concepto" title="Invertir el default">
         <p style={{ ...proseStyle, marginBottom: 36 }}>
-          La opciÃ³n sostenible siempre existiÃ³ â€” escondida, opcional, presentada como un esfuerzo
-          extra. DeliveryNow no agrega una opciÃ³n nueva: cambia cuÃ¡l es el punto de partida.
+          La opción sostenible siempre existió — escondida, opcional, presentada como un esfuerzo
+          extra. DeliveryNow no agrega una opción nueva: cambia cuál es el punto de partida.
         </p>
         <div
           style={{
@@ -190,13 +190,13 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
           }}
         >
           <DefaultCard
-            label="El patrÃ³n actual Â· opt-in"
+            label="El patrón actual · opt-in"
             checked={false}
             option="Sin cubiertos descartables"
             body="Escondido en el checkout y presentado como un esfuerzo extra. Casi nadie lo activa."
           />
           <DefaultCard
-            label="DeliveryNow Â· por defecto"
+            label="DeliveryNow · por defecto"
             checked
             option="Sin cubiertos descartables"
             body="Viene activado. Si los necesitas, los pides. Invertir el default cambia la base del comportamiento."
@@ -204,7 +204,7 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
         </div>
       </Section>
 
-      {/* â”€â”€ DECISIONES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── DECISIONES ─────────────────────────────────────────────────── */}
       <Section eyebrow={ui.caseSection.decisions} title={locale === 'en' ? 'Three design decisions' : 'Tres decisiones de diseño'}>
         <Stagger gap={0.14} style={{ display: 'grid', gap: 28 }}>
           {c.decisions.map((d) => (
@@ -241,7 +241,7 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
         </Stagger>
       </Section>
 
-      {/* â”€â”€ EJECUCIÃ“N â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── EJECUCIÓN ──────────────────────────────────────────────────── */}
       <Section eyebrow={ui.caseSection.execution} title={locale === 'en' ? 'What I designed' : 'Lo que diseñé'}>
         <div style={{ display: 'grid', gap: 56 }}>
           {c.execution.map((ex, i) => (
@@ -260,7 +260,7 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
               <p style={{ ...proseStyle, marginTop: 10, marginBottom: 20 }}>{ex.body}</p>
               <Placeholder
                 label={ex.title}
-                caption={i === 2 ? 'Flow mobile Â· 9:19.5' : 'Pantalla Â· 4:3'}
+                caption={i === 2 ? 'Flow mobile · 9:19.5' : 'Pantalla · 4:3'}
                 variant={i === 2 ? 'mobile' : 'gallery'}
               />
             </div>
@@ -268,10 +268,10 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
         </div>
       </Section>
 
-      {/* â”€â”€ RESULTADOS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── RESULTADOS ─────────────────────────────────────────────────── */}
       <OutcomeSection outcomes={c.outcomes} ui={ui} locale={locale} />
 
-      {/* â”€â”€ APRENDIZAJES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── APRENDIZAJES ───────────────────────────────────────────────── */}
       <Section eyebrow={ui.caseSection.takeaways} title={locale === 'en' ? 'What I took forward' : 'Lo que me llevo'}>
         <ol style={{ display: 'grid', gap: 14, margin: 0, padding: 0, listStyle: 'none' }}>
           {c.takeaways.map((t, i) => (
@@ -308,7 +308,7 @@ export function DeliveryNowCase({ caseStudy: c, locale = 'es' }: { caseStudy: Ca
   )
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────────────────────────────────────────────────── */
 
 function DefaultCard({
   label,
@@ -361,7 +361,7 @@ function DefaultCard({
             fontWeight: 700,
           }}
         >
-          {checked ? 'âœ“' : ''}
+          {checked ? '✓' : ''}
         </span>
         <span
           style={{

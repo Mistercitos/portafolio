@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const c = getCaseBySlug(slug, locale)
   if (!c) return { title: locale === 'en' ? 'Case study not found' : 'Case study no encontrado' }
   const ogImage = `/api/og?title=${encodeURIComponent(c.title)}&eyebrow=${encodeURIComponent(
-    `Case study Â· ${c.category}`,
+    `Case study · ${c.category}`,
   )}`
   const path = `/trabajo/${c.slug}`
   return {
@@ -176,7 +176,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
     )
   }
 
-  // Layout genÃ©rico de respaldo (todos los slugs actuales tienen layout dedicado).
+  // Layout genérico de respaldo (todos los slugs actuales tienen layout dedicado).
   return (
     <article style={{ paddingTop: 40 }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -192,7 +192,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             marginBottom: 40,
           }}
         >
-          <span aria-hidden>â†</span>
+          <span aria-hidden>←</span>
           {ui.caseChrome.backToHome}
         </ViewTransitionLink>
 
@@ -239,7 +239,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
                 marginBottom: 16,
               }}
             >
-              {c.yearStart} â€” {c.yearEnd === 'present' ? ui.caseMeta.present : c.yearEnd} Â· {c.role}
+              {c.yearStart} — {c.yearEnd === 'present' ? ui.caseMeta.present : c.yearEnd} · {c.role}
             </div>
             <h1
               style={{
@@ -284,7 +284,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
         <Reveal>
           <div style={{ marginTop: 48 }}>
             <Placeholder
-              label={`Hero shot â€” ${c.company}`}
+              label={`Hero shot — ${c.company}`}
               caption="16:9"
               variant="hero"
             />
